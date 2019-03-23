@@ -5,7 +5,7 @@
  */
 package sv.com.tesa.ticket.views;
 
-import sv.com.tesa.ticket.controller.LoginController;
+import sv.com.tesa.ticket.controllers.LoginController;
 
 /**
  *
