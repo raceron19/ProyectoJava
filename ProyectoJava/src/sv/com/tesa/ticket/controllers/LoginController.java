@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.com.tesa.ticket.controller;
+package sv.com.tesa.ticket.controllers;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
