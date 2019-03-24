@@ -10,7 +10,7 @@ package sv.com.tesa.ticket.beans;
  * @author vaselinux
  */
 public class LoginBean {
-        private int id;
+    private int id;
     private String rol;
     private String nombre;
     private String correo;
