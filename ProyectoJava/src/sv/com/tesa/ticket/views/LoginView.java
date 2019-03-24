@@ -5,7 +5,8 @@
  */
 package sv.com.tesa.ticket.views;
 
-import sv.com.tesa.ticket.controllers.LoginController;
+import sv.com.tesa.ticket.models.LoginModel;
+import sv.com.tesa.ticket.controllers.MainViewController;
 
 /**
  *
@@ -98,11 +99,12 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LoginController us = new LoginController();
-        us.setEmail(this.txtUsuario.getText());
-        us.setPasswd(this.txtPassword.getText());
-        us.logUsuario();
-        
+        String correo = txtUsuario.getText();
+        String contraseña = txtPassword.getText();
+        LoginModel modeloLogin = new LoginModel();
+        MainViewController controladorVistaPrin = new MainViewController();
+        controladorVistaPrin.cargarVista(modeloLogin.logInUser(correo,contraseña));
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
