@@ -77,21 +77,21 @@ commentary text not null,
 created_at timestamp not null default now(),
 foreign key (case_id) references cases(id));
 
-insert into roles values(null, 'Administrador', 'Con la capacidad de registrar y gestionar áreas funcionales de la empresa (departamentos), jefes de áreas funcionales y jefes de desarrollo.'),
-						(null, 'Jefe de área funcional', 'Con la capacidad de solicitar la apertura de casos y monitorear el porcentaje de progreso y bitácora de los casos aperturados.'),
-                        (null, 'Empleado de área funcional', 'Pueden ser asignados como “probadores” de un caso, en tal situación deben monitorear el porcentaje de progreso y bitácoras de trabajo de dicho caso y aprobarlo o rechazarlo una vez que este haya sido entregado por el programador asignado.'), 
-                        (null, 'Jefe de desarrollo', 'Tiene la capacidad de aceptar o rechazar las solicitudes de casos realizadas por los jefes de las áreas funcionales que tiene a su cargo. Además, debe tener la capacidad de monitorear el trabajo de los programadores que tiene a su cargo.'), 
-                        (null, 'Programador', 'Debe actualizar los porcentajes de progreso y bitácoras de trabajo de los casos a los que ha sido asignado.');
+insert into roles values(null, 'Administrador', 'Con la capacidad de registrar y gestionar Ã¡reas funcionales de la empresa (departamentos), jefes de Ã¡reas funcionales y jefes de desarrollo.'),
+						(null, 'Jefe de Ã¡rea funcional', 'Con la capacidad de solicitar la apertura de casos y monitorear el porcentaje de progreso y bitÃ¡cora de los casos aperturados.'),
+                        (null, 'Empleado de Ã¡rea funcional', 'Pueden ser asignados como Â“probadoresÂ” de un caso, en tal situaciÃ³n deben monitorear el porcentaje de progreso y bitÃ¡coras de trabajo de dicho caso y aprobarlo o rechazarlo una vez que este haya sido entregado por el programador asignado.'), 
+                        (null, 'Jefe de desarrollo', 'Tiene la capacidad de aceptar o rechazar las solicitudes de casos realizadas por los jefes de las Ã¡reas funcionales que tiene a su cargo. AdemÃ¡s, debe tener la capacidad de monitorear el trabajo de los programadores que tiene a su cargo.'), 
+                        (null, 'Programador', 'Debe actualizar los porcentajes de progreso y bitÃ¡coras de trabajo de los casos a los que ha sido asignado.');
                         
 insert into departments values	('DST', 'Departamento de Sistemas'),
 								('DFN', 'Departamento de Finanzas'),
                                 ('DVT', 'Departamento de Ventas'),
-                                ('DFF', 'Departamento de Facturación Fija'),
-                                ('DFM', 'Departamento de Facturación Móvil');
+                                ('DFF', 'Departamento de FacturaciÃ³n Fija'),
+                                ('DFM', 'Departamento de FacturaciÃ³n MÃ³vil');
                                 
 insert into request_types values(null, 'Nuevo sistema'),
 								(null, 'Nueva funcionalidad'),
-                                (null, 'Corrección de sistema');
+                                (null, 'CorrecciÃ³n de sistema');
                                 
 insert into request_status values	(null, 'En espera de respuesta'),
 									(null, 'Solicitud rechazada'),
@@ -99,32 +99,41 @@ insert into request_status values	(null, 'En espera de respuesta'),
                                     (null, 'Cerrado');
                                     
 insert into case_status values	(null, 'En desarrollo'),
-                                (null, 'Esperando aprobación del área solicitante'),
+                                (null, 'Esperando aprobaciÃ³n del Ã¡rea solicitante'),
 								(null, 'Vencido'),
                                 (null, 'Devuelto con observaciones'),
                                 (null, 'Finalizado');
                                                                 
-insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
-insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 1, 'Eduardo', 'HenrÃ­quez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
+insert into employees values(null, 2, 'JosÃ©', 'ArÃ©valo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 3, 'JosÃ©', 'ArÃ©valo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 4, 'JosÃ©', 'ArÃ©valo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 5, 'JosÃ©', 'ArÃ©valo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
+
+
+call sp_select_user ('eduard_alfons@hotmail.com','password');
+
+
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
     IN email VARCHAR(250),
     IN passwd VARCHAR(64))
 BEGIN
 IF ((Select count(*) from employees where employees.email = email and employees.passwd = sha2(passwd, 256)) = 1) THEN
-SELECT e.id, r.rname as 'Rol', e.id, concat(e.fname, ' ', e.lname) as 'Nombre', e.email as 'Correo', e.chief as 'Superior', d.dname as 
+SELECT e.id, r.rname as 'Rol', concat(e.fname, ' ', e.lname) as 'Nombre', e.email as 'Correo', e.chief as 'Superior', d.dname as 
 'Departamento', NULL as 'Error' from roles r inner join employees e on r.id = e.rol inner join departments d on d.id = e.department where 
 e.email = email and e.passwd = SHA2(passwd, 256); 
 ELSEIF ((Select count(*) from employees where employees.email = email) = 0) THEN
-SELECT NULL as 'id', NULL as 'Rol', NULL as 'Nombre', NULL as 'Correo', NULL as 'Superior', NULL as 'Departamento', 'No se encontró ningún usuario' as 'Error';
+SELECT NULL as 'id', NULL as 'Rol', NULL as 'Nombre', NULL as 'Correo', NULL as 'Superior', NULL as 'Departamento', 'No se encontrÃ³ ningÃºn usuario' as 'Error';
 ELSE 
-SELECT NULL as 'id', NULL as 'Rol', NULL as 'Nombre', NULL as 'Correo', NULL as 'Superior', NULL as 'Departamento', 'Contraseña incorrecta' as 'Error';
+SELECT NULL as 'id', NULL as 'Rol', NULL as 'Nombre', NULL as 'Correo', NULL as 'Superior', NULL as 'Departamento', 'ContraseÃ±a incorrecta' as 'Error';
 END IF;
 END//
 DELIMITER ;
+
+
+select * from employees;
+
 
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()

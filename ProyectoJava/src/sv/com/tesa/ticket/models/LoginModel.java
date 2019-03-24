@@ -14,12 +14,12 @@ import sv.com.tesa.ticket.beans.LoginBean;
  *
  * @author vaselinux
  */
-public class LoginModel extends Conexion
+public class LoginModel extends ConexionModel
 {
     public LoginBean validar(String user, String password)
     {
+        LoginBean usuario = new LoginBean();
         try {
-            LoginBean usuario = new LoginBean();
             String sql = "CALL sp_select_user(?, ?)";
             this.conectar();
             st = conexion.prepareStatement(sql);
@@ -29,14 +29,46 @@ public class LoginModel extends Conexion
             while(rs.next())
             {
                 System.out.println(rs.getString("Correo"));
-            }  
+                try {
+                    usuario.setId(rs.getInt("id"));
+                } catch (SQLException e) {
+                    usuario.setId(0);
+                }
+                try {
+                    usuario.setRol(rs.getString("Rol"));
+                } catch (SQLException e) {
+                    usuario.setRol(null);
+                }
+                try {
+                    usuario.setNombre(rs.getString("Nombre"));
+                } catch (SQLException e) {
+                    usuario.setNombre(null);
+                }
+                try {
+                    usuario.setCorreo(rs.getString("Correo"));
+                } catch (SQLException e) {
+                    usuario.setCorreo(null);
+                }
+                try {
+                    usuario.setJefe(rs.getString("Superior"));
+                } catch (SQLException e) {
+                    usuario.setJefe(null);
+                }
+                try {
+                    usuario.setDepartamento(rs.getString("Departamento"));
+                } catch (SQLException e) {
+                    usuario.setDepartamento(null);
+                }
+                usuario.setError(rs.getString("Error"));
+            }
             return usuario;
         } catch (SQLException ex) {
             Logger.getLogger(LoginModel.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            usuario.setError("No se obtuvieron datos");
+            return usuario;
         }
         finally
-        {   
+        {
             try {
                 this.desconectar();
             } catch (SQLException ex) {
