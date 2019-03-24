@@ -14,7 +14,7 @@ import sv.com.tesa.ticket.beans.LoginBean;
  *
  * @author vaselinux
  */
-public class LoginModel extends Conexion
+public class LoginModel extends ConexionModel
 {
     public LoginBean validar(String user, String password)
     {

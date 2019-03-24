@@ -5,6 +5,7 @@
  */
 package sv.com.tesa.ticket.views;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.models.LoginModel;
 import sv.com.tesa.ticket.controllers.MainViewController;
@@ -108,8 +109,26 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LoginController loginC = new LoginController();
-        loginC.validarUsuario(txtUsuario.getText(), txtPassword.getText());
+        LoginBean loginBean = LoginController.validarUsuario(txtUsuario.getText(), txtPassword.getText());
+        /*  El controlador MainViewController se encarga de 
+            mostrar la vistas para el usuario correspondiente 
+            de la informacion que se obtuvo del usuario de la base */
+        MainViewController controladorVistaPrin = new MainViewController();
+        /*  LoginController tiene el metodo estatico esLoginExitoso que
+            sirve para ver si el usuario existe 
+            o regresa el mensaje de error de la base */
+        if(LoginController.esLoginExitoso(loginBean))
+        {
+            //Si el usuario existe carga la vista correspondiente
+            controladorVistaPrin.cargarVista(loginBean);
+            this.dispose();
+        }
+        else
+        {
+            //Si el usuario no existe se muestra el mensaje de error de la base
+            JOptionPane.showMessageDialog(null, loginBean.getError(),"Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

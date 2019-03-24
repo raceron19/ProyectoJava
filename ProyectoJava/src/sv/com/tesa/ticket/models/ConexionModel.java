@@ -9,77 +9,72 @@ package sv.com.tesa.ticket.models;
  *
  * @author vaselinux
  */
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ConexionModel {
-
-    //Miembros
-    public Connection connect = null;
-    private Statement statement = null;
-    public PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
-    private boolean resultado=false;
-    
-
-    public ConexionModel() throws SQLException{
-        try
-        {
-            //obtenemos el driver de para mysql
-            Class.forName("com.mysql.jdbc.Driver");
-            // Se obtiene una conexión con la base de datos. 2
-            connect = DriverManager.getConnection (
-            "jdbc:mysql://localhost/ticketstesa?autoReconnect=true&useSSL=false","root", "eduardo007");
-            // Permite ejecutar sentencias SQL sin parámetros
-            statement = connect.createStatement();
-        }
-        catch (ClassNotFoundException e1) {
-        //Error si no puedo leer el driver de MySQL
-            System.out.println("ERROR:No encuentro el driver de la BD: " +e1.getMessage());
-        }
+public class ConexionModel
+{
+    protected static Connection conexion=null;
+    protected PreparedStatement st;
+    protected ResultSet rs;
+    public ConexionModel() 
+    {
+       
+        this.st = null;
+        this.rs = null;
     }
-    
-    public void setRs(PreparedStatement statementParam) throws SQLException{
-          resultSet = statementParam.executeQuery();
-    }
-    
-    //get query results
-    public ResultSet getRs() throws SQLException{
-        return this.resultSet;
-    }
-    
-    
-    public boolean executeQuery(PreparedStatement statementParam) throws SQLException{
-        resultado=false;
-      
-        if(statementParam.executeUpdate() > 0){  
-        resultado=true;
-        }
-        this.close();
-        return resultado;
-    }
-   
-   // Cerrar conexion
-    public void close() {
+    public static DataSource getMySQLDataSource() 
+    {
+        Properties props = new Properties();
+        FileInputStream fis = null;
+        MysqlDataSource mysqlDS = null;
         try {
-            if (resultSet != null) {
-                resultSet.close();
+                fis = new FileInputStream("db.properties");
+                props.load(fis);
+                mysqlDS = new MysqlDataSource();
+                mysqlDS.setURL(props.getProperty("MYSQL_DB_URL"));
+                mysqlDS.setUser(props.getProperty("MYSQL_DB_USERNAME"));
+                mysqlDS.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
+        } catch (IOException e) 
+        {
+            
+        }
+        return mysqlDS;
+    }
+    public void conectar() 
+    {
+        try {
+            if(conexion==null || conexion.isClosed()){
+            DataSource dataSource = getMySQLDataSource();
+            conexion = dataSource.getConnection();
             }
 
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void desconectar() throws SQLException 
+    {
+        //Cierro los objetos en el orden inverso del que se crean
+        // es decir: primero el resulset, luego el statement
+        if (rs != null) {
+            rs.close();
+        }
+        if (st != null) {
+            st.close();
+        }
+
+    }
+	
 }
+
