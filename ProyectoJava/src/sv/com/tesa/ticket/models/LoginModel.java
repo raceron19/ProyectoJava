@@ -40,7 +40,7 @@ public class LoginModel {
             rs = conn.getRs();
             rs.next();
             
-            logInUsuario.setError(rs.getString("Error"));;
+            logInUsuario.setError(rs.getString("Error"));
             if (logInUsuario.getError() == null) {
                 
                 logInUsuario.setId(rs.getInt("id"));
