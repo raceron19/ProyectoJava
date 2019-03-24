@@ -9,30 +9,72 @@ package sv.com.tesa.ticket.models;
  *
  * @author vaselinux
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Conexion {
-
-    static Connection con = null;
-
-    public static Connection conectar() {
-
-        String password = "123456";
-        String usuario = "root";
-        String url = "jdbc:mysql://localhost:3306/ticketstesa?user=" + usuario
-                + "&password=" + password;
+public class Conexion
+{
+    protected static Connection conexion=null;
+    protected PreparedStatement st;
+    protected ResultSet rs;
+    public Conexion() 
+    {
+       
+        this.st = null;
+        this.rs = null;
+    }
+    public static DataSource getMySQLDataSource() 
+    {
+        Properties props = new Properties();
+        FileInputStream fis = null;
+        MysqlDataSource mysqlDS = null;
         try {
-            con = DriverManager.getConnection(url);
-            if (con != null) {
-                System.out.println("Conectado");
-            }
-        } catch (SQLException e) {
-            System.out.println("No se pudo conectar a la base de datos");
-            e.printStackTrace();
+                fis = new FileInputStream("db.properties");
+                props.load(fis);
+                mysqlDS = new MysqlDataSource();
+                mysqlDS.setURL(props.getProperty("MYSQL_DB_URL"));
+                mysqlDS.setUser(props.getProperty("MYSQL_DB_USERNAME"));
+                mysqlDS.setPassword(props.getProperty("MYSQL_DB_PASSWORD"));
+        } catch (IOException e) 
+        {
+            
         }
-        return con;
+        return mysqlDS;
+    }
+    public void conectar() 
+    {
+        try {
+            if(conexion==null || conexion.isClosed()){
+            DataSource dataSource = getMySQLDataSource();
+            conexion = dataSource.getConnection();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    public void desconectar() throws SQLException 
+    {
+        //Cierro los objetos en el orden inverso del que se crean
+        // es decir: primero el resulset, luego el statement
+        if (rs != null) {
+            rs.close();
+        }
+        if (st != null) {
+            st.close();
+        }
+
+    }
+	
 }
+
