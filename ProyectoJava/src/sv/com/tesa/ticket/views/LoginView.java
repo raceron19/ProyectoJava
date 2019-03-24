@@ -98,11 +98,8 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LoginController us = new LoginController();
-        us.setEmail(this.txtUsuario.getText());
-        us.setPasswd(this.txtPassword.getText());
-        us.logUsuario();
-        
+        LoginController loginC = new LoginController();
+        loginC.validarUsuario(txtUsuario.getText(), txtPassword.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -136,10 +133,8 @@ public class LoginView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginView().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginView().setVisible(true);
         });
     }
 
