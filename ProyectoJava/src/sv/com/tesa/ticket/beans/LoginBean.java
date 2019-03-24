@@ -81,5 +81,4 @@ public class LoginBean {
     public void setError(String Error) {
         this.Error = Error;
     }
-    
 }

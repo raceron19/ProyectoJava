@@ -8,17 +8,21 @@ package sv.com.tesa.ticket.controllers;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.models.LoginModel;
 
+import sv.com.tesa.ticket.beans.LoginBean;
 /**
  *
- * @author vaselinux
+ * @author Edu
  */
+
+
 public class LoginController {
     public void validarUsuario(String user, String password){
         LoginModel loginM = new LoginModel();
         LoginBean loginB = new LoginBean();
         loginB = loginM.validar(user, password);
     
+    public static Boolean esLoginExitoso(LoginBean logUser)
+    {
+        return logUser.getError() == null;
     }
-    
-    
 }
