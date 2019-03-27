@@ -5,7 +5,6 @@
  */
 package sv.com.tesa.ticket.controllers;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.models.LoginModel;
 import sv.com.tesa.ticket.views.*;
 /**
  *
@@ -13,7 +12,7 @@ import sv.com.tesa.ticket.views.*;
  */
 public class MainViewController {
     
-    private LoginModel logModel;
+    @SuppressWarnings("FieldMayBeFinal")
     private AdminView vistaAdmin;
     private EmpleadoView vistaEmpleado;
     private JefeDesarrolloView vistaJefeDes;
@@ -22,7 +21,6 @@ public class MainViewController {
     
     public MainViewController()
     {
-        logModel = new LoginModel();
     }
     
     public void cargarVista(LoginBean logUser)
