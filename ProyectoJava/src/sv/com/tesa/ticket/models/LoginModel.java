@@ -6,8 +6,7 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
 
 /**
@@ -28,42 +27,17 @@ public class LoginModel extends ConexionModel
             rs = st.executeQuery();
             while(rs.next())
             {
-                System.out.println(rs.getString("Correo"));
-                try {
                     usuario.setId(rs.getInt("id"));
-                } catch (SQLException e) {
-                    usuario.setId(0);
-                }
-                try {
                     usuario.setRol(rs.getString("Rol"));
-                } catch (SQLException e) {
-                    usuario.setRol(null);
-                }
-                try {
                     usuario.setNombre(rs.getString("Nombre"));
-                } catch (SQLException e) {
-                    usuario.setNombre(null);
-                }
-                try {
                     usuario.setCorreo(rs.getString("Correo"));
-                } catch (SQLException e) {
-                    usuario.setCorreo(null);
-                }
-                try {
                     usuario.setJefe(rs.getString("Superior"));
-                } catch (SQLException e) {
-                    usuario.setJefe(null);
-                }
-                try {
                     usuario.setDepartamento(rs.getString("Departamento"));
-                } catch (SQLException e) {
-                    usuario.setDepartamento(null);
-                }
-                usuario.setError(rs.getString("Error"));
+                    usuario.setError(rs.getString("Error"));
             }
             return usuario;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConexionModel.class).error("Error al obtener los datos",ex);
             usuario.setError("No se obtuvieron datos");
             return usuario;
         }
@@ -72,7 +46,7 @@ public class LoginModel extends ConexionModel
             try {
                 this.desconectar();
             } catch (SQLException ex) {
-                Logger.getLogger(LoginModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConexionModel.class).error("Error al cerrar la conexiòn.",ex);
             }
         }
     }
