@@ -2,6 +2,7 @@ use sys;
 drop database if exists ticketstesa;
 create database ticketstesa;
 use ticketstesa;
+	
 create table roles(
 id int auto_increment primary key,
 rname varchar(40),
@@ -105,13 +106,11 @@ insert into case_status values	(null, 'En desarrollo'),
                                 (null, 'Finalizado');
                                                                 
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
+insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
 insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
-
-
-call sp_select_user ('eduard_alfons@hotmail.com','password');
 
 
 DELIMITER //
@@ -132,9 +131,6 @@ END//
 DELIMITER ;
 
 
-select * from employees;
-
-
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()
 BEGIN
@@ -148,6 +144,24 @@ BEGIN
 SELECT id, dname as departamento from departments;
 END//
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_department(IN id varchar(3), IN dname varchar(250))
+BEGIN
+	insert into departments values (id,dname);
+END//
+DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_department(IN id varchar(3), IN dname varchar(250))
+BEGIN
+ UPDATE departments SET  departments.dname = dname
+ where departments.id = id;
+END //
+DELIMITER;
+
+select * from departments;
+call sp_update_department('prb','PRUEBA 3');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_users ()

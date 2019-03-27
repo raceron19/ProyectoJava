@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.controllers;
+import sv.com.tesa.ticket.views.admin.AdminView;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.models.LoginModel;
 import sv.com.tesa.ticket.views.*;
@@ -29,8 +30,7 @@ public class MainViewController {
     {
         switch (logUser.getRol()) {
             case "Administrador":
-                vistaAdmin = new AdminView();
-                vistaAdmin.setSize(500,500);
+                vistaAdmin = new AdminView(logUser);
                 vistaAdmin.setLocationRelativeTo(null);
                 vistaAdmin.setVisible(true);
                 break;

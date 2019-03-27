@@ -26,12 +26,14 @@ public class ConexionModel
     protected static Connection conexion=null;
     protected PreparedStatement st;
     protected ResultSet rs;
+    
     public ConexionModel() 
     {
        
         this.st = null;
         this.rs = null;
     }
+    
     public static DataSource getMySQLDataSource() 
     {
         Properties props = new Properties();
