@@ -52,6 +52,7 @@ public class AdminDeptModel extends ConexionModel {
             int resultado = st.executeUpdate();
             
             if (resultado > 0) {
+                this.desconectar();
                 return true;
             }
             this.desconectar();
@@ -74,6 +75,7 @@ public class AdminDeptModel extends ConexionModel {
             int resultado = st.executeUpdate();
             
             if (resultado > 0) {
+                this.desconectar();
                 return true;
             }
             this.desconectar();
