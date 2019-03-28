@@ -160,8 +160,6 @@ BEGIN
 END //
 DELIMITER;
 
-select * from departments;
-call sp_update_department('prb','PRUEBA 3');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_users ()
@@ -169,5 +167,56 @@ BEGIN
 SELECT e.id as 'ID', r.rname as 'Rol', e.id, e.fname as 'Nombres', e.lname as 'Apellidos', e.email as 'Correo', e.chief as 'Superior', 
 d.dname as 'Departamento', e.created_at as 'Fecha de creacin', NULL as 'Error' from roles r inner join employees e on r.id = e.rol inner 
 join departments d on d.id = e.department;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_select_boss_employees()
+BEGIN
+select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Empleado', 
+	employees.email, roles.rname, departments.dname from employees
+    inner join roles on employees.rol = roles.id
+    inner join departments on employees.department = departments.id
+    where employees.rol in (select id from roles where rname like 'Jefe%');
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_boss_employees(IN rol int, IN fname varchar(250), IN lname varchar(250),
+										IN email varchar(250), IN pass varchar(64), IN chief int, 
+                                        in department varchar(3))
+BEGIN
+insert into employees values(null, rol, fname, lname, email, sha2(pass, 256), chief, department, now(), null);
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_boss_employees(in id int, IN rol int, IN fname varchar(250), IN lname varchar(250),
+										IN email varchar(250), IN pass varchar(64), 
+                                        in department varchar(3), IN mod_pass boolean) 
+BEGIN
+IF mod_pass = TRUE
+then
+update employees set
+	employees.rol = rol,
+    employees.fname = fname,
+    employees.lname = lname,
+    employees.email = email,
+    employees.passwd = pass,
+    employees.department = department,
+    employees.passwd = sha2(mod_pass,256),
+    employees.updated_at = now()
+    where employees.id = id;
+else
+update employees set
+	employees.rol = rol,
+    employees.fname = fname,
+    employees.lname = lname,
+    employees.email = email,
+    employees.passwd = pass,
+    employees.department = department,
+    employees.updated_at = now()
+    where employees.id = id;
+END IF;
 END//
 DELIMITER ;

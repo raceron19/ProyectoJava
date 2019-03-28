@@ -232,6 +232,7 @@ public class AdminDeptView extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

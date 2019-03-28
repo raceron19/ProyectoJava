@@ -34,6 +34,7 @@ public class AdminDeptModel extends ConexionModel {
             {
                 tabla = null;
             }
+            this.desconectar();
             return tabla;
             //this.desconectar();
         } catch (SQLException e) {

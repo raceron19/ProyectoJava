@@ -5,7 +5,6 @@
  */
 package sv.com.tesa.ticket.views.admin;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.controllers.AdminDeptController;
 /**
  *
  * @author Edu
@@ -13,6 +12,7 @@ import sv.com.tesa.ticket.controllers.AdminDeptController;
 public class AdminView extends javax.swing.JFrame {
 
     private AdminDeptView vistaDept;
+    private AdminBossView vistaEmp;
     
     /**
      * Creates new form Adminview
@@ -50,6 +50,11 @@ public class AdminView extends javax.swing.JFrame {
         });
 
         btnAdminJefeDept.setText("Administrar Jefes de Departamentos");
+        btnAdminJefeDept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminJefeDeptActionPerformed(evt);
+            }
+        });
 
         bntAdminJefeDes.setText("Administrar Jefes de Desarrollo");
         bntAdminJefeDes.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +107,14 @@ public class AdminView extends javax.swing.JFrame {
         vistaDept.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAdminDeptActionPerformed
+
+    private void btnAdminJefeDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminJefeDeptActionPerformed
+        // TODO add your handling code here:
+        vistaEmp = new AdminBossView();
+        vistaEmp.setLocationRelativeTo(null);
+        vistaEmp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAdminJefeDeptActionPerformed
 
 
 
