@@ -220,3 +220,6 @@ update employees set
 END IF;
 END//
 DELIMITER ;
+
+
+select * from departments;

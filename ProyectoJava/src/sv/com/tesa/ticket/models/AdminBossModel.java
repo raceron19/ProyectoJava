@@ -7,11 +7,9 @@ package sv.com.tesa.ticket.models;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
-import javax.swing.DefaultComboBoxModel;
 import sv.com.tesa.ticket.utils.Utilidades;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.EmployeeBean;
-import sv.com.tesa.ticket.beans.RolesBean;
 
 /**
  *
@@ -105,7 +103,6 @@ public class AdminBossModel extends LoginModel{
     {
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
-            RolesBean rol;
             String sql = "select * from roles where rname like 'Jefe%' or 'jefe%'";
             this.conectar();
             st = conexion.prepareStatement(sql);
@@ -113,6 +110,25 @@ public class AdminBossModel extends LoginModel{
             while(rs.next())
             {
                 map.put(rs.getInt("id"), rs.getString("rname"));
+            }
+            return map;
+        } catch (SQLException e) 
+        {
+            return null;
+        }
+    }
+    
+    public HashMap<String, String> listarDepartamentos()
+    {
+        HashMap<String, String> map = new HashMap<String, String>();
+        try {
+            String sql = "select * from departments";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            rs  = st.executeQuery();
+            while(rs.next())
+            {
+                map.put(rs.getString("id"), rs.getString("dname"));
             }
             return map;
         } catch (SQLException e) 

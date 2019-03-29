@@ -11,6 +11,14 @@ import java.sql.ResultSet;
  */
 public class DepartmentBean {
 
+    private String id;
+    private String nombreDept;
+
+    public DepartmentBean()
+    {
+        
+    }
+    
     /**
      * @return the id
      */
@@ -40,7 +48,6 @@ public class DepartmentBean {
     }
 
     
-    private String id;
-    private String nombreDept;
+    
     
 }
