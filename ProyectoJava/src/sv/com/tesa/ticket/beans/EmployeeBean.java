@@ -11,6 +11,19 @@ package sv.com.tesa.ticket.beans;
  */
 public class EmployeeBean {
 
+    private int id;
+    private int rol;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private String password;
+    private int jefe;
+    private String departamento;
+    
+    public EmployeeBean()
+    {
+        
+    }
     /**
      * @return the id
      */
@@ -123,13 +136,5 @@ public class EmployeeBean {
         this.departamento = departamento;
     }
     
-    private int id;
-    private int rol;
-    private String nombre;
-    private String apellido;
-    private String email;
-    private String password;
-    private int jefe;
-    private String departamento;
     
 }

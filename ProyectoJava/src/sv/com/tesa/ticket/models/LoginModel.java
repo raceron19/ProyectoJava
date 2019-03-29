@@ -28,7 +28,6 @@ public class LoginModel extends ConexionModel
             rs = st.executeQuery();
             while(rs.next())
             {
-                System.out.println(rs.getString("Correo"));
                 try {
                     usuario.setId(rs.getInt("id"));
                 } catch (SQLException e) {
