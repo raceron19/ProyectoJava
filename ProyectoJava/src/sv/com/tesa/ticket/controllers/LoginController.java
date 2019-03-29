@@ -15,6 +15,7 @@ import sv.com.tesa.ticket.beans.LoginBean;
 
 
 public class LoginController {
+    
     public static LoginBean validarUsuario(String user, String password){
         LoginModel loginM = new LoginModel();
         LoginBean loginB = loginM.validar(user, password);
