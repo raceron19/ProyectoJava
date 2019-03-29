@@ -4,17 +4,16 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.controllers;
-import sv.com.tesa.ticket.views.admin.AdminView;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.models.LoginModel;
 import sv.com.tesa.ticket.views.*;
+import sv.com.tesa.ticket.views.admin.AdminView;
 /**
  *
  * @author Edu
  */
 public class MainViewController {
     
-    private LoginModel logModel;
+    @SuppressWarnings("FieldMayBeFinal")
     private AdminView vistaAdmin;
     private EmpleadoView vistaEmpleado;
     private JefeDesarrolloView vistaJefeDes;
@@ -23,7 +22,6 @@ public class MainViewController {
     
     public MainViewController()
     {
-        logModel = new LoginModel();
     }
     
     public void cargarVista(LoginBean logUser)
@@ -31,6 +29,7 @@ public class MainViewController {
         switch (logUser.getRol()) {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
+                vistaAdmin.setSize(500,500);
                 vistaAdmin.setLocationRelativeTo(null);
                 vistaAdmin.setVisible(true);
                 break;
