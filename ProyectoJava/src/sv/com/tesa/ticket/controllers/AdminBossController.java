@@ -39,12 +39,20 @@ public class AdminBossController
         } catch (Exception e) {
             return false;
         }
-    }
-    
+    } 
     public HashMap<Integer, String> listarRoles()
     {
         try {
             return adminBossModelo.listarRoles();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public HashMap<String, String> listarDepartamentos()
+    {
+        try {
+            return adminBossModelo.listarDepartamentos();
         } catch (Exception e) {
             return null;
         }
