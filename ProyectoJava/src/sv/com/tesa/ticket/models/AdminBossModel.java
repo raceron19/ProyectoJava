@@ -7,9 +7,12 @@ package sv.com.tesa.ticket.models;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
 import sv.com.tesa.ticket.utils.Utilidades;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.EmployeeBean;
+import sv.com.tesa.ticket.beans.RolesBean;
+
 /**
  *
  * @author Edu
@@ -60,7 +63,11 @@ public class AdminBossModel extends LoginModel{
             
             int resultado = st.executeUpdate();
             this.desconectar();
-            return resultado > 0;
+            
+            if (resultado > 0) {
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
             return false;
         }
@@ -84,7 +91,10 @@ public class AdminBossModel extends LoginModel{
             int resultado = st.executeUpdate();
             this.desconectar();
             
-            return resultado > 0;
+            if (resultado > 0) {
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
              System.out.println(e.getSQLState() + " " + e.getMessage());
             return false;
@@ -93,14 +103,14 @@ public class AdminBossModel extends LoginModel{
     
     public HashMap<Integer, String> listarRoles()
     {
-        HashMap<Integer, String> map = new HashMap<>();
-            try 
-            {
-                String sql = "select * from roles where rname like 'Jefe%' or 'jefe%'";
-                this.conectar();
-                st = conexion.prepareStatement(sql);
-                rs  = st.executeQuery();
-                while(rs.next())
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        try {
+            RolesBean rol;
+            String sql = "select * from roles where rname like 'Jefe%' or 'jefe%'";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            rs  = st.executeQuery();
+            while(rs.next())
             {
                 map.put(rs.getInt("id"), rs.getString("rname"));
             }

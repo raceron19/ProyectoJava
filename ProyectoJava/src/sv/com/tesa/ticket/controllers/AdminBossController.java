@@ -15,7 +15,7 @@ import sv.com.tesa.ticket.models.AdminBossModel;
  */
 public class AdminBossController
 {
-    private final AdminBossModel adminBossModelo;
+    private AdminBossModel adminBossModelo;
     
     public AdminBossController()
     {
