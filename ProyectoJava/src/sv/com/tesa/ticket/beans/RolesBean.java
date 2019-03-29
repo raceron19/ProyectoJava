@@ -11,6 +11,13 @@ package sv.com.tesa.ticket.beans;
  */
 public class RolesBean {
 
+    public RolesBean()
+    {
+        
+    }
+    private int id;
+    private String rol;
+    private String desc;
     /**
      * @return the id
      */
@@ -53,7 +60,4 @@ public class RolesBean {
         this.desc = desc;
     }
     
-    private int id;
-    private String rol;
-    private String desc;
 }

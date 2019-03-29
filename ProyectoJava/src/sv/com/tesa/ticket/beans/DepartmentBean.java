@@ -4,13 +4,20 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.beans;
-import java.sql.ResultSet;
 /**
  *
  * @author Edu
  */
 public class DepartmentBean {
 
+    
+    private String id;
+    private String nombreDept;
+    
+    public DepartmentBean()
+    {
+        
+    }
     /**
      * @return the id
      */
@@ -40,7 +47,5 @@ public class DepartmentBean {
     }
 
     
-    private String id;
-    private String nombreDept;
     
 }
