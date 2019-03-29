@@ -6,6 +6,7 @@
 package sv.com.tesa.ticket.controllers;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.views.*;
+import sv.com.tesa.ticket.views.admin.AdminView;
 /**
  *
  * @author Edu
@@ -27,7 +28,7 @@ public class MainViewController {
     {
         switch (logUser.getRol()) {
             case "Administrador":
-                vistaAdmin = new AdminView();
+                vistaAdmin = new AdminView(logUser);
                 vistaAdmin.setSize(500,500);
                 vistaAdmin.setLocationRelativeTo(null);
                 vistaAdmin.setVisible(true);
