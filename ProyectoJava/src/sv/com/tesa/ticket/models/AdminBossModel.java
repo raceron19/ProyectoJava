@@ -125,7 +125,7 @@ public class AdminBossModel extends LoginModel{
             String sql = "sp_select_departments()";
             this.conectar();
             st = conexion.prepareStatement(sql);
-            rs  = st.executeQuery();
+            rs  = st.executeQuery();    
             while(rs.next())
             {
                 map.put(rs.getString("id"), rs.getString("departamento"));

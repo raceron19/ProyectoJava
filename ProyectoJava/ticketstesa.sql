@@ -55,7 +55,7 @@ foreign key (created_by) references employees(id),
 foreign key (request_status) references request_status(id));
 
 create table cases(
-id  varchar(8) primary key,
+id varchar(8) primary key,
 request int not null, 
 assigned_to int not null,
 case_status int not null,
@@ -76,7 +76,7 @@ id int auto_increment primary key,
 case_id varchar(8) not null,
 commentary text not null,
 created_at timestamp not null default now(),
-foreign key (case_id) references cases(id));
+foreign key (case_id) references cases(id) on delete cascade);
 
 insert into roles values(null, 'Administrador', 'Con la capacidad de registrar y gestionar áreas funcionales de la empresa (departamentos), jefes de áreas funcionales y jefes de desarrollo.'),
 						(null, 'Jefe de área funcional', 'Con la capacidad de solicitar la apertura de casos y monitorear el porcentaje de progreso y bitácora de los casos aperturados.'),
@@ -204,7 +204,7 @@ update employees set
     employees.email = email,
     employees.passwd = pass,
     employees.department = department,
-    employees.passwd = sha2(mod_pass,256),
+    employees.passwd = sha2(pass,256),
     employees.updated_at = now()
     where employees.id = id;
 else
@@ -213,7 +213,6 @@ update employees set
     employees.fname = fname,
     employees.lname = lname,
     employees.email = email,
-    employees.passwd = pass,
     employees.department = department,
     employees.updated_at = now()
     where employees.id = id;
@@ -221,5 +220,5 @@ END IF;
 END//
 DELIMITER ;
 
-
-select * from departments;
+drop procedure sp_update_boss_employees;
+select * from employees;
