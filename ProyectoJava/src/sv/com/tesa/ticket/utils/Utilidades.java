@@ -8,6 +8,7 @@ package sv.com.tesa.ticket.utils;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -39,6 +40,15 @@ public class Utilidades {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public static Object regresarValorHashMap(HashMap map, String valor)
+    {
+        for (Object o : map.keySet()) {
+            if(map.get(o).equals(valor))
+                return o;
+        }
+        return null;
     }
     
 }
