@@ -254,14 +254,14 @@ public class AdminBossView extends javax.swing.JFrame {
                     .addComponent(btnIngresar))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jCheckBox3))
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -271,38 +271,6 @@ public class AdminBossView extends javax.swing.JFrame {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        
-        try {
-            beanEmp = new EmployeeBean();
-            beanEmp.setId(Integer.parseInt(txtIdEmpleado.getText()));
-            beanEmp.setNombre(txtNombre.getText());
-            beanEmp.setApellido(txtApellido.getText());
-            beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem())) 
-                {
-                    beanEmp.setRol(id);
-                }
-            }
-            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
-            beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
-            beanEmp.setPassword(new String(txtContraseña.getPassword()));
-            
-            if(ctrlAdminJefe.ingresarJefe(beanEmp))
-            {
-                cargarTabla();
-                limpiarTexto();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
@@ -360,6 +328,38 @@ public class AdminBossView extends javax.swing.JFrame {
         txtApellido.setText(nombre[1]);
         txtCorreo.setText(dtm.getValueAt(indexFila, 2).toString());
     }//GEN-LAST:event_tablaJefesDeptMouseClicked
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+
+        try {
+            beanEmp = new EmployeeBean();
+            beanEmp.setId(Integer.parseInt(txtIdEmpleado.getText()));
+            beanEmp.setNombre(txtNombre.getText());
+            beanEmp.setApellido(txtApellido.getText());
+            beanEmp.setEmail(txtCorreo.getText());
+            for (Integer id : mapRoles.keySet()) {
+                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
+                {
+                    beanEmp.setRol(id);
+                }
+            }
+            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
+            beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
+            beanEmp.setPassword(new String(txtContraseña.getPassword()));
+
+            if(ctrlAdminJefe.ingresarJefe(beanEmp))
+            {
+                cargarTabla();
+                limpiarTexto();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void limpiarTexto()
     {

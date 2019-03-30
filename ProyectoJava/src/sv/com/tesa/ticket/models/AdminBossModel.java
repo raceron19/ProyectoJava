@@ -101,7 +101,7 @@ public class AdminBossModel extends LoginModel{
     {
         HashMap<Integer, String> map = new HashMap<>();
         try {
-            String sql = "CALL sp_select_roles()'";
+            String sql = "CALL sp_select_roles()";
             this.conectar();
             st = conexion.prepareStatement(sql);
             rs  = st.executeQuery();
@@ -122,7 +122,7 @@ public class AdminBossModel extends LoginModel{
     {
         HashMap<String, String> map = new HashMap<>();
         try {
-            String sql = "sp_select_departments()";
+            String sql = "CALL sp_select_departments()";
             this.conectar();
             st = conexion.prepareStatement(sql);
             rs  = st.executeQuery();    
