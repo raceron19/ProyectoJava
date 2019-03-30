@@ -7,34 +7,53 @@ package sv.com.tesa.ticket.beans;
 
 /**
  *
- * @author eduar
+ * @author Edu
  */
-public class RolesBean 
-{
-    Integer id;
-    String value;
-    public RolesBean()
-    {
-        
-    }
+public class RolesBean {
 
-    public Integer getId() {
+    /**
+     * @return the id
+     */
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getValue() {
-        return value;
+    /**
+     * @return the rol
+     */
+    public String getRol() {
+        return rol;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    /**
+     * @param rol the rol to set
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
     }
-    @Override
-    public String toString() {
-        return value;
+
+    /**
+     * @return the desc
+     */
+    public String getDesc() {
+        return desc;
     }
+
+    /**
+     * @param desc the desc to set
+     */
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+    
+    private int id;
+    private String rol;
+    private String desc;
 }

@@ -2,6 +2,7 @@ use sys;
 drop database if exists ticketstesa;
 create database ticketstesa;
 use ticketstesa;
+	
 create table roles(
 id int auto_increment primary key,
 rname varchar(40),
@@ -105,13 +106,11 @@ insert into case_status values	(null, 'En desarrollo'),
                                 (null, 'Finalizado');
                                                                 
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
+insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
 insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
-
-
-call sp_select_user ('eduard_alfons@hotmail.com','password');
 
 
 DELIMITER //
@@ -132,9 +131,6 @@ END//
 DELIMITER ;
 
 
-select * from employees;
-
-
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()
 BEGIN
@@ -150,6 +146,22 @@ END//
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE sp_insert_department(IN id varchar(3), IN dname varchar(250))
+BEGIN
+	insert into departments values (id,dname);
+END//
+DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_department(IN id varchar(3), IN dname varchar(250))
+BEGIN
+ UPDATE departments SET  departments.dname = dname
+ where departments.id = id;
+END //
+DELIMITER;
+
+
+DELIMITER //
 CREATE PROCEDURE sp_select_users ()
 BEGIN
 SELECT e.id as 'ID', r.rname as 'Rol', e.id, e.fname as 'Nombres', e.lname as 'Apellidos', e.email as 'Correo', e.chief as 'Superior', 
@@ -157,3 +169,57 @@ d.dname as 'Departamento', e.created_at as 'Fecha de creacin', NULL as 'Error' f
 join departments d on d.id = e.department;
 END//
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_select_boss_employees()
+BEGIN
+select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Empleado', 
+	employees.email, roles.rname, departments.dname from employees
+    inner join roles on employees.rol = roles.id
+    inner join departments on employees.department = departments.id
+    where employees.rol in (select id from roles where rname like 'Jefe%');
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_boss_employees(IN rol int, IN fname varchar(250), IN lname varchar(250),
+										IN email varchar(250), IN pass varchar(64), IN chief int, 
+                                        in department varchar(3))
+BEGIN
+insert into employees values(null, rol, fname, lname, email, sha2(pass, 256), chief, department, now(), null);
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_boss_employees(in id int, IN rol int, IN fname varchar(250), IN lname varchar(250),
+										IN email varchar(250), IN pass varchar(64), 
+                                        in department varchar(3), IN mod_pass boolean) 
+BEGIN
+IF mod_pass = TRUE
+then
+update employees set
+	employees.rol = rol,
+    employees.fname = fname,
+    employees.lname = lname,
+    employees.email = email,
+    employees.passwd = pass,
+    employees.department = department,
+    employees.passwd = sha2(mod_pass,256),
+    employees.updated_at = now()
+    where employees.id = id;
+else
+update employees set
+	employees.rol = rol,
+    employees.fname = fname,
+    employees.lname = lname,
+    employees.email = email,
+    employees.passwd = pass,
+    employees.department = department,
+    employees.updated_at = now()
+    where employees.id = id;
+END IF;
+END//
+DELIMITER ;
+
+
+select * from departments;
