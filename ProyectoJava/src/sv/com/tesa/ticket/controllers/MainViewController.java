@@ -29,35 +29,30 @@ public class MainViewController {
         switch (logUser.getRol()) {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
-                vistaAdmin.setSize(500,500);
                 vistaAdmin.setLocationRelativeTo(null);
                 vistaAdmin.setVisible(true);
                 break;
                 
             case "Jefe de área funcional":
                 vistaJefeFunc = new JefeFuncionalView();
-                vistaJefeFunc.setSize(500,500);
                 vistaJefeFunc.setLocationRelativeTo(null);
                 vistaJefeFunc.setVisible(true);
                 break;
                 
             case "Empleado de área funcional":
                 vistaEmpleado = new EmpleadoView();
-                vistaEmpleado.setSize(500,500);
                 vistaEmpleado.setLocationRelativeTo(null);
                 vistaEmpleado.setVisible(true);
                 break;
                 
             case "Jefe de desarrollo":
                 vistaJefeDes = new JefeDesarrolloView();
-                vistaJefeDes.setSize(500, 500);
                 vistaJefeDes.setLocationRelativeTo(null);
                 vistaJefeDes.setVisible(true);
                 break;
                 
             case "Programador":
                 vistaProgramador = new ProgramadorView();
-                vistaProgramador.setSize(500, 500);
                 vistaProgramador.setLocationRelativeTo(null);
                 vistaProgramador.setVisible(true);
                 break;

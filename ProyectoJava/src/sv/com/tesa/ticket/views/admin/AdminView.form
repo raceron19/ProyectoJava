@@ -30,7 +30,6 @@
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAdminDept" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnAdminJefeDept" alignment="0" max="32767" attributes="0"/>
-                  <Component id="bntAdminJefeDes" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -47,8 +46,6 @@
               <Component id="btnAdminDept" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAdminJefeDept" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="bntAdminJefeDes" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -75,18 +72,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAdminJefeDept">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Administrar Jefes de Departamentos"/>
+        <Property name="text" type="java.lang.String" value="Administrar Jefes de Departamentos y Desarrollo"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminJefeDeptActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bntAdminJefeDes">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Administrar Jefes de Desarrollo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntAdminJefeDesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

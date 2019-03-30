@@ -34,7 +34,6 @@ public class AdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnAdminDept = new javax.swing.JButton();
         btnAdminJefeDept = new javax.swing.JButton();
-        bntAdminJefeDes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,17 +48,10 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        btnAdminJefeDept.setText("Administrar Jefes de Departamentos");
+        btnAdminJefeDept.setText("Administrar Jefes de Departamentos y Desarrollo");
         btnAdminJefeDept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdminJefeDeptActionPerformed(evt);
-            }
-        });
-
-        bntAdminJefeDes.setText("Administrar Jefes de Desarrollo");
-        bntAdminJefeDes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntAdminJefeDesActionPerformed(evt);
             }
         });
 
@@ -73,8 +65,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(labelUsuario)
                     .addComponent(jLabel1)
                     .addComponent(btnAdminDept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdminJefeDept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bntAdminJefeDes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAdminJefeDept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -88,17 +79,11 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(btnAdminDept, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAdminJefeDept, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bntAdminJefeDes, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bntAdminJefeDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAdminJefeDesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bntAdminJefeDesActionPerformed
 
     private void btnAdminDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminDeptActionPerformed
         
@@ -119,7 +104,6 @@ public class AdminView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bntAdminJefeDes;
     private javax.swing.JButton btnAdminDept;
     private javax.swing.JButton btnAdminJefeDept;
     private javax.swing.JLabel jLabel1;

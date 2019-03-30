@@ -107,7 +107,7 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LoginBean loginBean = LoginController.validarUsuario(txtUsuario.getText(), txtPassword.getText());
+        LoginBean loginBean = LoginController.validarUsuario(txtUsuario.getText(), new String(txtPassword.getPassword()), this);
         /*  El controlador MainViewController se encarga de 
             mostrar la vistas para el usuario correspondiente 
             de la informacion que se obtuvo del usuario de la base */

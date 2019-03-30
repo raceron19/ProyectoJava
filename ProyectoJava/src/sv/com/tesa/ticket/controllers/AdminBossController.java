@@ -32,6 +32,15 @@ public class AdminBossController
         }
     }
     
+    public boolean ingresarJefe(EmployeeBean beanEmpleado)
+    {
+        try {
+            return adminBossModelo.ingresarJefe(beanEmpleado);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     public boolean modificarJefe(EmployeeBean beanEmpleado, boolean op)
     {
         try {
