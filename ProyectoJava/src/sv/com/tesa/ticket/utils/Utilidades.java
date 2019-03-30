@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -36,7 +37,8 @@ public class Utilidades {
             JTable tabla = new JTable(modeloTabla);
             tabla.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             return tabla;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            Logger.getLogger(Utilidades.class).error("Error al cargar tabla en funciòn cargarTable ",e);
             return null;
         }
     }
