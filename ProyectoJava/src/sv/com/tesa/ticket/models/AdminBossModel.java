@@ -10,7 +10,6 @@ import java.util.HashMap;
 import sv.com.tesa.ticket.utils.Utilidades;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.EmployeeBean;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,7 +40,7 @@ public class AdminBossModel extends LoginModel{
             this.desconectar();
             return tabla;
         } catch (SQLException e) {
-            Logger.getLogger(AdminBossModel.class).error("Error al listar jefes en JTable listarJefes",e);
+            System.out.println("Error Modelo Jefe: " + e.getSQLState() + " " + e.getMessage());
             return null;
         }
     }
@@ -63,10 +62,11 @@ public class AdminBossModel extends LoginModel{
             int resultado = st.executeUpdate();
             this.desconectar();
             
-            return resultado > 0;
+            if (resultado > 0) {
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
-            Logger.getLogger(AdminBossModel.class).error("Error al listar jefes "
-                    + "en funciòningresarJefe",e);
             return false;
         }
     }
@@ -89,52 +89,50 @@ public class AdminBossModel extends LoginModel{
             int resultado = st.executeUpdate();
             this.desconectar();
             
-            return resultado > 0;
+            if (resultado > 0) {
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
-            Logger.getLogger(AdminBossModel.class).error("Error al modificar "
-                    + "jefes en función modificarJefe",e);
+             System.out.println(e.getSQLState() + " " + e.getMessage());
             return false;
         }
     }
     
     public HashMap<Integer, String> listarRoles()
     {
-        HashMap<Integer, String> map = new HashMap<>();
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
-            String sql = "CALL sp_select_roles()";
+            String sql = "select * from roles where rname like 'Jefe%' or 'jefe%'";
             this.conectar();
             st = conexion.prepareStatement(sql);
             rs  = st.executeQuery();
             while(rs.next())
             {
-                map.put(rs.getInt("id"), rs.getString("rol"));
+                map.put(rs.getInt("id"), rs.getString("rname"));
             }
             return map;
         } catch (SQLException e) 
         {
-            Logger.getLogger(AdminBossModel.class).error("Error al listar "
-                    + "roles en función listarRoles",e);
             return null;
         }
     }
     
     public HashMap<String, String> listarDepartamentos()
     {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<String, String>();
         try {
-            String sql = "CALL sp_select_departments()";
+            String sql = "select * from departments";
             this.conectar();
             st = conexion.prepareStatement(sql);
             rs  = st.executeQuery();    
             while(rs.next())
             {
-                map.put(rs.getString("id"), rs.getString("departamento"));
+                map.put(rs.getString("id"), rs.getString("dname"));
             }
             return map;
         } catch (SQLException e) 
         {
-            Logger.getLogger(AdminBossModel.class).error("Error al listar "
-                    + "roles en función listarDepartamentos",e);
             return null;
         }
     }
