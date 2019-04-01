@@ -1092,7 +1092,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
             {
                 lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                     + "ticket/images/GreenFolder.png").getImage().
-                    getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                    getScaledInstance(128, 128, 50)));
                 labels[i] = "<html><p><b>ID:</b><br>" + 
                     recentCasesBean[i].getId() + "</p><p><b>Título:</b><br>" + 
                     recentCasesBean[i].getTitulo() + "</p><p><b>Creado por:</b><br>" + 

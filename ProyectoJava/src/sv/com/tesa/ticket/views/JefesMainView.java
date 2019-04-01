@@ -14,12 +14,12 @@ import sv.com.tesa.ticket.beans.LoginBean;
  *
  * @author eduar
  */
-public class NewMDIApplication extends javax.swing.JFrame {
+public class JefesMainView extends javax.swing.JFrame {
 
     /**
      * Creates new form NewMDIApplication
      */
-    public NewMDIApplication() {
+    public JefesMainView() {
         initComponents();
     }
 
@@ -139,53 +139,17 @@ public class NewMDIApplication extends javax.swing.JFrame {
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
         try {
             // TODO add your handling code here:
-            LoginBean lb = new LoginBean();
-            lb.setRol("Programador");
-            lb.setNombre("Eduardo Alfonso Henríquez Henríquez");
-            DashBoardJefeDesarrollo db = new DashBoardJefeDesarrollo(lb);
+            LoginBean loginBean = new LoginBean();
+            DashBoardJefeDesarrollo db = new DashBoardJefeDesarrollo(loginBean);
             desktopPane.add(db);
             db.setSelected(true);
             db.setMaximizable(true);
             db.setMaximum(true);
             db.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(NewMDIApplication.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cutMenuItemActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewMDIApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewMDIApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewMDIApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewMDIApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new NewMDIApplication().setVisible(true);
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentMenuItem;
