@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.controllers;
+import javax.swing.JFrame;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.views.*;
 import sv.com.tesa.ticket.views.admin.AdminView;
@@ -30,30 +31,35 @@ public class MainViewController {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
                 vistaAdmin.setLocationRelativeTo(null);
+                vistaAdmin.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 vistaAdmin.setVisible(true);
                 break;
                 
             case "Jefe de área funcional":
-                vistaJefeFunc = new JefeFuncionalView();
+                vistaJefeFunc = new JefeFuncionalView(logUser);
                 vistaJefeFunc.setLocationRelativeTo(null);
+                vistaJefeFunc.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 vistaJefeFunc.setVisible(true);
                 break;
                 
             case "Empleado de área funcional":
                 vistaEmpleado = new EmpleadoView();
                 vistaEmpleado.setLocationRelativeTo(null);
+                vistaEmpleado.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 vistaEmpleado.setVisible(true);
                 break;
                 
             case "Jefe de desarrollo":
                 vistaJefeDes = new JefeDesarrolloView();
                 vistaJefeDes.setLocationRelativeTo(null);
+                vistaEmpleado.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 vistaJefeDes.setVisible(true);
                 break;
                 
             case "Programador":
                 vistaProgramador = new ProgramadorView();
                 vistaProgramador.setLocationRelativeTo(null);
+                vistaEmpleado.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 vistaProgramador.setVisible(true);
                 break;
                 

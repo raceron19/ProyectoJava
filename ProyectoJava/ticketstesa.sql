@@ -39,7 +39,7 @@ id int auto_increment primary key,
 cs_name varchar(100));
 
 create table requests(
-id int auto_increment primary key,
+id bigint primary key,
 request_type int not null,
 department varchar(3) not null,
 title varchar(255) not null,
@@ -54,9 +54,10 @@ foreign key (request_type) references request_types(id),
 foreign key (created_by) references employees(id),
 foreign key (request_status) references request_status(id));
 
+
 create table cases(
 id varchar(8) primary key,
-request int not null, 
+request bigint not null, 
 assigned_to int not null,
 case_status int not null,
 deadline timestamp not null,
@@ -108,9 +109,12 @@ insert into case_status values	(null, 'En desarrollo'),
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
 insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
 insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 2, 'José', 'Arévalo', 'Jefe1', sha2('123456', 256), null, 'DST', now(), null);
 insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
+
+insert into requests values (25845,1,'DST','Prueba de request','Esto es una prueba',2,1,null,now(),null);
 
 
 DELIMITER //
@@ -130,6 +134,7 @@ END IF;
 END//
 DELIMITER ;
 
+call sp_select_user('jefe', '123456');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()
@@ -170,6 +175,7 @@ join departments d on d.id = e.department;
 END//
 DELIMITER ;
 
+
 DELIMITER //
 CREATE PROCEDURE sp_select_boss_employees()
 BEGIN
@@ -180,6 +186,7 @@ select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Em
     where employees.rol in (select id from roles where rname like 'Jefe%');
 END//
 DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE sp_insert_boss_employees(IN rol int, IN fname varchar(250), IN lname varchar(250),
@@ -220,5 +227,56 @@ END IF;
 END//
 DELIMITER ;
 
-drop procedure sp_update_boss_employees;
-select * from employees;
+DELIMITER //
+CREATE PROCEDURE sp_view_request_no_description(IN department varchar(3))
+BEGIN
+select requests.id, requests.title, departments.dname, request_types.rt_name, request_status.rs_name from
+requests inner join departments on requests.department = departments.id
+inner join request_status on requests.request_status = request_status.id
+inner join request_types on requests.request_type = request_types.id
+where requests.department = department;
+END //
+DELIMITER ;
+
+select * from request_types;
+
+DELIMITER //
+CREATE procedure sp_insert_request(IN id bigint, IN request_type int, IN department_in varchar(255), IN title varchar(255), IN descript text,
+									IN created_by int, in commentary text)
+BEGIN
+insert into requests(id, request_type, department, title, descrip, created_by, request_status, commentary) 
+	values (id, request_type, (select departments.id from departments where departments.dname = department_in)
+			,title, descript, created_by
+			,(select request_status.id from request_status where request_status.rs_name like 'En espera de respuesta')
+			,commentary);
+                    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_modify_request(IN request_id bigint, IN request_type int, IN department varchar(3), IN title varchar(255), IN descript text,
+								   in commentary text)
+BEGIN
+update requests set 
+requests.request_type = request_type,
+requests.department = department,
+requests.title = title,
+requests.descrip = descript,
+requests.commentary = commentary,
+requests.updated_at = now()
+where requests.id = request_id;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))
+BEGIN
+select requests.id, requests.title, requests.descrip, departments.dname, request_types.rt_name, request_status.rs_name 
+from requests inner join departments on requests.department = departments.id 
+inner join request_types on requests.request_type = request_types.id
+inner join request_status on requests.request_status = request_status.id
+where requests.created_by = created_by_id or requests.department = (select departments.id from departments where departments.dname = department_in);
+END //
+DELIMITER ;
+

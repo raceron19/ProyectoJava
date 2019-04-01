@@ -4,18 +4,20 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
-
+import sv.com.tesa.ticket.beans.LoginBean;
 /**
  *
  * @author Edu
  */
 public class JefeFuncionalView extends javax.swing.JFrame {
 
+    private LoginBean usuario;
     /**
-     * Creates new form JefeFuncionalView
+     * Creates new form JefeFuncionalViewMDI
      */
-    public JefeFuncionalView() {
+    public JefeFuncionalView(LoginBean logUser) {
         initComponents();
+        usuario = logUser;
     }
 
     /**
@@ -25,34 +27,74 @@ public class JefeFuncionalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        desktopPane = new javax.swing.JDesktopPane();
+        menuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        verCasosMenuItem = new javax.swing.JMenuItem();
+        nuevaPeticionMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("vista jefe funcional we :D");
+        fileMenu.setMnemonic('f');
+        fileMenu.setText("Peticiones");
+
+        verCasosMenuItem.setMnemonic('o');
+        verCasosMenuItem.setText("Ver Peticiones");
+        verCasosMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verCasosMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(verCasosMenuItem);
+
+        nuevaPeticionMenuItem.setMnemonic('s');
+        nuevaPeticionMenuItem.setText("Nueva Peticion");
+        nuevaPeticionMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevaPeticionMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(nuevaPeticionMenuItem);
+
+        menuBar.add(fileMenu);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(159, 159, 159))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(142, 142, 142))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nuevaPeticionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaPeticionMenuItemActionPerformed
+        // TODO add your handling code here:
+        NewRequestView peticion = new NewRequestView(usuario);
+        desktopPane.add(peticion);
+        peticion.show();
+    }//GEN-LAST:event_nuevaPeticionMenuItemActionPerformed
+
+    private void verCasosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCasosMenuItemActionPerformed
+        // TODO add your handling code here:
+        RequestsView verPeticiones = new RequestsView(usuario);
+        desktopPane.add(verPeticiones);
+        verPeticiones.show();
+    }//GEN-LAST:event_verCasosMenuItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem nuevaPeticionMenuItem;
+    private javax.swing.JMenuItem verCasosMenuItem;
     // End of variables declaration//GEN-END:variables
+
 }
