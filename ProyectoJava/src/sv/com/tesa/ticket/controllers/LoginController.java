@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.models.LoginModel;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.utils.CurrentUser;
 import sv.com.tesa.ticket.utils.Validaciones;
 /**
  *
@@ -24,7 +23,6 @@ public class LoginController {
         {
         LoginModel loginM = new LoginModel();
         LoginBean loginB = loginM.validar(user, password);
-        CurrentUser Logged = new CurrentUser(loginB);
         return loginB;
         }
         else
