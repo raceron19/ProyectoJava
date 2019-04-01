@@ -83,7 +83,7 @@ public class JefeFuncionalView extends javax.swing.JFrame {
 
     private void verCasosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verCasosMenuItemActionPerformed
         // TODO add your handling code here:
-        RequestsView verPeticiones = new RequestsView(usuario);
+        RequestsView verPeticiones = new RequestsView(usuario,this.desktopPane);
         desktopPane.add(verPeticiones);
         verPeticiones.show();
     }//GEN-LAST:event_verCasosMenuItemActionPerformed

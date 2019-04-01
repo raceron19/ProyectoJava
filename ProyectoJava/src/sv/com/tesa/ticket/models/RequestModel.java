@@ -24,16 +24,15 @@ public class RequestModel extends LoginModel{
     {
         try {
             
-            String sql = "call sp_insert_request(?,?,?,?,?,?,?)";
+            String sql = "call sp_insert_request(?,?,?,?,?,?)";
             this.conectar();
             st = conexion.prepareCall(sql);
-            st.setLong(1, peticion.getId());
-            st.setInt(2, peticion.getRequestType());
-            st.setString(3, peticion.getDepartment());
-            st.setString(4, peticion.getTitle());
-            st.setString(5, peticion.getDescription());
-            st.setInt(6, peticion.getCreatedBy());
-            st.setNull(7, Types.NULL);
+            st.setInt(1, peticion.getRequestType());
+            st.setString(2, peticion.getDepartment());
+            st.setString(3, peticion.getTitle());
+            st.setString(4, peticion.getDescription());
+            st.setInt(5, peticion.getCreatedBy());
+            st.setNull(6, Types.NULL);
             
             int resultado = st.executeUpdate();
             

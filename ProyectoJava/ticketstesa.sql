@@ -39,7 +39,7 @@ id int auto_increment primary key,
 cs_name varchar(100));
 
 create table requests(
-id bigint primary key,
+id int primary key auto_increment,
 request_type int not null,
 department varchar(3) not null,
 title varchar(255) not null,
@@ -54,10 +54,9 @@ foreign key (request_type) references request_types(id),
 foreign key (created_by) references employees(id),
 foreign key (request_status) references request_status(id));
 
-
 create table cases(
 id varchar(8) primary key,
-request bigint not null, 
+request int not null, 
 assigned_to int not null,
 case_status int not null,
 deadline timestamp not null,
@@ -114,8 +113,6 @@ insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', 
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 
-insert into requests values (25845,1,'DST','Prueba de request','Esto es una prueba',2,1,null,now(),null);
-
 
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
@@ -134,7 +131,6 @@ END IF;
 END//
 DELIMITER ;
 
-call sp_select_user('jefe', '123456');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()
@@ -238,14 +234,13 @@ where requests.department = department;
 END //
 DELIMITER ;
 
-select * from request_types;
 
 DELIMITER //
-CREATE procedure sp_insert_request(IN id bigint, IN request_type int, IN department_in varchar(255), IN title varchar(255), IN descript text,
+CREATE procedure sp_insert_request(IN request_type int, IN department_in varchar(255), IN title varchar(255), IN descript text,
 									IN created_by int, in commentary text)
 BEGIN
-insert into requests(id, request_type, department, title, descrip, created_by, request_status, commentary) 
-	values (id, request_type, (select departments.id from departments where departments.dname = department_in)
+insert into requests(request_type, department, title, descrip, created_by, request_status, commentary) 
+	values (request_type, (select departments.id from departments where departments.dname = department_in)
 			,title, descript, created_by
 			,(select request_status.id from request_status where request_status.rs_name like 'En espera de respuesta')
 			,commentary);

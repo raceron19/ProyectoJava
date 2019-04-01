@@ -5,8 +5,13 @@
  */
 package sv.com.tesa.ticket.views;
 
+import java.util.HashMap;
+import javax.swing.JDesktopPane;
+import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.beans.RequestBean;
 import sv.com.tesa.ticket.controllers.RequestController;
+import sv.com.tesa.ticket.utils.Utilidades;
 
 /**
  *
@@ -16,12 +21,17 @@ public class RequestsView extends javax.swing.JInternalFrame {
 
     private RequestController ctrlPeticiones;
     private LoginBean usuario;
+    private RequestBean peticion;
+    private HashMap<Integer,String> departamentos;
+    JDesktopPane padre;
 
     
-    public RequestsView(LoginBean logUser) {
+    public RequestsView(LoginBean logUser, JDesktopPane padre) {
         initComponents();
         usuario = logUser;
         ctrlPeticiones = new RequestController();
+        departamentos = ctrlPeticiones.listarTiposPeticion();
+        this.padre = padre;
         cargarTabla();
     }
 
@@ -47,6 +57,11 @@ public class RequestsView extends javax.swing.JInternalFrame {
                 "Id", "Titulo", "Descripcion", "Departamento", "Tipo de peticion", "Estado de la peticion"
             }
         ));
+        tablaPeticiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPeticionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPeticiones);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -78,6 +93,10 @@ public class RequestsView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaPeticionesMouseClicked
 
     private void cargarTabla()
     {
