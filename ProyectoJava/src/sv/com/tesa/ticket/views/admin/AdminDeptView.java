@@ -14,7 +14,7 @@ import sv.com.tesa.ticket.beans.DepartmentBean;
  */
 public class AdminDeptView extends javax.swing.JFrame {
 
-    
+    //llama al controlador y el bean
     private AdminDeptController ctrlAdminDept;
     private DepartmentBean beanDept;
     
