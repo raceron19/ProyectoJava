@@ -10,12 +10,12 @@ package sv.com.tesa.ticket.beans;
  * @author vaselinux
  */
 public class LoginBean {
-    private int id;
-    private String rol;
-    private String nombre;
-    private String correo;
-    private String jefe;
-    private String departamento;
+    private static int id;
+    private static String rol;
+    private static String nombre;
+    private static String correo;
+    private static String jefe;
+    private static String departamento;
     private String Error;
     public LoginBean()
     {
@@ -32,14 +32,14 @@ public class LoginBean {
         return id;
     }
     public void setId(int id) {
-        this.id = id;
+        LoginBean.id = id;
     }
     public String getRol() {
         return rol;
     }
 
     public void setRol(String rol) {
-        this.rol = rol;
+        LoginBean.rol = rol;
     }
 
     public String getNombre() {
@@ -47,7 +47,7 @@ public class LoginBean {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        LoginBean.nombre = nombre;
     }
 
     public String getCorreo() {
@@ -55,7 +55,7 @@ public class LoginBean {
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        LoginBean.correo = correo;
     }
 
     public String getJefe() {
@@ -63,7 +63,7 @@ public class LoginBean {
     }
 
     public void setJefe(String jefe) {
-        this.jefe = jefe;
+        LoginBean.jefe = jefe;
     }
 
     public String getDepartamento() {
@@ -71,7 +71,7 @@ public class LoginBean {
     }
 
     public void setDepartamento(String departamento) {
-        this.departamento = departamento;
+        LoginBean.departamento = departamento;
     }
 
     public String getError() {

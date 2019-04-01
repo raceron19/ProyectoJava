@@ -15,10 +15,6 @@ public class MainViewController {
     
     @SuppressWarnings("FieldMayBeFinal")
     private AdminView vistaAdmin;
-    private EmpleadoView vistaEmpleado;
-    private JefeDesarrolloView vistaJefeDes;
-    private JefeFuncionalView vistaJefeFunc;
-    private ProgramadorView vistaProgramador;
     
     public MainViewController()
     {
@@ -34,27 +30,18 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-                vistaJefeFunc = new JefeFuncionalView();
-                vistaJefeFunc.setLocationRelativeTo(null);
-                vistaJefeFunc.setVisible(true);
+                JefesMainView jefesMainView = new JefesMainView();
+                jefesMainView.setLocationRelativeTo(null);
+                jefesMainView.setVisible(true);
                 break;
                 
             case "Empleado de área funcional":
-                vistaEmpleado = new EmpleadoView();
-                vistaEmpleado.setLocationRelativeTo(null);
-                vistaEmpleado.setVisible(true);
                 break;
                 
             case "Jefe de desarrollo":
-                vistaJefeDes = new JefeDesarrolloView();
-                vistaJefeDes.setLocationRelativeTo(null);
-                vistaJefeDes.setVisible(true);
                 break;
                 
             case "Programador":
-                vistaProgramador = new ProgramadorView();
-                vistaProgramador.setLocationRelativeTo(null);
-                vistaProgramador.setVisible(true);
                 break;
                 
             default:
