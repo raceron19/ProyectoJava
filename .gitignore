@@ -1,4 +1,4 @@
-ProyectoJava\nbproject\*
-ProyectoJava\build\*
-ProyectoJava\dist\*
+ProyectoJava\nbproject\
+ProyectoJava\build\
+ProyectoJava\dist\
 ProyectoJava\db.properties
