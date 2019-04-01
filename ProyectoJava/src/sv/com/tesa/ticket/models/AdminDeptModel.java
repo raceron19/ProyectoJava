@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.utils.Utilidades;
 import sv.com.tesa.ticket.beans.DepartmentBean;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,8 +38,6 @@ public class AdminDeptModel extends ConexionModel {
             return tabla;
             //this.desconectar();
         } catch (SQLException e) {
-            Logger.getLogger(AdminDeptModel.class).error("Error al listar "
-                    + "departamentos en función listarDept",e);
             return null;
         }
     }
@@ -63,8 +60,7 @@ public class AdminDeptModel extends ConexionModel {
             return false;
         } catch (SQLException e) 
         {
-            Logger.getLogger(AdminDeptModel.class).error("Error al insertar "
-                    + "departamentos en función insertarDept",e);
+            System.out.println("Error modelo Dept: " + e.getSQLState() + " " + e.getMessage());
             return false;
         }
     }
@@ -87,8 +83,7 @@ public class AdminDeptModel extends ConexionModel {
             return false;
         } catch (SQLException e) 
         {
-            Logger.getLogger(AdminDeptModel.class).error("Error al actualizar "
-                    + "departamentos en función modificarDept",e);
+            System.out.println("Error modelo Dept: " + e.getSQLState() + " " + e.getMessage());
             return false;
         }
     }

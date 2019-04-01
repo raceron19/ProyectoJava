@@ -357,38 +357,6 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-
-        try {
-            beanEmp = new EmployeeBean();
-            beanEmp.setId(Integer.parseInt(txtIdEmpleado.getText()));
-            beanEmp.setNombre(txtNombre.getText());
-            beanEmp.setApellido(txtApellido.getText());
-            beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
-                {
-                    beanEmp.setRol(id);
-                }
-            }
-            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
-            beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
-            beanEmp.setPassword(new String(txtContraseña.getPassword()));
-
-            if(ctrlAdminJefe.ingresarJefe(beanEmp))
-            {
-                cargarTabla();
-                limpiarTexto();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_btnIngresarActionPerformed
-
     private void limpiarTexto()
     {
         txtIdEmpleado.setText("");
