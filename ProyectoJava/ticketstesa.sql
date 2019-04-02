@@ -113,7 +113,9 @@ insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', 
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 
+update employees set rol = 2 where id = 1;
 
+select * from roles where id = 4;
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
     IN email VARCHAR(250),
@@ -222,6 +224,61 @@ update employees set
 END IF;
 END//
 DELIMITER ;
+select * from cases;
+select * from employees;
+insert into ticketstesa.cases values('DST19895', 1, 6, 1, '2019-05-19', 'Prueba', 10.00, 4, now(), null, '2019-05-25');
+insert into ticketstesa.requests values (null, 1, 'DST', 'Prueba', 'Solo por probar', 1, 1, null, now(), null);
+update cases set tester = 3, updated_at = now(); 
+drop procedure sp_select_latest_cases;
+DELIMITER //
+create procedure sp_select_latest_cases()
+BEGIN
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%d - %b - %Y') as UltimoCambio
+from cases c 
+inner join requests r on r.id = c.request
+inner join employees e on r.created_by = e.id
+inner join employees e2 on c.assigned_to = e2.id 
+where c.case_status = 1 order by c.created_at limit 4; 
+END //
+DELIMITER ;
+DELIMITER //
+create procedure sp_select_back_case()
+BEGIN
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%d - %b - %Y') as UltimoCambio
+from cases c 
+inner join requests r on r.id = c.request
+inner join employees e on r.created_by = e.id
+inner join employees e2 on c.assigned_to = e2.id 
+where c.case_status = 4 order by c.created_at desc limit 1; 
+END //
+DELIMITER ;
+DELIMITER //
+create procedure sp_select_to_accept_case()
+BEGIN
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%d - %b - %Y') as UltimoCambio
+from cases c 
+inner join requests r on r.id = c.request
+inner join employees e on r.created_by = e.id
+inner join employees e2 on c.assigned_to = e2.id 
+where c.case_status = 2 order by c.created_at desc limit 1; 
+END //
+DELIMITER ;
+DELIMITER //
+create procedure sp_select_death_case()
+BEGIN
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%d - %b - %Y') as UltimoCambio
+from cases c 
+inner join requests r on r.id = c.request
+inner join employees e on r.created_by = e.id
+inner join employees e2 on c.assigned_to = e2.id 
+where c.case_status = 3 order by c.created_at desc limit 1; 
+END //
+DELIMITER ;
+DELIMITER //
 
 DELIMITER //
 CREATE PROCEDURE sp_view_request_no_description(IN department varchar(3))
@@ -296,3 +353,16 @@ drop procedure sp_select_individual_case;
 call sp_select_individual_case(25846,4);
 
 delete from requests where requests.id = 25846;
+create procedure sp_select_finalized_case()
+BEGIN
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%d - %b - %Y') as UltimoCambio
+from cases c 
+inner join requests r on r.id = c.request
+inner join employees e on r.created_by = e.id
+inner join employees e2 on c.assigned_to = e2.id 
+where c.case_status = 5 order by c.created_at desc limit 1; 
+END //
+DELIMITER ;
+select * from case_status;
+select r.rname, e.* from employees e inner join roles r on r.id = e.rol;
