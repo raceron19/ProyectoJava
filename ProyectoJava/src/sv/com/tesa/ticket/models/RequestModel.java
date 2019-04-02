@@ -64,6 +64,7 @@ public class RequestModel extends LoginModel{
         }
     }
     
+    
     public JTable listarPeticiones(LoginBean usuario)
     {
         try {

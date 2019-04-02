@@ -275,3 +275,24 @@ where requests.created_by = created_by_id or requests.department = (select depar
 END //
 DELIMITER ;
 
+select * from requests;
+
+DELIMITER //
+create procedure sp_select_individual_case(in id int, in created_by int)
+BEGIN
+select requests.id, request_types.rt_name, departments.dname, requests.title, requests.descrip, 
+concat(employees.fname, ' ' , employees.lname) as 'Creado por',
+request_status.rs_name, requests.commentary, requests.created_at, requests.updated_at 
+from requests inner join request_types on requests.request_type = request_types.id inner join
+request_status on requests.request_status = request_status.id inner join
+employees on requests.created_by = employees.id inner join 
+departments on requests.department = departments.id
+where requests.id = id and requests.created_by = created_by;
+END //
+DELIMITER ;
+
+drop procedure sp_select_individual_case;
+
+call sp_select_individual_case(25846,4);
+
+delete from requests where requests.id = 25846;
