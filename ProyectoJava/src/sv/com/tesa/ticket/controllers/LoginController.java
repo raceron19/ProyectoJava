@@ -8,6 +8,7 @@ package sv.com.tesa.ticket.controllers;
 import sv.com.tesa.ticket.models.LoginModel;
 
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.utils.Validaciones;
 /**
  *
  * @author Edu
@@ -16,12 +17,14 @@ import sv.com.tesa.ticket.beans.LoginBean;
 
 public class LoginController {
     
-    public static LoginBean validarUsuario(String user, String password){
+    public static LoginBean validarUsuario(String user, String password, JFrame frame)
+    {
+        if(Validaciones.esCorreoElectronico(user))
+        {
         LoginModel loginM = new LoginModel();
         LoginBean loginB = loginM.validar(user, password);
         return loginB;
     }
-    
     public static Boolean esLoginExitoso(LoginBean logUser)
     {
         return logUser.getError() == null;

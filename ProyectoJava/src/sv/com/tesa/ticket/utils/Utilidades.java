@@ -23,7 +23,13 @@ public class Utilidades {
     
     public static JTable cargarTabla(String[] columnas,ResultSet rs) throws SQLException{
         try {
-            modeloTabla = new DefaultTableModel(null,columnas);
+            modeloTabla = new DefaultTableModel(null,columnas){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+            
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
             Object datos[] = new Object[cantidadColumnas];
