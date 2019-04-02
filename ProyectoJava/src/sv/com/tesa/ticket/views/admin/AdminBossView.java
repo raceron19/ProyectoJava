@@ -357,6 +357,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+
     private void limpiarTexto()
     {
         txtIdEmpleado.setText("");
