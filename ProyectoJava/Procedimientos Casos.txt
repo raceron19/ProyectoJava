@@ -1,0 +1,22 @@
+//PROCEDIMIENTO PARA MOSTRAR TODOS LOS CASOS
+CREATE PROCEDURE sp_select_cases()
+BEGIN
+SELECT cases.id AS Id, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje,
+tester.fname AS Tester, asign.fname AS Asignado, case_status.cs_name AS Estado
+from cases
+INNER JOIN requests ON cases.request = requests.id
+INNER JOIN employees AS tester ON cases.tester = tester.id
+INNER JOIN employees AS asign ON cases.assigned_to = asign.id
+INNER JOIN case_status ON cases.case_status = case_status.id;
+
+//PROCEDIMIENTO PARA MOSTRAR UN CASO EN ESPECIFICO
+CREATE PROCEDURE sp_select_case(IN id varchar(8))
+BEGIN
+SELECT cases.id AS Id, requests.title AS Caso, asign.fname AS Asignado, case_status.cs_name AS Estado, cases.deadline, cases.descrip AS Descripcion, cases.percent AS porcentaje,
+tester.fname AS Tester, cases.created_at AS Fecha_Creacion, cases.updated_at AS Fecha_Modificacion, cases.to_production AS Produccion
+from cases
+INNER JOIN requests ON cases.request = requests.id
+INNER JOIN employees AS tester ON cases.tester = tester.id
+INNER JOIN employees AS asign ON cases.assigned_to = asign.id
+INNER JOIN case_status ON cases.case_status = case_status.id
+WHERE cases.id = id	

@@ -348,11 +348,7 @@ where requests.id = id and requests.created_by = created_by;
 END //
 DELIMITER ;
 
-drop procedure sp_select_individual_case;
-
-call sp_select_individual_case(25846,4);
-
-delete from requests where requests.id = 25846;
+DELIMITER //
 create procedure sp_select_finalized_case()
 BEGIN
 select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
@@ -366,3 +362,7 @@ END //
 DELIMITER ;
 select * from case_status;
 select r.rname, e.* from employees e inner join roles r on r.id = e.rol;
+
+
+update employees set
+employees.rol = 2 where employees.id = 1;
