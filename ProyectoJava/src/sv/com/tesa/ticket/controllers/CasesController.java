@@ -52,4 +52,15 @@ public class CasesController {
             return null;
         }
     }
+    
+    public boolean modificarCaso(CasesBean beanCase)
+    {
+        try {
+            return modelcases.modificarCaso(beanCase);
+        } catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

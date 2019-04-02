@@ -119,4 +119,31 @@ public class CasesModel extends ConexionModel{
             return null;
         } 
     }
+    
+    public boolean modificarCaso(CasesBean beanCase){
+        try{
+            String sql = "UPDATE cases SET request = ?, assigned_to = ?, case_status = ?, deadline = now(), descrip = '?', percent = ?, tester = ?, updated_at = now() where id = '?'";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setString(1, String.valueOf(beanCase.getRequest()));
+            st.setString(2, String.valueOf(beanCase.getAssigned_to()));
+            st.setString(3, String.valueOf(beanCase.getCase_status()));
+            st.setString(4, beanCase.getDescrip());
+            st.setString(5, String.valueOf(beanCase.getPercent()));
+            st.setString(6, String.valueOf(beanCase.getTester()));
+            st.setString(7, String.valueOf(beanCase.getId()));
+            int resultado = st.executeUpdate();
+            
+            if(resultado > 0){
+                this.desconectar();
+                return true;
+            }
+            this.desconectar();
+            return false;
+        } catch(Exception ex){
+            Logger.getLogger(AdminDeptModel.class).error("Error al actualizar "
+                    + "casos en función modificarCaso",ex);
+            return false;
+        }
+    }
 }
