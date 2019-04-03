@@ -8,7 +8,10 @@ package sv.com.tesa.ticket.views;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sv.com.tesa.ticket.beans.BinnaclesBean;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.views.developboss.MainView;
 
 /**
  *
@@ -114,6 +117,11 @@ public class JefesMainView extends javax.swing.JFrame {
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Delete");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
@@ -145,6 +153,22 @@ public class JefesMainView extends javax.swing.JFrame {
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
        
     }//GEN-LAST:event_cutMenuItemActionPerformed
+
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+        try {
+            // TODO add your handling code here:
+            // TODO add your handling code here:
+            BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
+           
+            desktopPane.add(view);
+            view.setSelected(true);
+            view.setMaximizable(true);
+            view.setMaximum(true);
+            view.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem copyMenuItem;
