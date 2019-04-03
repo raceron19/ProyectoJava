@@ -21,7 +21,9 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     static boolean maximized = true;
     int xMouse;
     int yMouse;
-    String tab;
+    String tab = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nb"
+            + "sp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs"
+            + "p&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
     
     public DashBoardJefeDesarrollo(LoginBean user) {
         initComponents();
