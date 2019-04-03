@@ -21,6 +21,7 @@ public class JefesMainView extends javax.swing.JFrame {
      */
     public JefesMainView() {
         initComponents();
+        setExtendedState(JefesMainView.MAXIMIZED_BOTH);
          try {
             // TODO add your handling code here:
             LoginBean loginBean = new LoginBean();
