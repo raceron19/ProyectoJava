@@ -8,9 +8,11 @@ package sv.com.tesa.ticket.utils;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,7 +24,13 @@ public class Utilidades {
     
     public static JTable cargarTabla(String[] columnas,ResultSet rs) throws SQLException{
         try {
-            modeloTabla = new DefaultTableModel(null,columnas);
+            modeloTabla = new DefaultTableModel(null,columnas){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+            
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
             Object datos[] = new Object[cantidadColumnas];
@@ -36,9 +44,19 @@ public class Utilidades {
             JTable tabla = new JTable(modeloTabla);
             tabla.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             return tabla;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            Logger.getLogger(Utilidades.class).error("Error al cargar tabla en funciòn cargarTable ",e);
             return null;
         }
+    }
+    
+    public static Object regresarValorHashMap(HashMap map, String valor)
+    {
+        for (Object o : map.keySet()) {
+            if(map.get(o).equals(valor))
+                return o;
+        }
+        return null;
     }
     
 }

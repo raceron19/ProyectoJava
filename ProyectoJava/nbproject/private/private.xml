@@ -3,18 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/LoginModel.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/utils/Validaciones.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/MainViewController.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/JefeDesarrolloView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/EmpleadoView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/ProgramadorView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/LoginController.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/LoginBean.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/LoginView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/AdminView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/JefeFuncionalView.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/ConexionModel.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/BinnacleCaseView.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/utils/Utilidades.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/developboss/MainView.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/BinnaclesController.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/BinnaclesModel.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/BinnaclesBean.java</file>
         </group>
     </open-files>
 </project-private>

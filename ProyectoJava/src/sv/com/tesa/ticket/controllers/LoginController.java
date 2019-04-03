@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.controllers;
-
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.models.LoginModel;
-
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.utils.Validaciones;
 /**
  *
  * @author Edu
@@ -16,12 +17,19 @@ import sv.com.tesa.ticket.beans.LoginBean;
 
 public class LoginController {
     
-    public static LoginBean validarUsuario(String user, String password){
+    public static LoginBean validarUsuario(String user, String password, JFrame frame)
+    {
+        if(Validaciones.esCorreoElectronico(user))
+        {
         LoginModel loginM = new LoginModel();
-        LoginBean loginB = loginM.validar(user, password);
-        return loginB;
+        return loginM.validar(user, password);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(frame, "Debe ingresar un email válido");
+        }
+        return null;
     }
-    
     public static Boolean esLoginExitoso(LoginBean logUser)
     {
         return logUser.getError() == null;

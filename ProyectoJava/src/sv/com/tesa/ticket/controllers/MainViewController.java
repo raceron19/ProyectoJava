@@ -15,10 +15,6 @@ public class MainViewController {
     
     @SuppressWarnings("FieldMayBeFinal")
     private AdminView vistaAdmin;
-    private EmpleadoView vistaEmpleado;
-    private JefeDesarrolloView vistaJefeDes;
-    private JefeFuncionalView vistaJefeFunc;
-    private ProgramadorView vistaProgramador;
     
     public MainViewController()
     {
@@ -26,40 +22,26 @@ public class MainViewController {
     
     public void cargarVista(LoginBean logUser)
     {
-        switch (logUser.getRol()) {
+        switch (LoginBean.getRol()) {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
-                vistaAdmin.setSize(500,500);
                 vistaAdmin.setLocationRelativeTo(null);
                 vistaAdmin.setVisible(true);
                 break;
                 
             case "Jefe de área funcional":
-                vistaJefeFunc = new JefeFuncionalView();
-                vistaJefeFunc.setSize(500,500);
-                vistaJefeFunc.setLocationRelativeTo(null);
-                vistaJefeFunc.setVisible(true);
+                JefesMainView jefesMainView = new JefesMainView();
+                jefesMainView.setLocationRelativeTo(null);
+                jefesMainView.setVisible(true);
                 break;
                 
             case "Empleado de área funcional":
-                vistaEmpleado = new EmpleadoView();
-                vistaEmpleado.setSize(500,500);
-                vistaEmpleado.setLocationRelativeTo(null);
-                vistaEmpleado.setVisible(true);
                 break;
                 
             case "Jefe de desarrollo":
-                vistaJefeDes = new JefeDesarrolloView();
-                vistaJefeDes.setSize(500, 500);
-                vistaJefeDes.setLocationRelativeTo(null);
-                vistaJefeDes.setVisible(true);
                 break;
                 
             case "Programador":
-                vistaProgramador = new ProgramadorView();
-                vistaProgramador.setSize(500, 500);
-                vistaProgramador.setLocationRelativeTo(null);
-                vistaProgramador.setVisible(true);
                 break;
                 
             default:
