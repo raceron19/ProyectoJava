@@ -731,19 +731,6 @@ public class Dashboard extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_pnlHeaderMouseDragged
 
-    private void tbnOtherCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnOtherCasesActionPerformed
-        lblNews.setBackground(new Color(0,204,106));
-        
-        lblTimeline.setBackground(new Color(255,255,255));
-        
-        pnlBody.removeAll();
-        pnlBody.repaint();
-        pnlBody.revalidate();
-        pnlBody.add(jpOtherCases);
-        pnlBody.repaint();
-        pnlBody.revalidate();
-    }//GEN-LAST:event_tbnOtherCasesActionPerformed
-
     private void btnOpenCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCasesActionPerformed
         lblTimeline.setBackground(new Color(0,204,106));
         
@@ -816,6 +803,19 @@ public class Dashboard extends javax.swing.JInternalFrame {
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void tbnOtherCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnOtherCasesActionPerformed
+        lblNews.setBackground(new Color(0,204,106));
+
+        lblTimeline.setBackground(new Color(255,255,255));
+
+        pnlBody.removeAll();
+        pnlBody.repaint();
+        pnlBody.revalidate();
+        pnlBody.add(jpOtherCases);
+        pnlBody.repaint();
+        pnlBody.revalidate();
+    }//GEN-LAST:event_tbnOtherCasesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
