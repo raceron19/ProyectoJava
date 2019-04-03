@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
@@ -21,6 +21,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     static boolean maximized = true;
     int xMouse;
     int yMouse;
+    String tab;
     
     public DashBoardJefeDesarrollo(LoginBean user) {
         initComponents();
