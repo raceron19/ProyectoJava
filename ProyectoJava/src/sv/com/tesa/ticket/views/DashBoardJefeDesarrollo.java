@@ -57,18 +57,12 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/nodata.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente1.setHorizontalAlignment(SwingConstants.LEFT);
-                lblReciente1.setVerticalAlignment(SwingConstants.CENTER);
                 lblReciente2.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/nodata.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente2.setHorizontalAlignment(SwingConstants.LEFT);
-                lblReciente2.setVerticalAlignment(SwingConstants.CENTER);
                 lblReciente3.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/nodata.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente3.setHorizontalAlignment(SwingConstants.LEFT);
-                lblReciente3.setVerticalAlignment(SwingConstants.CENTER);
                 lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/nodata.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
@@ -584,7 +578,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel19.setText("Último Finalizado");
         jLabel19.setOpaque(true);
 
-        lblCasoFinalizado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCasoFinalizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -618,7 +611,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel21.setText("Devuelto con Observaciones");
         jLabel21.setOpaque(true);
 
-        lblCasoDevuelto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCasoDevuelto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -652,7 +644,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel23.setText("Esperando Aprobación");
         jLabel23.setOpaque(true);
 
-        lblCasoPorAprobar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCasoPorAprobar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -686,7 +677,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel25.setText("Vencido");
         jLabel25.setOpaque(true);
 
-        lblCasoVencido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCasoVencido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -720,7 +710,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel31.setText("Todos");
         jLabel31.setOpaque(true);
 
-        lblTodosCasos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTodosCasos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -768,7 +757,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel27.setText("Último Finalizado");
         jLabel27.setOpaque(true);
 
-        lblRequestCerrado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblRequestCerrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -802,7 +790,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel29.setText("En Desarrollo");
         jLabel29.setOpaque(true);
 
-        lblRequestDesarrollo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblRequestDesarrollo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -836,7 +823,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel33.setText("Esperando Aprobación");
         jLabel33.setOpaque(true);
 
-        lblRequestPorAprobar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblRequestPorAprobar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -870,7 +856,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel35.setText("Rechazaso");
         jLabel35.setOpaque(true);
 
-        lblRequestRechazado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblRequestRechazado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -904,7 +889,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel37.setText("Todos");
         jLabel37.setOpaque(true);
 
-        lblTodosOtrosCasos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTodosOtrosCasos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);

@@ -39,7 +39,7 @@ id int auto_increment primary key,
 cs_name varchar(100));
 
 create table requests(
-id int auto_increment primary key,
+id int primary key auto_increment,
 request_type int not null,
 department varchar(3) not null,
 title varchar(255) not null,
@@ -107,7 +107,8 @@ insert into case_status values	(null, 'En desarrollo'),
                                                                 
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
 insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
-insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 2, 'José', 'Arévalo', 'e@gmail.com', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 2, 'José', 'Arévalo', 'Jefe1', sha2('123456', 256), null, 'DST', now(), null);
 insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
@@ -172,6 +173,7 @@ join departments d on d.id = e.department;
 END//
 DELIMITER ;
 
+
 DELIMITER //
 CREATE PROCEDURE sp_select_boss_employees()
 BEGIN
@@ -182,6 +184,7 @@ select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Em
     where employees.rol in (select id from roles where rname like 'Jefe%');
 END//
 DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE sp_insert_boss_employees(IN rol int, IN fname varchar(250), IN lname varchar(250),
@@ -277,6 +280,75 @@ END //
 DELIMITER ;
 DELIMITER //
 
+DELIMITER //
+CREATE PROCEDURE sp_view_request_no_description(IN department varchar(3))
+BEGIN
+select requests.id, requests.title, departments.dname, request_types.rt_name, request_status.rs_name from
+requests inner join departments on requests.department = departments.id
+inner join request_status on requests.request_status = request_status.id
+inner join request_types on requests.request_type = request_types.id
+where requests.department = department;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE procedure sp_insert_request(IN request_type int, IN department_in varchar(255), IN title varchar(255), IN descript text,
+									IN created_by int, in commentary text)
+BEGIN
+insert into requests(request_type, department, title, descrip, created_by, request_status, commentary) 
+	values (request_type, (select departments.id from departments where departments.dname = department_in)
+			,title, descript, created_by
+			,(select request_status.id from request_status where request_status.rs_name like 'En espera de respuesta')
+			,commentary);
+                    
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_modify_request(IN request_id bigint, IN request_type int, IN department varchar(3), IN title varchar(255), IN descript text,
+								   in commentary text)
+BEGIN
+update requests set 
+requests.request_type = request_type,
+requests.department = department,
+requests.title = title,
+requests.descrip = descript,
+requests.commentary = commentary,
+requests.updated_at = now()
+where requests.id = request_id;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))
+BEGIN
+select requests.id, requests.title, requests.descrip, departments.dname, request_types.rt_name, request_status.rs_name 
+from requests inner join departments on requests.department = departments.id 
+inner join request_types on requests.request_type = request_types.id
+inner join request_status on requests.request_status = request_status.id
+where requests.created_by = created_by_id or requests.department = (select departments.id from departments where departments.dname = department_in);
+END //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_select_individual_request(in id int, in created_by int)
+BEGIN
+select requests.id, request_types.rt_name, departments.dname, requests.title, requests.descrip, 
+concat(employees.fname, ' ' , employees.lname) as 'Creado por',
+request_status.rs_name, requests.commentary, requests.created_at, requests.updated_at 
+from requests inner join request_types on requests.request_type = request_types.id inner join
+request_status on requests.request_status = request_status.id inner join
+employees on requests.created_by = employees.id inner join 
+departments on requests.department = departments.id
+where requests.id = id and requests.created_by = created_by;
+END //
+DELIMITER ;
+
+call sp_select_individual_request(25845,2)
+
+DELIMITER //
 create procedure sp_select_finalized_case()
 BEGIN
 select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
@@ -288,5 +360,3 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 5 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-select * from case_status;
-select r.rname, e.* from employees e inner join roles r on r.id = e.rol;
