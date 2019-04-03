@@ -23,7 +23,6 @@ public class BinnaclesModel extends ConexionModel{
     
     public JTable getBinnacles(String idCase)
     {
-        List<BinnaclesBean> lista= new ArrayList<>();
         try {
             String sql = "CALL  sp_select_binnacle_cases(?)";
             this.conectar();

@@ -16,7 +16,7 @@ import sv.com.tesa.ticket.models.BinnaclesModel;
  */
 public class BinnaclesController {
     
-    private BinnaclesModel model;
+    private BinnaclesModel model = new BinnaclesModel();
     //= new BinnaclesModel();
     public JTable mostrarTabla(String idCase){
         return model.getBinnacles(idCase);
