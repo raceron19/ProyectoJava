@@ -23,15 +23,13 @@ public class RequestsView extends javax.swing.JInternalFrame {
     private LoginBean usuario;
     private RequestBean peticion;
     private HashMap<Integer,String> departamentos;
-    JDesktopPane padre;
 
     
-    public RequestsView(LoginBean logUser, JDesktopPane padre) {
+    public RequestsView(LoginBean logUser) {
         initComponents();
         usuario = logUser;
         ctrlPeticiones = new RequestController();
         departamentos = ctrlPeticiones.listarTiposPeticion();
-        this.padre = padre;
         cargarTabla();
     }
 
@@ -96,6 +94,14 @@ public class RequestsView extends javax.swing.JInternalFrame {
 
     private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
         // TODO add your handling code here:
+        peticion = new RequestBean();
+        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        int indexFila = tablaPeticiones.getSelectedRow();
+        peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
+        peticion.setCreatedBy(usuario.getId());
+        RequestView vistaUnaPeticion = new RequestView(peticion);
+        this.getParent().add(vistaUnaPeticion);
+        vistaUnaPeticion.show();
     }//GEN-LAST:event_tablaPeticionesMouseClicked
 
     private void cargarTabla()

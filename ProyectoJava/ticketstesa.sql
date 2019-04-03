@@ -107,7 +107,7 @@ insert into case_status values	(null, 'En desarrollo'),
                                                                 
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
 insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
-insert into employees values(null, 2, 'José', 'Arévalo', 'JefeFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 2, 'José', 'Arévalo', 'e@gmail.com', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 2, 'José', 'Arévalo', 'Jefe1', sha2('123456', 256), null, 'DST', now(), null);
 insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
@@ -332,10 +332,8 @@ where requests.created_by = created_by_id or requests.department = (select depar
 END //
 DELIMITER ;
 
-select * from requests;
-
 DELIMITER //
-create procedure sp_select_individual_case(in id int, in created_by int)
+create procedure sp_select_individual_request(in id int, in created_by int)
 BEGIN
 select requests.id, request_types.rt_name, departments.dname, requests.title, requests.descrip, 
 concat(employees.fname, ' ' , employees.lname) as 'Creado por',
@@ -347,6 +345,8 @@ departments on requests.department = departments.id
 where requests.id = id and requests.created_by = created_by;
 END //
 DELIMITER ;
+
+call sp_select_individual_request(25845,2)
 
 DELIMITER //
 create procedure sp_select_finalized_case()
@@ -360,9 +360,3 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 5 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-select * from case_status;
-select r.rname, e.* from employees e inner join roles r on r.id = e.rol;
-
-
-update employees set
-employees.rol = 2 where employees.id = 1;

@@ -129,22 +129,7 @@ public class NewRequestView extends javax.swing.JInternalFrame {
 
     private void btnIgresarCasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgresarCasoActionPerformed
         // TODO add your handling code here:
-        peticion = new RequestBean();
-        Date fecha = new Date();
-        LocalDateTime fechaLocal = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        int año = fechaLocal.getYear();
-        int mes = fechaLocal.getMonthValue();
-        int dia = fechaLocal.getDayOfMonth();
-        int hora = fechaLocal.getHour();
-        int min = fechaLocal.getMinute();
-        int seg = fechaLocal.getSecond();
-        int idEmpleado = usuario.getId();
         
-        String id = String.valueOf(año) + String.valueOf(mes) + String.valueOf(dia) 
-                + String.valueOf(hora) + String.valueOf(min) + String.valueOf(seg) 
-                + String.valueOf(idEmpleado);
-        
-        peticion.setId(Long.parseLong(id));
         for (Integer idMap : mapPeticiones.keySet()) {
             if (mapPeticiones.get(idMap).equals(cbBoxTipoPeticion.getSelectedItem()) ) {
                 peticion.setRequestType(idMap);

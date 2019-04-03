@@ -11,7 +11,7 @@ package sv.com.tesa.ticket.beans;
  */
 public class RequestBean {
 
-    private long id;
+    private int id;
     private int requestType;
     private String department;
     private String title;
@@ -27,14 +27,14 @@ public class RequestBean {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
