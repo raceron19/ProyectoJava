@@ -27,12 +27,12 @@ public class LoginModel extends ConexionModel
             rs = st.executeQuery();
             while(rs.next())
             {
-                    usuario.setId(rs.getInt("id"));
-                    usuario.setRol(rs.getString("Rol"));
-                    usuario.setNombre(rs.getString("Nombre"));
-                    usuario.setCorreo(rs.getString("Correo"));
-                    usuario.setJefe(rs.getString("Superior"));
-                    usuario.setDepartamento(rs.getString("Departamento"));
+                    LoginBean.setId(rs.getInt("id"));
+                    LoginBean.setRol(rs.getString("Rol"));
+                    LoginBean.setNombre(rs.getString("Nombre"));
+                    LoginBean.setCorreo(rs.getString("Correo"));
+                    LoginBean.setJefe(rs.getString("Superior"));
+                    LoginBean.setDepartamento(rs.getString("Departamento"));
                     usuario.setError(rs.getString("Error"));
             }
             return usuario;

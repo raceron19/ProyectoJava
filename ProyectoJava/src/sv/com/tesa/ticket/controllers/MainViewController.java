@@ -22,7 +22,7 @@ public class MainViewController {
     
     public void cargarVista(LoginBean logUser)
     {
-        switch (logUser.getRol()) {
+        switch (LoginBean.getRol()) {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
                 vistaAdmin.setLocationRelativeTo(null);

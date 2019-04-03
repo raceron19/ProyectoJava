@@ -16,69 +16,71 @@ public class LoginBean {
     private static String correo;
     private static String jefe;
     private static String departamento;
-    private String Error;
+    private String error;
     public LoginBean()
     {
-        id = 0;
-        nombre = "";
-        correo = "";
-        jefe = "";
-        departamento = "";
-        Error = null;
     }
-
-
-    public int getId() {
+    public LoginBean(Integer op)
+    {
+        id = 0;
+        rol = null;
+        nombre = null;
+        correo = null;
+        jefe = null;
+        departamento = null;
+        error = null;
+    }
+    public static int getId() {
         return id;
     }
-    public void setId(int id) {
+    public static void setId(int id) {
         LoginBean.id = id;
     }
-    public String getRol() {
+    public static String getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public static void setRol(String rol) {
         LoginBean.rol = rol;
     }
 
-    public String getNombre() {
+    public static String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public static void setNombre(String nombre) {
         LoginBean.nombre = nombre;
     }
 
-    public String getCorreo() {
+    public static String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
+    public static void setCorreo(String correo) {
         LoginBean.correo = correo;
     }
 
-    public String getJefe() {
+    public static String getJefe() {
         return jefe;
     }
 
-    public void setJefe(String jefe) {
+    public static void setJefe(String jefe) {
         LoginBean.jefe = jefe;
     }
 
-    public String getDepartamento() {
+    public static String getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(String departamento) {
+    public static void setDepartamento(String departamento) {
         LoginBean.departamento = departamento;
     }
 
     public String getError() {
-        return Error;
+        return error;
     }
 
     public void setError(String Error) {
-        this.Error = Error;
+        this.error = Error;
     }
 }

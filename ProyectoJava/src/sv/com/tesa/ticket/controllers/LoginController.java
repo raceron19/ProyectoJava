@@ -22,8 +22,7 @@ public class LoginController {
         if(Validaciones.esCorreoElectronico(user))
         {
         LoginModel loginM = new LoginModel();
-        LoginBean loginB = loginM.validar(user, password);
-        return loginB;
+        return loginM.validar(user, password);
         }
         else
         {
