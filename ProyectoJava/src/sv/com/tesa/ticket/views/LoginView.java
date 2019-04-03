@@ -164,8 +164,6 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/login.png"))); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(44, 62, 80));
         jLabel4.setText("Password:");
