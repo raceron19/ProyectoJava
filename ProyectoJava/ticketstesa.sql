@@ -1,4 +1,3 @@
-use sys;
 drop database if exists ticketstesa;
 create database ticketstesa;
 use ticketstesa;
@@ -219,6 +218,3 @@ update employees set
 END IF;
 END//
 DELIMITER ;
-
-drop procedure sp_update_boss_employees;
-select * from employees;
