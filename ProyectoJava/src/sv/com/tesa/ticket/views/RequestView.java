@@ -40,23 +40,18 @@ public class RequestView extends javax.swing.JInternalFrame {
         
         if (peticionIndividual != null) 
         {
-            if (peticionIndividual.getId() == 0) {
-                this.dispose();
-            }
-            else
-            {
-                txtId.setText(String.valueOf(peticionIndividual.getId()));
-                cbBoxTipoSolicitud.removeAllItems();
-                cbBoxTipoSolicitud.addItem(peticionIndividual.getTipoPeticion());
-                txtDepartamento.setText(peticionIndividual.getDepartamento());
-                txtTitulo.setText(peticionIndividual.getTitulo());
-                txtDescripcion.setText(peticionIndividual.getDescripcion());
-                txtCreadoPor.setText(peticionIndividual.getCreadoPor());
-                txtEstadoSolicitud.setText(peticionIndividual.getEstado());
-                txtComentario.setText(peticionIndividual.getComentario());
-                txtFechaCreacion.setText(peticionIndividual.getFechaCreacion());
-                txtFechaModificacion.setText(peticionIndividual.getFechaModificacion());
-            }
+            txtId.setText(String.valueOf(peticionIndividual.getId()));
+            cbBoxTipoSolicitud.removeAllItems();
+            cbBoxTipoSolicitud.addItem(peticionIndividual.getTipoPeticion());
+            txtDepartamento.setText(peticionIndividual.getDepartamento());
+            txtTitulo.setText(peticionIndividual.getTitulo());
+            txtDescripcion.setText(peticionIndividual.getDescripcion());
+            txtCreadoPor.setText(peticionIndividual.getCreadoPor());
+            txtEstadoSolicitud.setText(peticionIndividual.getEstado());
+            txtComentario.setText(peticionIndividual.getComentario());
+            txtFechaCreacion.setText(peticionIndividual.getFechaCreacion());
+            txtFechaModificacion.setText(peticionIndividual.getFechaModificacion());
+            
         }
     }
     
@@ -288,7 +283,6 @@ public class RequestView extends javax.swing.JInternalFrame {
             RequestBean peticion = new RequestBean();
             peticion.setDescription(txtDescripcion.getText());
             peticion.setId(Integer.parseInt(txtId.getText()));
-            peticion.setRequestType(HEIGHT);
             for (Integer id : mapTipoPeticion.keySet()) {
                 if(mapTipoPeticion.get(id).equals(cbBoxTipoSolicitud.getSelectedItem()))
                 {

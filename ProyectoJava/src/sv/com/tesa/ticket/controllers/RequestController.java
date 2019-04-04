@@ -82,4 +82,13 @@ public class RequestController {
             return false;
         }
     }
+    
+    public boolean denegarPeticion(RequestBean peticion)
+    {
+        try {
+            return peticionModel.denegarPeticion(peticion);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

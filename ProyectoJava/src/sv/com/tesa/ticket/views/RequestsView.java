@@ -40,9 +40,32 @@ public class RequestsView extends javax.swing.JInternalFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popUpMenuAceptarDeclinar = new javax.swing.JPopupMenu();
+        itemMenuAceptar = new javax.swing.JMenuItem();
+        itemMenuDeclinar = new javax.swing.JMenuItem();
+        itemMenuModificar = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPeticiones = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+
+        itemMenuAceptar.setText("Aceptar Solicitud");
+        popUpMenuAceptarDeclinar.add(itemMenuAceptar);
+
+        itemMenuDeclinar.setText("Declinar Solicitud");
+        itemMenuDeclinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuDeclinarActionPerformed(evt);
+            }
+        });
+        popUpMenuAceptarDeclinar.add(itemMenuDeclinar);
+
+        itemMenuModificar.setText("Modificar Solicitud");
+        itemMenuModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuModificarActionPerformed(evt);
+            }
+        });
+        popUpMenuAceptarDeclinar.add(itemMenuModificar);
 
         tablaPeticiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,7 +116,12 @@ public class RequestsView extends javax.swing.JInternalFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
-        // TODO add your handling code here:
+        
+        popUpMenuAceptarDeclinar.show(evt.getComponent(), evt.getX(), evt.getY());
+    }//GEN-LAST:event_tablaPeticionesMouseClicked
+
+    private void itemMenuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuModificarActionPerformed
+
         peticion = new RequestBean();
         DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
@@ -121,7 +149,38 @@ public class RequestsView extends javax.swing.JInternalFrame{
                     + "porque no fue creada por este usuario","Alerta",
                     JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_tablaPeticionesMouseClicked
+    }//GEN-LAST:event_itemMenuModificarActionPerformed
+
+    private void itemMenuDeclinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuDeclinarActionPerformed
+        
+        peticion = new RequestBean();
+        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        int indexFila = tablaPeticiones.getSelectedRow();
+        peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
+        peticion.setCreatedBy(usuario.getId());
+        SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
+        if (peticionIndividual.getId() != 0) 
+        {
+            boolean res = "En espera de respuesta".equals(peticionIndividual.getEstado());
+            if (res) {
+                DeclineRequestView vistaDenegarPeticion = new DeclineRequestView(peticionIndividual, this);
+                this.getParent().add(vistaDenegarPeticion);
+                vistaDenegarPeticion.show();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Solo se pueden aceptar peticiones "
+                        + "que en espera de respuesta","Alerta",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "No puedes modificar esta solicitud "
+                    + "porque no fue creada por este usuario","Alerta",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_itemMenuDeclinarActionPerformed
 
     protected void cargarTabla()
     {
@@ -132,8 +191,12 @@ public class RequestsView extends javax.swing.JInternalFrame{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemMenuAceptar;
+    private javax.swing.JMenuItem itemMenuDeclinar;
+    private javax.swing.JMenuItem itemMenuModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu popUpMenuAceptarDeclinar;
     private javax.swing.JTable tablaPeticiones;
     // End of variables declaration//GEN-END:variables
 }

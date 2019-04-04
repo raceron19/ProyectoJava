@@ -151,6 +151,7 @@ public class RequestModel extends LoginModel{
             return resultado > 0;
             
         } catch (SQLException e) {
+            System.out.println("Error RequestModel: " + e.getSQLState() + " " + e.getMessage());
             return false;
         }
     }
@@ -167,6 +168,25 @@ public class RequestModel extends LoginModel{
             return resultado > 0;
             
         } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    public boolean denegarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_deny_request(?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            st.setString(2, peticion.getCommentary());
+            
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            System.out.println("Error RequestModel: " + e.getSQLState() + " " + e.getMessage());
             return false;
         }
     }

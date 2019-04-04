@@ -99,6 +99,7 @@ insert into request_status values	(null, 'En espera de respuesta'),
 									(null, 'En desarrollo'),
                                     (null, 'Cerrado');
                                     
+                                    
 insert into case_status values	(null, 'En desarrollo'),
                                 (null, 'Esperando aprobación del área solicitante'),
 								(null, 'Vencido'),
@@ -315,6 +316,21 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE sp_deny_request(IN request_id int, in commentary text)
+BEGIN
+update requests set 
+requests.commentary = commentary,
+requests.updated_at = now(),
+requests.request_status = (select request_status.id from request_status where request_status.rs_name = 'Solicitud rechazada') 
+where requests.id = request_id;
+END //
+DELIMITER ;
+
+select * from requests;
+
+call sp_deny_request(25852,'feo');
+
+DELIMITER //
 CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))
 BEGIN
 select requests.id, requests.title, requests.descrip, departments.dname, request_types.rt_name, request_status.rs_name 
@@ -324,6 +340,7 @@ inner join request_status on requests.request_status = request_status.id
 where requests.created_by = created_by_id or requests.department = (select departments.id from departments where departments.dname = department_in);
 END //
 DELIMITER ;
+
 
 DELIMITER //
 create procedure sp_select_individual_request(in id int, in created_by int)
@@ -361,9 +378,3 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 5 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-
-select * from requests;
-
-update requests set
-requests.request_status = 2
-where requests.id = 25848;
