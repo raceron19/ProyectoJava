@@ -11,17 +11,33 @@ package sv.com.tesa.ticket.beans;
  */
 public class RequestBean {
 
+
     private int id;
     private int requestType;
     private String department;
     private String title;
     private String description;
+    private String commentary;
     private int createdBy;
     private String requestStatus;
     
     public RequestBean()
     {
         
+    }
+    
+    /**
+     * @return the commentary
+     */
+    public String getCommentary() {
+        return commentary;
+    }
+
+    /**
+     * @param commentary the commentary to set
+     */
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
     }
     
     /**

@@ -58,4 +58,28 @@ public class RequestController {
             return null;
         }
     }
+    
+    public boolean modificarPeticion(RequestBean peticion)
+    {
+        try
+        {
+            return peticionModel.modificarPeticion(peticion);
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    }
+    
+    public boolean eliminarPeticion(RequestBean peticion)
+    {
+        try
+        {
+            return peticionModel.eliminarPeticion(peticion);
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    }
 }

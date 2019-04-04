@@ -6,18 +6,18 @@
 package sv.com.tesa.ticket.views;
 
 import java.util.HashMap;
-import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RequestBean;
+import sv.com.tesa.ticket.beans.SingleRequestBean;
 import sv.com.tesa.ticket.controllers.RequestController;
-import sv.com.tesa.ticket.utils.Utilidades;
 
 /**
  *
  * @author Edu
  */
-public class RequestsView extends javax.swing.JInternalFrame {
+public class RequestsView extends javax.swing.JInternalFrame{
 
     private RequestController ctrlPeticiones;
     private LoginBean usuario;
@@ -99,12 +99,31 @@ public class RequestsView extends javax.swing.JInternalFrame {
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setCreatedBy(usuario.getId());
-        RequestView vistaUnaPeticion = new RequestView(peticion);
-        this.getParent().add(vistaUnaPeticion);
-        vistaUnaPeticion.show();
+        SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
+        if (peticionIndividual.getId() != 0) 
+        {
+            boolean res = "Solicitud rechazada".equals(peticionIndividual.getEstado());
+            if (res) {
+                RequestView vistaUnaPeticion = new RequestView(peticionIndividual, this);
+                this.getParent().add(vistaUnaPeticion);
+                vistaUnaPeticion.show();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Solo se pueden modificar peticiones "
+                        + "que esten rechazados","Alerta",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "No puedes modificar esta solicitud "
+                    + "porque no fue creada por este usuario","Alerta",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_tablaPeticionesMouseClicked
 
-    private void cargarTabla()
+    protected void cargarTabla()
     {
         try {
             tablaPeticiones.setModel(ctrlPeticiones.listarPeticiones(usuario).getModel());

@@ -28,7 +28,7 @@ public class NewRequestView extends javax.swing.JInternalFrame {
     
     public NewRequestView(LoginBean logUser) {
         initComponents();
-        usuario = logUser;
+        this.usuario = logUser;
         ctrlPeticion = new RequestController();
         mapPeticiones = ctrlPeticion.listarTiposPeticion();
         cargarCbBoxPeticiones();
@@ -130,6 +130,7 @@ public class NewRequestView extends javax.swing.JInternalFrame {
     private void btnIgresarCasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgresarCasoActionPerformed
         // TODO add your handling code here:
         
+        peticion = new RequestBean();
         for (Integer idMap : mapPeticiones.keySet()) {
             if (mapPeticiones.get(idMap).equals(cbBoxTipoPeticion.getSelectedItem()) ) {
                 peticion.setRequestType(idMap);

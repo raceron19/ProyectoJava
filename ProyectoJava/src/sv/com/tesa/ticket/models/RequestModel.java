@@ -128,4 +128,47 @@ public class RequestModel extends LoginModel{
         }
     }
     
+    public boolean modificarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_modify_request (?,?,?,?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            st.setInt(2, peticion.getRequestType());
+            st.setString(3,peticion.getTitle());
+            st.setString(4,peticion.getDescription());
+            if (peticion.getCommentary() != null) {
+                st.setString(5, peticion.getCommentary());
+            }
+            else
+            {
+                st.setNull(5, Types.NULL);
+            }
+            
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    public boolean eliminarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_delete_request(?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
 }

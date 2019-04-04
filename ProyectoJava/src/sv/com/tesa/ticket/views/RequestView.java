@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.SingleRequestBean;
 import sv.com.tesa.ticket.beans.RequestBean;
 import sv.com.tesa.ticket.controllers.RequestController;
@@ -15,32 +17,54 @@ public class RequestView extends javax.swing.JInternalFrame {
 
     private SingleRequestBean peticionIndividual;
     private RequestController ctrlPeticion;
+    private RequestsView padre;
+    private HashMap<Integer,String> mapTipoPeticion;
     
     /**
      * Creates new form RequestView
+     * @param peticion
+     * @param padre
      */
-    public RequestView(RequestBean peticion) {
+    public RequestView(SingleRequestBean peticion, RequestsView padre) {
         initComponents();
         ctrlPeticion = new RequestController();
-        llenarCampos(peticion);
+        this.padre = padre;
+        this.peticionIndividual = peticion;
+        mapTipoPeticion = ctrlPeticion.listarTiposPeticion();
+        llenarCampos();
     }
 
-    public void llenarCampos(RequestBean peticion)
+    
+    private void llenarCampos()
     {
-        peticionIndividual = ctrlPeticion.listarPeticionIndividual(peticion);
         
         if (peticionIndividual != null) 
         {
-            txtId.setText(String.valueOf(peticionIndividual.getId()));
-            txtTipoSolicitud.setText(peticionIndividual.getTipoPeticion());
-            txtDepartamento.setText(peticionIndividual.getDepartamento());
-            txtTitulo.setText(peticionIndividual.getTitulo());
-            txtDescripcion.setText(peticionIndividual.getDescripcion());
-            txtCreadoPor.setText(peticionIndividual.getCreadoPor());
-            txtEstadoSolicitud.setText(peticionIndividual.getEstado());
-            txtComentario.setText(peticionIndividual.getComentario());
-            txtFechaCreacion.setText(peticionIndividual.getFechaCreacion());
-            txtFechaModificacion.setText(peticionIndividual.getFechaModificacion());
+            if (peticionIndividual.getId() == 0) {
+                this.dispose();
+            }
+            else
+            {
+                txtId.setText(String.valueOf(peticionIndividual.getId()));
+                cbBoxTipoSolicitud.removeAllItems();
+                cbBoxTipoSolicitud.addItem(peticionIndividual.getTipoPeticion());
+                txtDepartamento.setText(peticionIndividual.getDepartamento());
+                txtTitulo.setText(peticionIndividual.getTitulo());
+                txtDescripcion.setText(peticionIndividual.getDescripcion());
+                txtCreadoPor.setText(peticionIndividual.getCreadoPor());
+                txtEstadoSolicitud.setText(peticionIndividual.getEstado());
+                txtComentario.setText(peticionIndividual.getComentario());
+                txtFechaCreacion.setText(peticionIndividual.getFechaCreacion());
+                txtFechaModificacion.setText(peticionIndividual.getFechaModificacion());
+            }
+        }
+    }
+    
+    private void carbarCbBoxTipoPeticion()
+    {
+        cbBoxTipoSolicitud.removeAllItems();
+        for (Integer id : mapTipoPeticion.keySet()) {
+            cbBoxTipoSolicitud.addItem(mapTipoPeticion.get(id));
         }
     }
     
@@ -63,7 +87,6 @@ public class RequestView extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtTipoSolicitud = new javax.swing.JTextField();
         txtDepartamento = new javax.swing.JTextField();
         txtTitulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -74,8 +97,10 @@ public class RequestView extends javax.swing.JInternalFrame {
         txtComentario = new javax.swing.JTextArea();
         txtFechaCreacion = new javax.swing.JTextField();
         txtFechaModificacion = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdBtnModificar = new javax.swing.JRadioButton();
+        rdBtnEliminar = new javax.swing.JRadioButton();
+        btnGuardarCambios = new javax.swing.JButton();
+        cbBoxTipoSolicitud = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Id solicitud:");
 
@@ -98,8 +123,6 @@ public class RequestView extends javax.swing.JInternalFrame {
         jLabel9.setText("Fecha de creacion:");
 
         jLabel10.setText("Fecha de ultima modificacion:");
-
-        txtTipoSolicitud.setEditable(false);
 
         txtDepartamento.setEditable(false);
 
@@ -127,9 +150,24 @@ public class RequestView extends javax.swing.JInternalFrame {
 
         txtFechaModificacion.setEditable(false);
 
-        jRadioButton1.setText("Modificar");
+        rdBtnModificar.setText("Modificar");
+        rdBtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnModificarActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("Eliminar");
+        rdBtnEliminar.setText("Eliminar");
+
+        btnGuardarCambios.setText("Guardar Cambios");
+        btnGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarCambiosActionPerformed(evt);
+            }
+        });
+
+        cbBoxTipoSolicitud.setEditable(true);
+        cbBoxTipoSolicitud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,7 +187,7 @@ public class RequestView extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                                        .addComponent(txtTipoSolicitud)))
+                                        .addComponent(cbBoxTipoSolicitud, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
@@ -178,11 +216,15 @@ public class RequestView extends javax.swing.JInternalFrame {
                                         .addComponent(txtFechaModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                                         .addComponent(txtFechaCreacion))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(rdBtnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(rdBtnEliminar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(btnGuardarCambios)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +236,7 @@ public class RequestView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtTipoSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbBoxTipoSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -229,17 +271,81 @@ public class RequestView extends javax.swing.JInternalFrame {
                     .addComponent(txtFechaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(rdBtnModificar)
+                    .addComponent(rdBtnEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGuardarCambios)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
+        // TODO add your handling code here:
+        if (rdBtnModificar.isSelected()) 
+        {
+            RequestBean peticion = new RequestBean();
+            peticion.setDescription(txtDescripcion.getText());
+            peticion.setId(Integer.parseInt(txtId.getText()));
+            peticion.setRequestType(HEIGHT);
+            for (Integer id : mapTipoPeticion.keySet()) {
+                if(mapTipoPeticion.get(id).equals(cbBoxTipoSolicitud.getSelectedItem()))
+                {
+                    peticion.setRequestType(id);
+                }
+            }
+            peticion.setTitle(txtTitulo.getText());
+            peticion.setCommentary(null);
+            boolean res = ctrlPeticion.modificarPeticion(peticion);
+            
+            if (res) {
+                JOptionPane.showMessageDialog(this, "Datos modificados exitosamente","Resultado",
+                    JOptionPane.INFORMATION_MESSAGE);
+                padre.cargarTabla();
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+        {
+            RequestBean peticion = new RequestBean();
+            peticion.setId(Integer.parseInt(txtId.getText()));
+            boolean res = ctrlPeticion.eliminarPeticion(peticion);
+            if (res) {
+                JOptionPane.showMessageDialog(this, "Datos eliminados exitosamente","Resultado",
+                    JOptionPane.INFORMATION_MESSAGE);
+                padre.cargarTabla();
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Error al eliminar los datos, "
+                        + "tiene uno o mas casos asociados","Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnGuardarCambiosActionPerformed
+
+    private void rdBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnModificarActionPerformed
+        // TODO add your handling code here:
+        if (rdBtnModificar.isSelected()) 
+        {
+            txtDescripcion.setEditable(true);
+            txtTitulo.setEditable(true);
+            carbarCbBoxTipoPeticion();
+        }
+    }//GEN-LAST:event_rdBtnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardarCambios;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbBoxTipoSolicitud;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -250,10 +356,10 @@ public class RequestView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rdBtnEliminar;
+    private javax.swing.JRadioButton rdBtnModificar;
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JTextField txtCreadoPor;
     private javax.swing.JTextField txtDepartamento;
@@ -262,7 +368,6 @@ public class RequestView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFechaCreacion;
     private javax.swing.JTextField txtFechaModificacion;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtTipoSolicitud;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
