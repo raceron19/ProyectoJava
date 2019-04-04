@@ -13,7 +13,7 @@ public class CasesModel extends ConexionModel{
     public JTable listarCasos(){
         try{
             String sql = "SELECT cases.id AS IdCaso, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje, " +
-                         "tester.fname AS Tester, asign.fname AS Asignado, case_status.cs_name AS Estado " +
+                         "concat(tester.fname,' ',tester.lname) AS Tester, asign.fname AS Asignado, case_status.cs_name AS Estado " +
                          "from cases\n" +
                          "INNER JOIN requests ON cases.request = requests.id " +
                          "INNER JOIN employees AS tester ON cases.tester = tester.id " +
@@ -39,7 +39,7 @@ public class CasesModel extends ConexionModel{
         }
     }
     
-    public ResultSet llenarRequest() throws SQLException{
+    /*public ResultSet llenarRequest() throws SQLException{
         try{
             String sql = "SELECT * FROM requests";
             this.conectar();
@@ -118,11 +118,31 @@ public class CasesModel extends ConexionModel{
             Logger.getLogger(CasesModel.class).error("Error al listar " + "requests: ", ex);
             return null;
         } 
+    }*/
+    
+    public ResultSet listarCaso(CasesBean beanCase){
+        try{
+            String sql = "Select * from cases where id = 'DST19895'";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setString(1, String.valueOf(beanCase.getId()));
+            boolean resultado = st.execute();
+            if(resultado){
+                rs = st.getResultSet();                
+            }
+            else{
+                rs = null;
+            }
+            return rs;
+        }catch(Exception ex){
+            Logger.getLogger(CasesModel.class).error("Error al listar " + "el caso: ", ex);
+            return null;
+        }
     }
     
     public boolean modificarCaso(CasesBean beanCase){
         try{
-            String sql = "UPDATE cases SET request = ?, assigned_to = ?, case_status = ?, deadline = now(), descrip = '?', percent = ?, tester = ?, updated_at = now() where id = '?'";
+            String sql = "UPDATE cases SET request = ?, assigned_to = ?, case_status = ?, deadline = now(), descrip = ?, percent = ?, tester = ?, updated_at = now() where id = ?";
             this.conectar();
             st = conexion.prepareCall(sql);
             st.setString(1, String.valueOf(beanCase.getRequest()));

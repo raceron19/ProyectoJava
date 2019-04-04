@@ -46,6 +46,7 @@ public class Utilidades {
     
     public static Object regresarValorHashMap(HashMap map, String valor)
     {
+        //cuando se quiere la llave por medio del valor
         for (Object o : map.keySet()) {
             if(map.get(o).equals(valor))
                 return o;

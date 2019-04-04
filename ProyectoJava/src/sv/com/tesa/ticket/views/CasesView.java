@@ -5,6 +5,7 @@
  */
 package sv.com.tesa.ticket.views;
 import sv.com.tesa.ticket.controllers.CasesController;
+import sv.com.tesa.ticket.beans.CasesBean;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 /**
@@ -13,12 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class CasesView extends javax.swing.JInternalFrame {
     private CasesController ctrlCase;
+    private CasesBean beanCase;
+    public static boolean sera = false;
     /**
      * Creates new form CasesView
      */
     public CasesView() {
         initComponents();
         ctrlCase = new CasesController();
+        beanCase = new CasesBean();
         cargarTabla();
     }
     
@@ -105,11 +109,11 @@ public class CasesView extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(259, 259, 259)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(367, 367, 367))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,14 +131,25 @@ public class CasesView extends javax.swing.JInternalFrame {
         DefaultTableModel dtm = (DefaultTableModel)TableCases.getModel();
         int fila = TableCases.getSelectedRow();
         if(fila > -1){
-            int indexFila = TableCases.getSelectedRow();            
-            CaseView caso = new CaseView();
-            caso.setVisible(true);
-            String cas = (String)TableCases.getValueAt(fila, 1);
-            String descripcion = (String)TableCases.getValueAt(fila,2);
-            String porcentaje = (String)TableCases.getValueAt(fila,3);
+            int indexFila = TableCases.getSelectedRow();     
+            if(sera == false){                
+                CaseView caso = new CaseView();
+                caso.setVisible(true);
+                sera = true;
+                String id = (String)TableCases.getValueAt(fila,0);
+                //beanCase.setId(id);
+                caso.lblid.setText(id);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"La ventana ya esta abierta");
+            }
+            
+            /*caso.lblcaso.setText(cas);
+            caso.lblestado.setText(estado);
+            caso.lblasignado.setText(asignado);
+            caso.lbltester.setText(tester);
             caso.txtdescripcion.setText(descripcion);
-            caso.txtPorcentaje.setText(porcentaje);
+            caso.lblporcentaje.setText(porcentaje);*/
         }        
     }//GEN-LAST:event_TableCasesMouseClicked
 

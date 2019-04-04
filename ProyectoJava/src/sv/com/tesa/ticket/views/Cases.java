@@ -1,5 +1,6 @@
 package sv.com.tesa.ticket.views;
 
+import javax.swing.JFrame;
 public class Cases extends javax.swing.JFrame {
 
     /**
@@ -7,6 +8,8 @@ public class Cases extends javax.swing.JFrame {
      */
     public Cases() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**

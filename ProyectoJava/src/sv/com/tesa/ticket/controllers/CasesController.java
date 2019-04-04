@@ -1,5 +1,6 @@
 package sv.com.tesa.ticket.controllers;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.models.CasesModel;
 import sv.com.tesa.ticket.beans.CasesBean;
 import javax.swing.JTable;
@@ -20,7 +21,17 @@ public class CasesController {
         }
     }
     
-    public ResultSet llenarRequest(){
+    public ResultSet listarCase(CasesBean beanCase){
+        try{
+            JOptionPane.showMessageDialog(null, "Entre al Controlador");
+            return modelcases.listarCaso(beanCase);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+    
+    /*public ResultSet llenarRequest(){
         try{
             return modelcases.llenarRequest();
         } catch(Exception ex){
@@ -51,7 +62,7 @@ public class CasesController {
             System.out.println(ex.getMessage());
             return null;
         }
-    }
+    }*/
     
     public boolean modificarCaso(CasesBean beanCase)
     {
