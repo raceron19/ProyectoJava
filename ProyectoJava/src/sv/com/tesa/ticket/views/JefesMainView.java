@@ -8,7 +8,10 @@ package sv.com.tesa.ticket.views;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sv.com.tesa.ticket.beans.BinnaclesBean;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.views.developboss.MainView;
 
 /**
  *
@@ -21,6 +24,19 @@ public class JefesMainView extends javax.swing.JFrame {
      */
     public JefesMainView() {
         initComponents();
+        setExtendedState(JefesMainView.MAXIMIZED_BOTH);
+         try {
+            // TODO add your handling code here:
+            LoginBean loginBean = new LoginBean();
+            DashBoardJefeDesarrollo db = new DashBoardJefeDesarrollo(loginBean);
+            desktopPane.add(db);
+            db.setSelected(true);
+            db.setMaximizable(true);
+            db.setMaximum(true);
+            db.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -44,14 +60,16 @@ public class JefesMainView extends javax.swing.JFrame {
         copyMenuItem = new javax.swing.JMenuItem();
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setSize(new java.awt.Dimension(1000, 6000));
+
+        desktopPane.setMinimumSize(new java.awt.Dimension(1000, 600));
+
+        menuBar.setMinimumSize(new java.awt.Dimension(1000, 600));
 
         fileMenu.setMnemonic('f');
-        fileMenu.setText("File");
+        fileMenu.setText("Profile");
 
         openMenuItem.setMnemonic('o');
         openMenuItem.setText("Open");
@@ -67,7 +85,7 @@ public class JefesMainView extends javax.swing.JFrame {
         fileMenu.add(saveAsMenuItem);
 
         exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Exit");
+        exitMenuItem.setText("Logout");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitMenuItemActionPerformed(evt);
@@ -99,22 +117,14 @@ public class JefesMainView extends javax.swing.JFrame {
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Delete");
+        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(deleteMenuItem);
 
         menuBar.add(editMenu);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -122,37 +132,45 @@ public class JefesMainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
+        LoginBean loginBean = new LoginBean(0);
+        LoginView loginView = new LoginView();
+        loginView.show();
+        this.dispose();
+        
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
+       
+    }//GEN-LAST:event_cutMenuItemActionPerformed
+
+    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         try {
             // TODO add your handling code here:
-            LoginBean loginBean = new LoginBean();
-            DashBoardJefeDesarrollo db = new DashBoardJefeDesarrollo(loginBean);
-            desktopPane.add(db);
-            db.setSelected(true);
-            db.setMaximizable(true);
-            db.setMaximum(true);
-            db.show();
+            // TODO add your handling code here:
+            BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
+           
+            desktopPane.add(view);
+            view.setSelected(true);
+            view.setMaximizable(true);
+            view.setMaximum(true);
+            view.show();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_cutMenuItemActionPerformed
+    }//GEN-LAST:event_deleteMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
@@ -160,7 +178,6 @@ public class JefesMainView extends javax.swing.JFrame {
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;

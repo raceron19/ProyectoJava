@@ -9,22 +9,16 @@ package sv.com.tesa.ticket.beans;
  *
  * @author eduar
  */
-public class RecentCasesBean 
+public class RecentRequestsBean 
 {
     private String id;
+    private String tipo;
     private String titulo;
     private String creadoPor;
-    private String AsignadoA;
-    private String limite;
-    private Double avance;
+    private String creado;
     private String ultimoCambio;
-    
 
-    public RecentCasesBean() {
-    }
-
-    public RecentCasesBean(String id) {
-        this.id=id;
+    public RecentRequestsBean() {
     }
 
     public String getId() {
@@ -33,6 +27,14 @@ public class RecentCasesBean
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getTitulo() {
@@ -51,28 +53,12 @@ public class RecentCasesBean
         this.creadoPor = creadoPor;
     }
 
-    public String getAsignadoA() {
-        return AsignadoA;
+    public String getCreado() {
+        return creado;
     }
 
-    public void setAsignadoA(String AsignadoA) {
-        this.AsignadoA = AsignadoA;
-    }
-
-    public String getLimite() {
-        return limite;
-    }
-
-    public void setLimite(String limite) {
-        this.limite = limite;
-    }
-
-    public Double getAvance() {
-        return avance;
-    }
-
-    public void setAvance(Double avance) {
-        this.avance = avance;
+    public void setCreado(String creado) {
+        this.creado = creado;
     }
 
     public String getUltimoCambio() {
@@ -82,5 +68,4 @@ public class RecentCasesBean
     public void setUltimoCambio(String ultimoCambio) {
         this.ultimoCambio = ultimoCambio;
     }
-    
 }

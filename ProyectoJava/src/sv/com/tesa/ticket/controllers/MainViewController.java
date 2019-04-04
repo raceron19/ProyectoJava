@@ -23,7 +23,7 @@ public class MainViewController {
     
     public void cargarVista(LoginBean logUser)
     {
-        switch (logUser.getRol()) {
+        switch (LoginBean.getRol()) {
             case "Administrador":
                 vistaAdmin = new AdminView(logUser);
                 vistaAdmin.setLocationRelativeTo(null);
@@ -32,14 +32,10 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-//                JefesMainView jefesMainView = new JefesMainView();
-//                jefesMainView.setLocationRelativeTo(null);
-//                jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//                jefesMainView.setVisible(true);
-                JefeFuncionalView vistaJefe = new JefeFuncionalView(logUser);
-                vistaJefe.setLocationRelativeTo(null);
-                vistaJefe.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                vistaJefe.setVisible(true);
+                JefesMainView jefesMainView = new JefesMainView();
+                jefesMainView.setLocationRelativeTo(null);
+                jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                jefesMainView.setVisible(true);
                 break;
                
             case "Empleado de área funcional":
