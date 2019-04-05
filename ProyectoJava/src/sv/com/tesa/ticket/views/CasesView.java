@@ -5,19 +5,17 @@
  */
 package sv.com.tesa.ticket.views;
 import sv.com.tesa.ticket.controllers.CasesController;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
 import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.beans.LoginBean;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
-import sv.com.tesa.ticket.beans.SingleRequestBean;
 /**
  *
  * @author Reyes Alexander
  */
 public class CasesView extends javax.swing.JInternalFrame {
    private CasesController ctrlCase;
-    private RecentCasesBean beanCase;
+    private SingleCaseBean beanCase;
     private LoginBean usuario;
     public static boolean sera = false;
     /**
@@ -26,7 +24,7 @@ public class CasesView extends javax.swing.JInternalFrame {
     public CasesView() {
         initComponents();
         ctrlCase = new CasesController();
-        beanCase = new RecentCasesBean();
+        beanCase = new SingleCaseBean();
         cargarTabla();
     }
     

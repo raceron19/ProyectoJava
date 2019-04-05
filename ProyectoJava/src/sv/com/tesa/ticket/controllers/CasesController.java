@@ -1,15 +1,9 @@
 package sv.com.tesa.ticket.controllers;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
 import sv.com.tesa.ticket.models.RecentCasesModel;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
-import sv.com.tesa.ticket.beans.SingleRequestBean;
 
 public class CasesController {
-    private RecentCasesBean [] recentCases = null;
-    private RecentCasesBean otherCase = null;
     private RecentCasesModel recentCasesModel = new RecentCasesModel();
     public CasesController()
     {
@@ -23,7 +17,7 @@ public class CasesController {
             return null;
         }
     }
-    public SingleCaseBean listarCase(RecentCasesBean beanCase){
+    public SingleCaseBean listarCase(SingleCaseBean beanCase){
         try{
             return recentCasesModel.listarCaso(beanCase);
         }catch(Exception ex){
@@ -64,15 +58,5 @@ public class CasesController {
             return null;
         }
     }*/
-    
-    public boolean modificarCaso(CasesBean beanCase)
-    {
-        try {
-            return modelcases.modificarCaso(beanCase);
-        } catch (Exception e) 
-        {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+
 }
