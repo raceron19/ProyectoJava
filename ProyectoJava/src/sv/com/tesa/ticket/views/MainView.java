@@ -22,6 +22,7 @@ public class MainView extends javax.swing.JFrame {
     RequestsView requestsView = new RequestsView(loginBean);
     DashBoardJefes db = new DashBoardJefes(loginBean);
     BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
+    CasesView casesView = new CasesView();
 
     /**
      * Creates new form NewMDIApplication
@@ -63,10 +64,12 @@ public class MainView extends javax.swing.JFrame {
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
+        requestsMenu = new javax.swing.JMenu();
         verSolicitudesMenuItem = new javax.swing.JMenuItem();
         nuevaSolicitudMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
+        CasesMenu = new javax.swing.JMenu();
+        CasesMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(1000, 6000));
@@ -112,8 +115,8 @@ public class MainView extends javax.swing.JFrame {
 
         menuBar.add(fileMenu);
 
-        editMenu.setMnemonic('e');
-        editMenu.setText("Solicitudes");
+        requestsMenu.setMnemonic('e');
+        requestsMenu.setText("Solicitudes");
 
         verSolicitudesMenuItem.setMnemonic('t');
         verSolicitudesMenuItem.setText("Ver solicitudes");
@@ -122,7 +125,7 @@ public class MainView extends javax.swing.JFrame {
                 verSolicitudesMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(verSolicitudesMenuItem);
+        requestsMenu.add(verSolicitudesMenuItem);
 
         nuevaSolicitudMenuItem.setMnemonic('y');
         nuevaSolicitudMenuItem.setText("Neuva solicitud");
@@ -131,7 +134,7 @@ public class MainView extends javax.swing.JFrame {
                 nuevaSolicitudMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(nuevaSolicitudMenuItem);
+        requestsMenu.add(nuevaSolicitudMenuItem);
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Delete");
@@ -140,9 +143,21 @@ public class MainView extends javax.swing.JFrame {
                 deleteMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(deleteMenuItem);
+        requestsMenu.add(deleteMenuItem);
 
-        menuBar.add(editMenu);
+        menuBar.add(requestsMenu);
+
+        CasesMenu.setText("Casos");
+
+        CasesMenuItem.setText("Mostrar casos");
+        CasesMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CasesMenuItemActionPerformed(evt);
+            }
+        });
+        CasesMenu.add(CasesMenuItem);
+
+        menuBar.add(CasesMenu);
 
         setJMenuBar(menuBar);
 
@@ -252,15 +267,38 @@ public class MainView extends javax.swing.JFrame {
         newRequestView.setVisible(true);
     }//GEN-LAST:event_nuevaSolicitudMenuItemActionPerformed
 
+    private void CasesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CasesMenuItemActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+                requestsView.setVisible(false);
+                view.setVisible(false);
+                db.setVisible(false);
+                if(!CasesView.isOpen) 
+            {
+                    desktopPane.add(casesView);
+                    CasesView.isOpen = true;
+            }
+            casesView.setSelected(true);
+            casesView.setMaximizable(true);
+            casesView.setMaximum(true);
+            casesView.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(MainView.class.getName()).log(null, ex);
+        }
+    }//GEN-LAST:event_CasesMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu CasesMenu;
+    private javax.swing.JMenuItem CasesMenuItem;
     private javax.swing.JMenuItem InicioMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nuevaSolicitudMenuItem;
+    private javax.swing.JMenu requestsMenu;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JMenuItem verSolicitudesMenuItem;
