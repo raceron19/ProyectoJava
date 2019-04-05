@@ -1,6 +1,9 @@
 package sv.com.tesa.ticket.views;
 
 import java.awt.Color;
+import java.awt.Frame;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
@@ -201,6 +204,11 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
         jButton1.setMnemonic('a');
         jButton1.setText("Agregar Comentario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
@@ -380,6 +388,14 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        BinnacleCaseView f = new BinnacleCaseView();
+        f.setAlwaysOnTop(true);
+        f.setVisible(true);
+        this.disable();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenCases;

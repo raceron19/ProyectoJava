@@ -6,10 +6,9 @@
             <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/BinnacleCaseView.java</file>
             <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/utils/Utilidades.java</file>
             <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/LoginView.java</file>
-            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/developboss/MainView.java</file>
-            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/BinnaclesController.java</file>
-            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/BinnaclesModel.java</file>
-            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/BinnaclesBean.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/JefesMainView.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/JefeFuncionalView.java</file>
+            <file>file:/home/vaselinux/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/BinnaclesView.java</file>
         </group>
     </open-files>
 </project-private>
