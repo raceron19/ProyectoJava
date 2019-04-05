@@ -14,7 +14,7 @@ import sv.com.tesa.ticket.views.admin.AdminView;
  * @author Edu
  */
 public class MainViewController {
-    public static JefesMainView jefesMainView;
+    public static MainView mainView;
     public static AdminView vistaAdmin;
     
     public MainViewController()
@@ -32,10 +32,10 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-                jefesMainView = new JefesMainView();
-                jefesMainView.setLocationRelativeTo(null);
-                jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                jefesMainView.setVisible(true);
+                mainView = new MainView();
+                mainView.setLocationRelativeTo(null);
+                mainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                mainView.setVisible(true);
                 break;
                
             case "Empleado de área funcional":
