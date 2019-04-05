@@ -30,6 +30,7 @@ public class RequestView extends javax.swing.JDialog {
         this.peticionIndividual = peticion;
         mapTipoPeticion = ctrlPeticion.listarTiposPeticion();
         setModal(true);
+        setLocationRelativeTo(null);
         llenarCampos();
     }
 

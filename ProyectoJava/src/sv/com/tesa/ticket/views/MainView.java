@@ -6,7 +6,6 @@
 package sv.com.tesa.ticket.views;
 
 import java.beans.PropertyVetoException;
-import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -127,6 +126,11 @@ public class MainView extends javax.swing.JFrame {
 
         nuevaSolicitudMenuItem.setMnemonic('y');
         nuevaSolicitudMenuItem.setText("Neuva solicitud");
+        nuevaSolicitudMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevaSolicitudMenuItemActionPerformed(evt);
+            }
+        });
         editMenu.add(nuevaSolicitudMenuItem);
 
         deleteMenuItem.setMnemonic('d');
@@ -203,7 +207,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteMenuItemActionPerformed
     public void disposeOnPasswordChanged()
     {
-        LoginBean loginBean = new LoginBean(0);
+        LoginBean.LoginBeanToNull();
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
         this.dispose();
@@ -215,7 +219,7 @@ public class MainView extends javax.swing.JFrame {
         JOptionPane.INFORMATION_MESSAGE, null);
         if(result == JOptionPane.YES_OPTION)
         {
-        LoginBean loginBean = new LoginBean(0);
+        LoginBean.LoginBeanToNull();
         LoginView loginView = new LoginView();
         loginView.setVisible(true);
         this.dispose();
@@ -241,6 +245,12 @@ public class MainView extends javax.swing.JFrame {
             Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_InicioMenuItemActionPerformed
+
+    private void nuevaSolicitudMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaSolicitudMenuItemActionPerformed
+        // TODO add your handling code here:
+        NewRequestView newRequestView = new NewRequestView(loginBean);
+        newRequestView.setVisible(true);
+    }//GEN-LAST:event_nuevaSolicitudMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem InicioMenuItem;

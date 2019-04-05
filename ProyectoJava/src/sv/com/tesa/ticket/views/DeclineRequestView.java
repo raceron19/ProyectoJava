@@ -15,7 +15,7 @@ import sv.com.tesa.ticket.controllers.RequestController;
  *
  * @author Edu
  */
-public class DeclineRequestView extends javax.swing.JInternalFrame {
+public class DeclineRequestView extends javax.swing.JDialog {
 
     private SingleRequestBean peticionIndividual;
     private RequestController ctrlPeticion;
@@ -29,6 +29,7 @@ public class DeclineRequestView extends javax.swing.JInternalFrame {
      */
     public DeclineRequestView(SingleRequestBean peticion, RequestsView padre) {
         initComponents();
+        setModal(true);
         ctrlPeticion = new RequestController();
         this.padre = padre;
         this.peticionIndividual = peticion;
