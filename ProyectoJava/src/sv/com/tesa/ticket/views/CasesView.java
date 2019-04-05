@@ -17,6 +17,7 @@ public class CasesView extends javax.swing.JInternalFrame {
    private CasesController ctrlCase;
     private SingleCaseBean beanCase;
     private LoginBean usuario;
+    public static boolean isOpen = false;
     public static boolean sera = false;
     /**
      * Creates new form CasesView

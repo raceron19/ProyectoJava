@@ -1,17 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sv.com.tesa.ticket.controllers;
-import sv.com.tesa.ticket.models.RecentCasesModel;
+
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
+import sv.com.tesa.ticket.models.CasesModel;
 
+/**
+ *
+ * @author eduar
+ */
 public class CasesController {
-    private RecentCasesModel recentCasesModel = new RecentCasesModel();
-    public CasesController()
-    {
-    }
-    
+    CasesModel casesModel = new CasesModel();
     public JTable listarCases(){
         try{
-            return recentCasesModel.listarCasos();
+            return casesModel.listarCasos();
         } catch(Exception ex){
             System.out.println(ex.getMessage());
             return null;
@@ -19,44 +25,10 @@ public class CasesController {
     }
     public SingleCaseBean listarCase(SingleCaseBean beanCase){
         try{
-            return recentCasesModel.listarCaso(beanCase);
+            return casesModel.listarCaso(beanCase);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             return null;
         }
     }
-    
-    /*public ResultSet llenarRequest(){
-        try{
-            return modelcases.llenarRequest();
-        } catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-    public ResultSet llenarAsigned(){
-        try{
-            return modelcases.llenarAsigned();
-        } catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-    public ResultSet llenarTester(){
-        try{
-            return modelcases.llenarTester();
-        } catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-    public ResultSet llenarEstado(){
-        try{
-            return modelcases.llenarEstado();
-        } catch(Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }*/
-
 }

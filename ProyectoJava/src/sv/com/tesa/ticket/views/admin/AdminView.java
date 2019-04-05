@@ -11,16 +11,14 @@ import sv.com.tesa.ticket.beans.LoginBean;
  */
 public class AdminView extends javax.swing.JFrame {
 
-    private AdminDeptView vistaDept;
-    private AdminBossView vistaEmp;
-    
     /**
-     * Creates new form Adminview
-     * @param logUser
+     * Creates new form AdminView
      */
+    AdminBossView vistaAdminJefes;
+    AdminDeptView vistaJefesDept;
+    
     public AdminView(LoginBean logUser) {
         initComponents();
-        labelUsuario.setText("Bienvenido: " + logUser.getNombre());
     }
 
     /**
@@ -30,83 +28,75 @@ public class AdminView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        btnAdminDept = new javax.swing.JButton();
-        btnAdminJefeDept = new javax.swing.JButton();
+        desktopPane = new javax.swing.JDesktopPane();
+        menuBar = new javax.swing.JMenuBar();
+        AdminMenu = new javax.swing.JMenu();
+        adminDeptMenuItem = new javax.swing.JMenuItem();
+        adminBossMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelUsuario.setText("Bienvenido:");
+        AdminMenu.setMnemonic('h');
+        AdminMenu.setText("Administrar");
 
-        jLabel1.setText("Seleccione la opción a realizar:");
-
-        btnAdminDept.setText("Administrar Departamentos");
-        btnAdminDept.addActionListener(new java.awt.event.ActionListener() {
+        adminDeptMenuItem.setMnemonic('c');
+        adminDeptMenuItem.setText("Administrar Departamentos");
+        adminDeptMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminDeptActionPerformed(evt);
+                adminDeptMenuItemActionPerformed(evt);
             }
         });
+        AdminMenu.add(adminDeptMenuItem);
 
-        btnAdminJefeDept.setText("Administrar Jefes de Departamentos y Desarrollo");
-        btnAdminJefeDept.addActionListener(new java.awt.event.ActionListener() {
+        adminBossMenuItem.setMnemonic('a');
+        adminBossMenuItem.setText("Administrar Jefes");
+        adminBossMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminJefeDeptActionPerformed(evt);
+                adminBossMenuItemActionPerformed(evt);
             }
         });
+        AdminMenu.add(adminBossMenuItem);
+
+        menuBar.add(AdminMenu);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelUsuario)
-                    .addComponent(jLabel1)
-                    .addComponent(btnAdminDept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdminJefeDept, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAdminDept, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAdminJefeDept, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdminDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminDeptActionPerformed
-        
-        vistaDept = new AdminDeptView();
-        vistaDept.setLocationRelativeTo(this);
-        vistaDept.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnAdminDeptActionPerformed
-
-    private void btnAdminJefeDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminJefeDeptActionPerformed
+    private void adminDeptMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeptMenuItemActionPerformed
         // TODO add your handling code here:
-        vistaEmp = new AdminBossView();
-        vistaEmp.setLocationRelativeTo(null);
-        vistaEmp.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnAdminJefeDeptActionPerformed
+        vistaJefesDept = new AdminDeptView();
+        desktopPane.add(vistaJefesDept);
+        vistaJefesDept.show();
+        
+    }//GEN-LAST:event_adminDeptMenuItemActionPerformed
 
+    private void adminBossMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBossMenuItemActionPerformed
+        // TODO add your handling code here:
+        vistaAdminJefes = new AdminBossView();
+        desktopPane.add(vistaAdminJefes);
+        vistaAdminJefes.show();
+    }//GEN-LAST:event_adminBossMenuItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdminDept;
-    private javax.swing.JButton btnAdminJefeDept;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel labelUsuario;
+    private javax.swing.JMenu AdminMenu;
+    private javax.swing.JMenuItem adminBossMenuItem;
+    private javax.swing.JMenuItem adminDeptMenuItem;
+    private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
+
 }

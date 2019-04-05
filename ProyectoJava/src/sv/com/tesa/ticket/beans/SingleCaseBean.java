@@ -11,6 +11,19 @@ package sv.com.tesa.ticket.beans;
  */
 public class SingleCaseBean {
 
+    private String id;
+    private String titulo;
+    private String creadoPor;
+    private String AsignadoA;
+    private String limite;
+    private Double avance;
+    private String ultimoCambio;
+    private String estado;
+    private String tester;
+    private String descripcion;
+    private String FechaCreacion;
+    private String produccion;
+    
     /**
      * @return the estado
      */
@@ -80,18 +93,6 @@ public class SingleCaseBean {
     public void setProduccion(String produccion) {
         this.produccion = produccion;
     }
-    private String id;
-    private String titulo;
-    private String creadoPor;
-    private String AsignadoA;
-    private String limite;
-    private Double avance;
-    private String ultimoCambio;
-    private String estado;
-    private String tester;
-    private String descripcion;
-    private String FechaCreacion;
-    private String produccion;
 
     public SingleCaseBean() {
     }

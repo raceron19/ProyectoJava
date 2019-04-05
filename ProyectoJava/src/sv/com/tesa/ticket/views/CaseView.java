@@ -4,21 +4,19 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
-import sv.com.tesa.ticket.controllers.CasesController;
-import java.sql.*;
-import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 
-public class CaseView extends javax.swing.JFrame {
-    private CasesController ctrlRequest;
+public class CaseView extends javax.swing.JDialog {
     private SingleCaseBean beanCases;
     CasesView caso = new CasesView();
     /**
      * Creates new form CaseView
+     * @param peticion
      */
     public CaseView(SingleCaseBean peticion){
         initComponents();
-        ctrlRequest = new CasesController();
+        setModal(true);
+        setLocationRelativeTo(null);
         beanCases = peticion;  
         llenarcampos();     
     }
@@ -137,11 +135,8 @@ public class CaseView extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel5)
                                             .addComponent(jLabel7)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblestado)
@@ -208,7 +203,7 @@ public class CaseView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        caso.sera = false;
+        CasesView.sera = false;
     }//GEN-LAST:event_formWindowClosing
 
     /**

@@ -14,16 +14,15 @@ import sv.com.tesa.ticket.utils.Utilidades;
  *
  * @author Edu
  */
-public class AdminBossView extends javax.swing.JFrame {
+public class AdminBossView extends javax.swing.JInternalFrame {
 
     private EmployeeBean beanEmp;
     private AdminBossController ctrlAdminJefe;
     private HashMap<Integer,String> mapRoles;
     private HashMap<String,String> mapDept;
     /**
-     * Creates new form AdminDeptBossView
+     * Creates new form AdminBossViewInterno
      */
-    
     public AdminBossView() {
         initComponents();
         ctrlAdminJefe = new AdminBossController();
@@ -42,36 +41,64 @@ public class AdminBossView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel7 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        txtApellido = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        btnIngresar = new javax.swing.JButton();
+        cbBoxRol = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtContraseña = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        txtIdEmpleado = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaJefesDept = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        cbBoxRol = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
-        cbBoxDept = new javax.swing.JComboBox<>();
-        txtApellido = new javax.swing.JTextField();
-        btnModificar = new javax.swing.JButton();
-        btnIngresar = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JPasswordField();
-        txtIdEmpleado = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         chbModPass = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        cbBoxDept = new javax.swing.JComboBox<>();
 
-        jLabel7.setText("jLabel7");
+        setClosable(true);
+        setTitle("Menu Administacion");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jCheckBox3.setText("Jefes de Desarrolo");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Correo:");
+
+        btnModificar.setText("Modificar Empleado");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnIngresar.setText("Ingresar Empleado");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+
+        cbBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setText("Contraseña:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("Departamento:");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Informacion:");
 
         tablaJefesDept.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,6 +118,28 @@ public class AdminBossView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaJefesDept);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Nombre Empleado:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setText("Id:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Apellido Empleado:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setText("* Este campo no es necesario cuando ingresa un nuevo jefe");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Rol:");
+
+        chbModPass.setText("Modificar Contraseña");
+        chbModPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbModPassActionPerformed(evt);
+            }
+        });
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Registros:");
 
@@ -101,76 +150,17 @@ public class AdminBossView extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox3.setText("Jefes de Desarrolo");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Correo:");
-
-        cbBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Departamento:");
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Informacion:");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Nombre Empleado:");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Apellido Empleado:");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Rol:");
-
         cbBoxDept.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnModificar.setText("Modificar Empleado");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnIngresar.setText("Ingresar Empleado");
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("Contraseña:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("Id:");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setText("* Este campo no es necesario cuando ingresa un nuevo jefe");
-
-        chbModPass.setText("Modificar Contraseña");
-        chbModPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbModPassActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jCheckBox1))
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox3))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnIngresar)
                                 .addGap(18, 18, 18)
@@ -192,9 +182,17 @@ public class AdminBossView extends javax.swing.JFrame {
                                         .addComponent(cbBoxRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtContraseña)
                                         .addComponent(txtCorreo)))))
-                        .addContainerGap(367, Short.MAX_VALUE))
+                        .addContainerGap(351, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCheckBox1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -206,11 +204,9 @@ public class AdminBossView extends javax.swing.JFrame {
                                     .addComponent(txtIdEmpleado))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel11))
-                            .addComponent(chbModPass))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))))
+                            .addComponent(chbModPass)
+                            .addComponent(jSeparator1))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,11 +248,11 @@ public class AdminBossView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar)
                     .addComponent(btnIngresar))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jCheckBox3))
@@ -268,10 +264,6 @@ public class AdminBossView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
             boolean op = chbModPass.isSelected();
@@ -282,7 +274,7 @@ public class AdminBossView extends javax.swing.JFrame {
             beanEmp.setApellido(txtApellido.getText());
             beanEmp.setEmail(txtCorreo.getText());
             for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem())) 
+                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
                 {
                     beanEmp.setRol(id);
                 }
@@ -290,8 +282,8 @@ public class AdminBossView extends javax.swing.JFrame {
             beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
             beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
             beanEmp.setPassword(new String(txtContraseña.getPassword()));
-            
-            if (ctrlAdminJefe.modificarJefe(beanEmp, op)) 
+
+            if (ctrlAdminJefe.modificarJefe(beanEmp, op))
             {
                 cargarTabla();
                 limpiarTexto();
@@ -305,29 +297,6 @@ public class AdminBossView extends javax.swing.JFrame {
             System.out.println("");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void chbModPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbModPassActionPerformed
-        
-        if (chbModPass.isSelected()) 
-        {
-            txtContraseña.setEnabled(true);
-        }
-        else
-        {
-            txtContraseña.setEnabled(false);
-        }
-    }//GEN-LAST:event_chbModPassActionPerformed
-
-    private void tablaJefesDeptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJefesDeptMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel dtm = (DefaultTableModel)tablaJefesDept.getModel();
-        int indexFila = tablaJefesDept.getSelectedRow();
-        txtIdEmpleado.setText(dtm.getValueAt(indexFila, 0).toString());
-        String[] nombre = dtm.getValueAt(indexFila, 1).toString().split(" ");
-        txtNombre.setText(nombre[0]);
-        txtApellido.setText(nombre[1]);
-        txtCorreo.setText(dtm.getValueAt(indexFila, 2).toString());
-    }//GEN-LAST:event_tablaJefesDeptMouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
@@ -360,6 +329,34 @@ public class AdminBossView extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void tablaJefesDeptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaJefesDeptMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel dtm = (DefaultTableModel)tablaJefesDept.getModel();
+        int indexFila = tablaJefesDept.getSelectedRow();
+        txtIdEmpleado.setText(dtm.getValueAt(indexFila, 0).toString());
+        String[] nombre = dtm.getValueAt(indexFila, 1).toString().split(" ");
+        txtNombre.setText(nombre[0]);
+        txtApellido.setText(nombre[1]);
+        txtCorreo.setText(dtm.getValueAt(indexFila, 2).toString());
+    }//GEN-LAST:event_tablaJefesDeptMouseClicked
+
+    private void chbModPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbModPassActionPerformed
+
+        if (chbModPass.isSelected())
+        {
+            txtContraseña.setEnabled(true);
+        }
+        else
+        {
+            txtContraseña.setEnabled(false);
+        }
+    }//GEN-LAST:event_chbModPassActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
 
     private void limpiarTexto()
     {
@@ -414,7 +411,6 @@ public class AdminBossView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
