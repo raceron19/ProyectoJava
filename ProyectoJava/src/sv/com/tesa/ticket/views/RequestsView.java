@@ -42,7 +42,6 @@ public class RequestsView extends javax.swing.JInternalFrame{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         popUpMenuAceptarDeclinar = new javax.swing.JPopupMenu();
         itemMenuAceptar = new javax.swing.JMenuItem();
@@ -73,8 +72,6 @@ public class RequestsView extends javax.swing.JInternalFrame{
         });
         popUpMenuAceptarDeclinar.add(itemMenuModificar);
 
-        getContentPane().setLayout(new java.awt.GridBagLayout());
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Peticiones");
 
@@ -85,22 +82,14 @@ public class RequestsView extends javax.swing.JInternalFrame{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(322, 322, 322)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 103, Short.MAX_VALUE))
+                .addGap(0, 91, Short.MAX_VALUE))
         );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 395;
-        gridBagConstraints.ipady = 103;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(jPanel1, gridBagConstraints);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -115,6 +104,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
                 "Id", "Titulo", "Descripcion", "Departamento", "Tipo de peticion", "Estado de la peticion"
             }
         ));
+        tablaPeticiones.setComponentPopupMenu(popUpMenuAceptarDeclinar);
         tablaPeticiones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPeticionesMouseClicked(evt);
@@ -124,21 +114,27 @@ public class RequestsView extends javax.swing.JInternalFrame{
 
         jPanel2.add(jScrollPane1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 797;
-        gridBagConstraints.ipady = 156;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
-        getContentPane().add(jPanel2, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
         
-        popUpMenuAceptarDeclinar.show(evt.getComponent(), evt.getX(), evt.getY());
     }//GEN-LAST:event_tablaPeticionesMouseClicked
 
     private void itemMenuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuModificarActionPerformed
