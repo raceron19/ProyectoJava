@@ -139,10 +139,10 @@ public class AccountView extends javax.swing.JDialog {
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addComponent(btnExit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnExit)
         );
+
+        pnlMenu.setBackground(new java.awt.Color(245, 245, 245));
 
         lblUsuario.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 20)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(44, 62, 80));
@@ -382,7 +382,7 @@ public class AccountView extends javax.swing.JDialog {
                 .addGap(0, 0, 0)
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
+                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 678, 600);
