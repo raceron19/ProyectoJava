@@ -8,15 +8,13 @@ import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
-import sv.com.tesa.ticket.beans.RecentRequestsBean;
 import sv.com.tesa.ticket.controllers.RecentCasesController;
-import sv.com.tesa.ticket.controllers.RecentRequestsController;
 
 /**
  *
  * @author Rahmans
  */
-public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
+public class DashBoardEmpleados extends javax.swing.JInternalFrame {
 
     static boolean maximized = true;
     int xMouse;
@@ -25,7 +23,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
             + "sp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs"
             + "p&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
     
-    public DashBoardJefeDesarrollo(LoginBean user) {
+    public DashBoardEmpleados(LoginBean user) {
         initComponents();
         setUndecorated(true);
         switch (LoginBean.getRol()) {
@@ -95,32 +93,10 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
                 lblCasoVencido.setHorizontalAlignment(SwingConstants.LEFT);
                 lblCasoVencido.setVerticalAlignment(SwingConstants.CENTER);
-                
-                
-                lblRequestCerrado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestCerrado.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestCerrado.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestDesarrollo.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestDesarrollo.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestDesarrollo.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestRechazado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestRechazado.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestRechazado.setVerticalAlignment(SwingConstants.CENTER);
                 llenarCasesLabels();
     }
 
-    DashBoardJefeDesarrollo() {
+    DashBoardEmpleados() {
         initComponents();
         setUndecorated(true);
     }
@@ -151,8 +127,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         btnOtherCases = new javax.swing.JButton();
         lblNews = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
-        btnRequests = new javax.swing.JButton();
-        lblRequest = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         jpOpenCases = new javax.swing.JScrollPane();
         pnlOpenCases = new javax.swing.JPanel();
@@ -191,23 +165,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jPanel13 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         lblTodosCasos = new javax.swing.JLabel();
-        jpRequests = new javax.swing.JScrollPane();
-        pnlRequest = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        lblRequestCerrado = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        lblRequestDesarrollo = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        lblRequestPorAprobar = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        lblRequestRechazado = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        lblTodosOtrosCasos = new javax.swing.JLabel();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -262,55 +219,30 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNews.setOpaque(true);
 
-        btnRequests.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
-        btnRequests.setForeground(new java.awt.Color(44, 62, 80));
-        btnRequests.setText("Últimas peticiones");
-        btnRequests.setBorder(null);
-        btnRequests.setContentAreaFilled(false);
-        btnRequests.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRequests.setFocusable(false);
-        btnRequests.setPreferredSize(new java.awt.Dimension(100, 27));
-        btnRequests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRequestsActionPerformed(evt);
-            }
-        });
-
-        lblRequest.setBackground(new java.awt.Color(255, 255, 255));
-        lblRequest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRequest.setOpaque(true);
-
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
         pnlMenuLayout.setHorizontalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 472, Short.MAX_VALUE))
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOpenCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOtherCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRequests, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOpenCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOtherCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                .addContainerGap(472, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,16 +257,12 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnOpenCases)
-                            .addComponent(btnOtherCases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRequests, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblRequest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOpenCases)
+                    .addComponent(btnOtherCases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pnlBody.setLayout(new java.awt.CardLayout(10, 10));
@@ -737,185 +665,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
 
         pnlBody.add(jpOtherCases, "card2");
 
-        jpRequests.setBorder(null);
-
-        pnlRequest.setBackground(new java.awt.Color(245, 245, 245));
-        pnlRequest.setLayout(new java.awt.GridLayout(2, 3, 30, 30));
-
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel11MouseClicked(evt);
-            }
-        });
-
-        jLabel27.setBackground(new java.awt.Color(0, 204, 106));
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Último Finalizado");
-        jLabel27.setOpaque(true);
-
-        lblRequestCerrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblRequestCerrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRequestCerrado, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnlRequest.add(jPanel11);
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel29.setBackground(new java.awt.Color(52, 152, 219));
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("En Desarrollo");
-        jLabel29.setOpaque(true);
-
-        lblRequestDesarrollo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblRequestDesarrollo, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRequestDesarrollo, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnlRequest.add(jPanel12);
-
-        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel33.setBackground(new java.awt.Color(243, 156, 18));
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Esperando Aprobación");
-        jLabel33.setOpaque(true);
-
-        lblRequestPorAprobar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblRequestPorAprobar, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRequestPorAprobar, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnlRequest.add(jPanel14);
-
-        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel35.setBackground(new java.awt.Color(149, 165, 166));
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Rechazaso");
-        jLabel35.setOpaque(true);
-
-        lblRequestRechazado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblRequestRechazado, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRequestRechazado, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnlRequest.add(jPanel15);
-
-        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel37.setBackground(new java.awt.Color(149, 165, 166));
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setText("Todos");
-        jLabel37.setOpaque(true);
-
-        lblTodosOtrosCasos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTodosOtrosCasos, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTodosOtrosCasos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        pnlRequest.add(jPanel16);
-
-        jpRequests.setViewportView(pnlRequest);
-
-        pnlBody.add(jpRequests, "card2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -936,7 +685,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
 
     private void btnOtherCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOtherCasesActionPerformed
         lblNews.setBackground(new Color(0,204,106));
-        lblRequest.setBackground(new Color(255, 255, 255));
         lblTimeline.setBackground(new Color(255,255,255));
         pnlBody.removeAll();
         pnlBody.repaint();
@@ -949,7 +697,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
 
     private void btnOpenCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCasesActionPerformed
         lblTimeline.setBackground(new Color(0,204,106));
-        lblRequest.setBackground(new Color(255, 255, 255));
         lblNews.setBackground(new Color(255,255,255));
         
         pnlBody.removeAll();
@@ -963,25 +710,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel7MouseClicked
-
-    private void btnRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestsActionPerformed
-        // TODO add your handling code here:                                         
-        lblRequest.setBackground(new Color(0,204,106));    
-        lblTimeline.setBackground(new Color(255,255,255));
-        lblNews.setBackground(new Color(255,255,255));        
-        pnlBody.removeAll();
-        pnlBody.repaint();
-        pnlBody.revalidate();
-        pnlBody.add(pnlRequest);
-        pnlBody.repaint();
-        pnlBody.revalidate();
-        llenarRequestsLabels();
-        
-    }//GEN-LAST:event_btnRequestsActionPerformed
-
-    private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel11MouseClicked
 
     public void llenarCasesLabels()
     {
@@ -1116,87 +844,16 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 recentCasesBean.getUltimoCambio() + "</p></html>");
         }
     }
-    public void llenarRequestsLabels()
-    {
-        RecentRequestsController recentRequestsController = new RecentRequestsController();
-        RecentRequestsBean recentRequestsBean = recentRequestsController.getLastClosed();
-        if(recentRequestsBean.getId() != null)
-        {
-            lblRequestCerrado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/GreenFolder.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-            lblRequestCerrado.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentRequestsBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentRequestsBean.getTipo() + "</p><p>" + tab + "<b>Tipo de solicitud:</b><br>" + tab +
-                recentRequestsBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentRequestsBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
-                recentRequestsBean.getUltimoCambio() + "</p></html>");
-        }
-        
-        recentRequestsBean = recentRequestsController.getLastDevelop();
-        if(recentRequestsBean.getId() != null)
-        {
-            lblRequestDesarrollo.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/BlueFolder.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-            lblRequestDesarrollo.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentRequestsBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentRequestsBean.getTipo() + "</p><p>" + tab + "<b>Tipo de solicitud:</b><br>" + tab +
-                recentRequestsBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentRequestsBean.getCreadoPor() + "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
-                recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Último cambio:</b><br>" + tab +
-                recentRequestsBean.getUltimoCambio() + "</p></html>");
-        }
-        
-        recentRequestsBean = recentRequestsController.getLastToAccep();
-        
-        if(recentRequestsBean.getId() != null)
-        {
-            lblRequestPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/OrangeFolder.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-            lblRequestPorAprobar.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentRequestsBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentRequestsBean.getTipo() + "</p><p>" + tab + "<b>Tipo de solicitud:</b><br>" + tab +
-                recentRequestsBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentRequestsBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
-                recentRequestsBean.getUltimoCambio() + "</p></html>");
-        }
-            
-        recentRequestsBean = recentRequestsController.getLastRefused();
-        
-        if(recentRequestsBean.getId() != null)
-        {
-            lblRequestRechazado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/CornFlowerBlueFolder.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-            lblRequestRechazado.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentRequestsBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentRequestsBean.getTipo() + "</p><p>" + tab + "<b>Tipo de solicitud:</b><br>" + tab +
-                recentRequestsBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentRequestsBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
-                recentRequestsBean.getUltimoCambio() + "</p></html>");
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenCases;
     private javax.swing.JButton btnOtherCases;
-    private javax.swing.JButton btnRequests;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1204,12 +861,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1220,7 +872,6 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jpOpenCases;
     private javax.swing.JScrollPane jpOtherCases;
-    private javax.swing.JScrollPane jpRequests;
     private javax.swing.JLabel lblCasoDevuelto;
     private javax.swing.JLabel lblCasoFinalizado;
     private javax.swing.JLabel lblCasoPorAprobar;
@@ -1231,23 +882,16 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblReciente3;
     private javax.swing.JLabel lblReciente4;
     private javax.swing.JLabel lblReciente5;
-    private javax.swing.JLabel lblRequest;
-    private javax.swing.JLabel lblRequestCerrado;
-    private javax.swing.JLabel lblRequestDesarrollo;
-    private javax.swing.JLabel lblRequestPorAprobar;
-    private javax.swing.JLabel lblRequestRechazado;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblTimeline;
     private javax.swing.JLabel lblTodos;
     private javax.swing.JLabel lblTodosCasos;
-    private javax.swing.JLabel lblTodosOtrosCasos;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlMenu;
     protected javax.swing.JPanel pnlOpenCases;
     private javax.swing.JPanel pnlOtherCases;
-    private javax.swing.JPanel pnlRequest;
     // End of variables declaration//GEN-END:variables
 
 }

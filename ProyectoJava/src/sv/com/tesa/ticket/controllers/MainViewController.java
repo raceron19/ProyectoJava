@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.controllers;
+import java.awt.Component;
 import javax.swing.JFrame;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.views.*;
@@ -32,7 +33,7 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-                JefesMainView jefesMainView = new JefesMainView();
+                final JefesMainView jefesMainView = new JefesMainView();
                 jefesMainView.setLocationRelativeTo(null);
                 jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jefesMainView.setVisible(true);
