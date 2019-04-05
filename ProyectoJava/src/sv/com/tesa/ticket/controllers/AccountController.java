@@ -5,22 +5,17 @@
  */
 package sv.com.tesa.ticket.controllers;
 
-import sv.com.tesa.ticket.beans.EmployeeBean;
 import sv.com.tesa.ticket.models.AccountModel;
 
 /**
  *
  * @author Rodrigo
  */
-public class AccountController {
-    private AccountModel accountModel = new AccountModel();
-    
-    public AccountController(){
-    
+public class AccountController 
+{ 
+    AccountModel accountModel = new AccountModel();
+    public boolean actualizarCuenta(String currentPass, String newPass)
+    {
+        return accountModel.actualizarCuenta(currentPass, newPass);
     }
-    
-    public EmployeeBean getAccount(){
-        return(accountModel.cuenta());
-    }
-    
 }

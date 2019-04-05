@@ -148,8 +148,18 @@ public class LoginView extends javax.swing.JFrame {
         );
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Constantia", 0, 14)); // NOI18N
         jButton1.setText("Ingresar");
@@ -298,6 +308,7 @@ public class LoginView extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
+            txtUsuario.requestFocus();
             jButton1ActionPerformed(null);
         }
     }//GEN-LAST:event_jButton1KeyPressed
@@ -338,6 +349,22 @@ public class LoginView extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_pnlHeaderMousePressed
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            txtPassword.requestFocus();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            jButton1.requestFocus();
+        }
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
     /**
      * @param args the command line arguments

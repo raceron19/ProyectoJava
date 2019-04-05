@@ -3,8 +3,11 @@ package sv.com.tesa.ticket.views;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.EmployeeBean;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.controllers.AccountController;
+import sv.com.tesa.ticket.controllers.MainViewController;
 
 /**
  *
@@ -21,9 +24,10 @@ public class AccountView extends javax.swing.JDialog {
     public AccountView() {
         initComponents();
         setModal(true);
+        setLocationRelativeTo(null);
         setUndecorated(true);
         cargarImagen();
-        account = ctrlAccount.getAccount();
+        cargarDatos();
     }
     
     private void cargarImagen(){
@@ -33,11 +37,11 @@ public class AccountView extends javax.swing.JDialog {
     }
     
     private void cargarDatos(){
-        lblUsuario.setText(account.getNombre());
-        lblRol.setText(String.valueOf(account.getRol()));
-        lblCorreo.setText(account.getEmail());
-        lblArea.setText(account.getDepartamento());
-        lblEncargado.setText(String.valueOf(account.getJefe()));
+        lblUsuario.setText(LoginBean.getNombre());
+        lblRol.setText(LoginBean.getRol());
+        lblCorreo.setText(LoginBean.getCorreo());
+        lblArea.setText(LoginBean.getDepartamento());
+        lblEncargado.setText(LoginBean.getJefe());
         
     }
 
@@ -53,8 +57,6 @@ public class AccountView extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlHeader = new javax.swing.JPanel();
-        btnMinimize = new javax.swing.JButton();
-        btnMaximize = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         pnlMenu = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
@@ -63,7 +65,6 @@ public class AccountView extends javax.swing.JDialog {
         lblTimeline = new javax.swing.JLabel();
         btnChangePassword = new javax.swing.JButton();
         lblNews = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         jpDatos = new javax.swing.JScrollPane();
         pnlDatos = new javax.swing.JPanel();
@@ -83,7 +84,15 @@ public class AccountView extends javax.swing.JDialog {
         txtPassNueva = new javax.swing.JPasswordField();
         txtPassConfirm = new javax.swing.JPasswordField();
 
-        pnlHeader.setBackground(new java.awt.Color(255, 255, 255));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 255));
+        setMaximumSize(new java.awt.Dimension(681, 561));
+        setModal(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(681, 561));
+
+        pnlHeader.setBackground(new java.awt.Color(222, 226, 226));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlHeader.setForeground(new java.awt.Color(255, 255, 255));
         pnlHeader.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -96,48 +105,6 @@ public class AccountView extends javax.swing.JDialog {
             }
         });
 
-        btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize.png"))); // NOI18N
-        btnMinimize.setContentAreaFilled(false);
-        btnMinimize.setFocusable(false);
-        btnMinimize.setOpaque(true);
-        btnMinimize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize (2).png"))); // NOI18N
-        btnMinimize.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize (2).png"))); // NOI18N
-        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseExited(evt);
-            }
-        });
-        btnMinimize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinimizeActionPerformed(evt);
-            }
-        });
-
-        btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMaximize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize.png"))); // NOI18N
-        btnMaximize.setContentAreaFilled(false);
-        btnMaximize.setFocusable(false);
-        btnMaximize.setOpaque(true);
-        btnMaximize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize (2).png"))); // NOI18N
-        btnMaximize.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize (2).png"))); // NOI18N
-        btnMaximize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseExited(evt);
-            }
-        });
-        btnMaximize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaximizeActionPerformed(evt);
-            }
-        });
-
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit.png"))); // NOI18N
         btnExit.setContentAreaFilled(false);
@@ -146,6 +113,9 @@ public class AccountView extends javax.swing.JDialog {
         btnExit.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
         btnExit.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExitMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExitMouseEntered(evt);
             }
@@ -165,23 +135,14 @@ public class AccountView extends javax.swing.JDialog {
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addComponent(btnExit))
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMaximize, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                .addComponent(btnExit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
 
         lblUsuario.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 20)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(44, 62, 80));
@@ -226,12 +187,6 @@ public class AccountView extends javax.swing.JDialog {
         lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblNews.setOpaque(true);
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(52, 152, 219));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Logout");
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
         pnlMenuLayout.setHorizontalGroup(
@@ -241,9 +196,7 @@ public class AccountView extends javax.swing.JDialog {
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(18, 18, 18))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
@@ -265,15 +218,11 @@ public class AccountView extends javax.swing.JDialog {
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lblUsuario)
-                        .addGap(5, 5, 5)
-                        .addComponent(lblRol)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(lblUsuario)
+                .addGap(5, 5, 5)
+                .addComponent(lblRol)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnChangePassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
@@ -286,10 +235,11 @@ public class AccountView extends javax.swing.JDialog {
 
         pnlBody.setLayout(new java.awt.CardLayout());
 
-        jpDatos.setBorder(null);
+        jpDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpDatos.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlDatos.setBackground(new java.awt.Color(245, 245, 245));
+        pnlDatos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("Correo:");
 
@@ -342,10 +292,16 @@ public class AccountView extends javax.swing.JDialog {
 
         pnlBody.add(jpDatos, "card2");
 
-        jpPassword.setBorder(null);
+        jpPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpPassword.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlPassword.setBackground(new java.awt.Color(245, 245, 245));
+        pnlPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlPasswordMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Ingrese contraseña actual:");
 
@@ -354,6 +310,18 @@ public class AccountView extends javax.swing.JDialog {
         jLabel6.setText("Confirme contraseña nueva:");
 
         btnSave.setText("jButton1");
+        btnSave.setNextFocusableComponent(txtPassActual);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        txtPassActual.setNextFocusableComponent(txtPassNueva);
+
+        txtPassNueva.setNextFocusableComponent(txtPassConfirm);
+
+        txtPassConfirm.setNextFocusableComponent(btnSave);
 
         javax.swing.GroupLayout pnlPasswordLayout = new javax.swing.GroupLayout(pnlPassword);
         pnlPassword.setLayout(pnlPasswordLayout);
@@ -391,7 +359,7 @@ public class AccountView extends javax.swing.JDialog {
                 .addGroup(pnlPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPassConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jpPassword.setViewportView(pnlPassword);
@@ -402,9 +370,9 @@ public class AccountView extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+            .addComponent(pnlHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,11 +380,11 @@ public class AccountView extends javax.swing.JDialog {
                 .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 714, 600);
+        setBounds(0, 0, 678, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -448,30 +416,6 @@ public class AccountView extends javax.swing.JDialog {
         pnlBody.revalidate();
     }//GEN-LAST:event_btnDatosActionPerformed
 
-    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
-        btnMinimize.setBackground(new Color(229,229,229));
-    }//GEN-LAST:event_btnMinimizeMouseEntered
-
-    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
-        btnMinimize.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnMinimizeMouseExited
-
-    private void btnMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizeActionPerformed
-        
-    }//GEN-LAST:event_btnMinimizeActionPerformed
-
-    private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
-        btnMaximize.setBackground(new Color(229,229,229));
-    }//GEN-LAST:event_btnMaximizeMouseEntered
-
-    private void btnMaximizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseExited
-        btnMaximize.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnMaximizeMouseExited
-
-    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
-      
-    }//GEN-LAST:event_btnMaximizeActionPerformed
-
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         btnExit.setBackground(new Color(232,17,35));
     }//GEN-LAST:event_btnExitMouseEntered
@@ -481,7 +425,7 @@ public class AccountView extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
@@ -497,15 +441,51 @@ public class AccountView extends javax.swing.JDialog {
         pnlBody.revalidate();
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        if((txtPassActual.getPassword() != null && txtPassConfirm.getPassword() != null && txtPassNueva.getPassword() != null) &&
+                (!new String(txtPassActual.getPassword()).equals("") && !new String(txtPassConfirm.getPassword()).equals("") && !new String(txtPassNueva.getPassword()).equals("")))
+        {
+            if(new String(txtPassNueva.getPassword()).equals(new String(txtPassConfirm.getPassword())))
+            {
+                if(ctrlAccount.actualizarCuenta(new String(txtPassActual.getPassword()), new String(txtPassNueva.getPassword())))
+                {
+                    JOptionPane.showMessageDialog(this, "Contraseña modificada con éxito");
+                    MainViewController.jefesMainView.disposeOnPasswordChanged();
+                    this.dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error al cambiar la contraseña");
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos");
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnExitMouseClicked
+
+    private void pnlPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPasswordMouseClicked
+        // TODO add your handling code here:
+        btnChangePasswordActionPerformed(null);
+    }//GEN-LAST:event_pnlPasswordMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnDatos;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnMaximize;
-    private javax.swing.JButton btnMinimize;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

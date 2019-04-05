@@ -7,7 +7,6 @@ package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
-import sv.com.tesa.ticket.beans.EmployeeBean;
 import sv.com.tesa.ticket.beans.LoginBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 
@@ -16,30 +15,21 @@ import static sv.com.tesa.ticket.models.ConexionModel.conexion;
  * @author Rodrigo
  */
 public class AccountModel extends ConexionModel{
-    public EmployeeBean cuenta()
+    public boolean actualizarCuenta(String currentPass, String newPass)
     {
-        
-        EmployeeBean employee = new EmployeeBean();
         try {
-            String sql = "CALL sp_get_employee()";
+            String sql = "CALL sp_update_employeePass(?, ?, ?)";
             this.conectar();
             st = conexion.prepareStatement(sql);
-            st.setString(1, String.valueOf(LoginBean.getId()));
-            rs = st.executeQuery();
-            rs.first();
-            employee.setId(Integer.valueOf(rs.getString("id")));
-            employee.setRol(Integer.valueOf(rs.getString("rol")));
-            employee.setNombre(rs.getString("nombre"));
-            employee.setApellido(rs.getString("apellido"));
-            employee.setEmail(rs.getString("email"));
-            employee.setPassword(rs.getString("password"));
-            employee.setJefe(Integer.valueOf(rs.getString("chief")));
-            employee.setDepartamento(rs.getString("department"));
-            
-            return employee;
+            st.setInt(1, LoginBean.getId());
+            st.setString(2, newPass);            
+            st.setString(3, currentPass);
+
+            int i = st.executeUpdate();
+            return i > 0;
         } catch (SQLException ex) {
             Logger.getLogger(AccountModel.class).error("Error al obtener los datos",ex);
-            return employee;
+            return false;
         }
         finally
         {
@@ -49,5 +39,6 @@ public class AccountModel extends ConexionModel{
                 Logger.getLogger(AccountModel.class).error("Error al cerrar la conexiòn.",ex);
             }
         }
+
     }
 }
