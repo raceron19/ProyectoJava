@@ -13,7 +13,7 @@ import sv.com.tesa.ticket.controllers.RequestController;
  *
  * @author Edu
  */
-public class RequestView extends javax.swing.JInternalFrame {
+public class RequestView extends javax.swing.JDialog {
 
     private SingleRequestBean peticionIndividual;
     private RequestController ctrlPeticion;
