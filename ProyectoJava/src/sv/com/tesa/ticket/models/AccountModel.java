@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.EmployeeBean;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 
 /**
@@ -17,7 +16,7 @@ import static sv.com.tesa.ticket.models.ConexionModel.conexion;
  * @author Rodrigo
  */
 public class AccountModel extends ConexionModel{
-    public EmployeeBean cuenta(LoginBean logOn)
+    public EmployeeBean cuenta()
     {
         
         EmployeeBean employee = new EmployeeBean();
@@ -25,7 +24,7 @@ public class AccountModel extends ConexionModel{
             String sql = "CALL sp_get_employee()";
             this.conectar();
             st = conexion.prepareStatement(sql);
-            st.setString(1, String.valueOf(logOn.getId()));
+            st.setString(1, String.valueOf(LoginBean.getId()));
             rs = st.executeQuery();
             rs.first();
             employee.setId(Integer.valueOf(rs.getString("id")));
