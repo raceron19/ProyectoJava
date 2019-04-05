@@ -17,13 +17,11 @@ import sv.com.tesa.ticket.utils.Validaciones;
 
 public class LoginController {
     
-    public static LoginBean validarUsuario(String user, String password, JFrame frame)
-    {
+    public static LoginBean validarUsuario(String user, String password, JFrame frame){
         if(Validaciones.esCorreoElectronico(user))
         {
         LoginModel loginM = new LoginModel();
-        LoginBean loginB = loginM.validar(user, password);
-        return loginB;
+        return loginM.validar(user, password);
         }
         else
         {

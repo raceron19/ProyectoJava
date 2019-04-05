@@ -18,8 +18,13 @@ public class RecentCasesBean
     private String limite;
     private Double avance;
     private String ultimoCambio;
+    
 
     public RecentCasesBean() {
+    }
+
+    public RecentCasesBean(String id) {
+        this.id=id;
     }
 
     public String getId() {

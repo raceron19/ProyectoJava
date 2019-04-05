@@ -6,6 +6,7 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
@@ -16,10 +17,9 @@ import static sv.com.tesa.ticket.models.ConexionModel.conexion;
  */
 public class RecentCasesModel extends ConexionModel
 {
-    public RecentCasesBean [] recientes()
+    public ArrayList<RecentCasesBean> recientes()
     {
-        RecentCasesBean [] latestCasesArray = new RecentCasesBean[5];
-        RecentCasesBean latestCases = new RecentCasesBean();
+        ArrayList<RecentCasesBean> latestCases = new ArrayList<>();
         try {
             String sql = "CALL sp_select_latest_cases()";
             this.conectar();
@@ -27,26 +27,27 @@ public class RecentCasesModel extends ConexionModel
             rs = st.executeQuery();
             while(rs.next())
             {
-                    latestCases.setId(rs.getString("Id"));
-                    latestCases.setTitulo(rs.getString("Titulo"));
-                    latestCases.setCreadoPor(rs.getString("CreadoPor"));
-                    latestCases.setAsignadoA(rs.getString("Asignado"));
-                    latestCases.setLimite(rs.getString("Limite"));
-                    latestCases.setAvance(rs.getDouble("Avance"));
+                    RecentCasesBean latestCasesBean = new RecentCasesBean();
+                    latestCasesBean.setId(rs.getString("Id"));
+                    latestCasesBean.setTitulo(rs.getString("Titulo"));
+                    latestCasesBean.setCreadoPor(rs.getString("CreadoPor"));
+                    latestCasesBean.setAsignadoA(rs.getString("Asignado"));                    
+                    latestCasesBean.setLimite(rs.getString("Limite"));
+                    latestCasesBean.setAvance(rs.getDouble("Avance"));
                     if(rs.getString("UltimoCambio") == null)
                     {
-                        latestCases.setUltimoCambio("No hay avances");
+                        latestCasesBean.setUltimoCambio("No hay avances");
                     }
                     else
                     {
-                        latestCases.setUltimoCambio(rs.getString("UltimoCambio"));
+                        latestCasesBean.setUltimoCambio(rs.getString("UltimoCambio"));
                     }
-                    latestCasesArray[rs.getRow() -1] = latestCases;
+                    latestCases.add(latestCasesBean);       
             }
-            return latestCasesArray;
+            return latestCases; 
         } catch (SQLException ex) {
             Logger.getLogger(RecentCasesModel.class).error("Error al obtener los datos",ex);
-            return latestCasesArray;
+            return null;
         }
         finally
         {

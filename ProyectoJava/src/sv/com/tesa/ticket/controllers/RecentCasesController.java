@@ -5,6 +5,7 @@
  */
 package sv.com.tesa.ticket.controllers;
 
+import java.util.ArrayList;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
 import sv.com.tesa.ticket.models.RecentCasesModel;
 
@@ -12,19 +13,17 @@ import sv.com.tesa.ticket.models.RecentCasesModel;
  *
  * @author eduar
  */
-public class CasesController 
+public class RecentCasesController 
 {
-    private RecentCasesBean [] recentCases = null;
     private RecentCasesBean otherCase = null;
     private RecentCasesModel recentCasesModel = new RecentCasesModel();
-    public CasesController()
+    public RecentCasesController()
     {
         
     }
-    public RecentCasesBean [] listarUltimos()
+    public ArrayList<RecentCasesBean> listarUltimos()
     {
-        recentCases = recentCasesModel.recientes();
-        return recentCases;
+        return recentCasesModel.recientes();
     }
     public RecentCasesBean getLastFinalized()
     {
