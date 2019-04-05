@@ -5,13 +5,14 @@
  */
 package sv.com.tesa.ticket.views;
 import sv.com.tesa.ticket.controllers.CasesController;
-import sv.com.tesa.ticket.beans.CasesBean;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import sv.com.tesa.ticket.beans.SingleCaseBean;
 
 public class CaseView extends javax.swing.JFrame {
     private CasesController ctrlRequest;
-    private CasesBean beanCases;
+    private SingleCaseBean beanCases;
     CasesView caso = new CasesView();
     /**
      * Creates new form CaseView
@@ -19,9 +20,23 @@ public class CaseView extends javax.swing.JFrame {
     public CaseView(){
         initComponents();
         ctrlRequest = new CasesController();
-        beanCases = new CasesBean();        
+        beanCases = peticion;  
+        llenarcampos();     
     }
-   
+    
+    private void llenarcampos(){
+        if(beanCases != null){
+            lblcaso.setText(beanCases.getTitulo());
+            lblid.setText(beanCases.getId());
+            lblestado.setText(beanCases.getEstado());
+            lblasignado.setText(beanCases.getAsignadoA());
+            lbltester.setText(beanCases.getTester());
+            lblporcentaje.setText(beanCases.getAvance().toString());
+            txtdescripcion.setText(beanCases.getDescripcion());
+            lblfechaC.setText(beanCases.getFechaCreacion());
+            lblfechaM.setText(beanCases.getUltimoCambio());
+        }
+    }   
     
     
     /**
