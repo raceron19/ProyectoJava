@@ -8,10 +8,9 @@ package sv.com.tesa.ticket.views;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sv.com.tesa.ticket.beans.BinnaclesBean;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
-import sv.com.tesa.ticket.views.developboss.MainView;
 
 /**
  *
@@ -28,7 +27,7 @@ public class JefesMainView extends javax.swing.JFrame {
          try {
             // TODO add your handling code here:
             LoginBean loginBean = new LoginBean();
-            DashBoardJefeDesarrollo db = new DashBoardJefeDesarrollo(loginBean);
+            DashBoardJefes db = new DashBoardJefes(loginBean);
             desktopPane.add(db);
             db.setSelected(true);
             db.setMaximizable(true);
@@ -61,8 +60,13 @@ public class JefesMainView extends javax.swing.JFrame {
         pasteMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(1000, 6000));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         desktopPane.setMinimumSize(new java.awt.Dimension(1000, 600));
 
@@ -143,11 +147,8 @@ public class JefesMainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        LoginBean loginBean = new LoginBean(0);
-        LoginView loginView = new LoginView();
-        loginView.show();
-        this.dispose();
-        
+
+        formWindowClosing(null);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
@@ -169,6 +170,20 @@ public class JefesMainView extends javax.swing.JFrame {
             Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Integer result = JOptionPane.showConfirmDialog(this, "¿Desea cerrar "
+        + "sesión?", "Saliendo", JOptionPane.YES_NO_OPTION, 
+        JOptionPane.INFORMATION_MESSAGE, null);
+        if(result == JOptionPane.YES_OPTION)
+        {
+        LoginBean loginBean = new LoginBean(0);
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
+        this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem copyMenuItem;

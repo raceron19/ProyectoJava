@@ -29,8 +29,8 @@ public class RecentCasesModel extends ConexionModel
             {
                     RecentCasesBean latestCasesBean = new RecentCasesBean();
                     latestCasesBean.setId(rs.getString("Id"));
-                    latestCasesBean.setCreadoPor(rs.getString("Titulo"));
-                    latestCasesBean.setAsignadoA(rs.getString("CreadoPor"));
+                    latestCasesBean.setTitulo(rs.getString("Titulo"));
+                    latestCasesBean.setCreadoPor(rs.getString("CreadoPor"));
                     latestCasesBean.setAsignadoA(rs.getString("Asignado"));                    
                     latestCasesBean.setLimite(rs.getString("Limite"));
                     latestCasesBean.setAvance(rs.getDouble("Avance"));

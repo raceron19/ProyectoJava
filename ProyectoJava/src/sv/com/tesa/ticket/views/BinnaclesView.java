@@ -92,6 +92,11 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(52, 152, 219));
         jLabel5.setText("Ajustes");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
@@ -178,7 +183,6 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
         pnlBody.setLayout(new java.awt.CardLayout());
 
-        jTableBinnacleView.setBorder(null);
         jTableBinnacleView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -212,6 +216,12 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         pnlBody.repaint();
         pnlBody.revalidate();
     }//GEN-LAST:event_btnOpenCasesActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        BinnacleCaseView bin = new BinnacleCaseView();
+        bin.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenCases;
