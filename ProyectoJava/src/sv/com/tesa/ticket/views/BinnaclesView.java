@@ -11,8 +11,9 @@ import sv.com.tesa.ticket.controllers.BinnaclesController;
  * @author Rahmans
  */
 public class BinnaclesView extends javax.swing.JInternalFrame {
+    static boolean isOpen = false;
     private BinnaclesController binnaclesController;
-
+    
     static boolean maximized = true;
     int xMouse;
     int yMouse;

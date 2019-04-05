@@ -5,7 +5,6 @@
  */
 package sv.com.tesa.ticket.views;
 
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.beans.LoginBean;
@@ -18,18 +17,16 @@ import sv.com.tesa.ticket.controllers.RequestController;
  * @author Edu
  */
 public class RequestsView extends javax.swing.JInternalFrame{
-
+    static boolean isOpen = false;
     private RequestController ctrlPeticiones;
     private LoginBean usuario;
     private RequestBean peticion;
-    private HashMap<Integer,String> departamentos;
 
     
     public RequestsView(LoginBean logUser) {
         initComponents();
         usuario = logUser;
         ctrlPeticiones = new RequestController();
-        departamentos = ctrlPeticiones.listarTiposPeticion();
         cargarTabla();
     }
 
@@ -114,7 +111,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
         
         popUpMenuAceptarDeclinar.show(evt.getComponent(), evt.getX(), evt.getY());
@@ -126,15 +123,15 @@ public class RequestsView extends javax.swing.JInternalFrame{
         DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
-        peticion.setCreatedBy(usuario.getId());
+        peticion.setCreatedBy(LoginBean.getId());
         SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
         if (peticionIndividual.getId() != 0) 
         {
             boolean res = "Solicitud rechazada".equals(peticionIndividual.getEstado());
             if (res) {
-                RequestView vistaUnaPeticion = new RequestView(peticionIndividual, this);
+                RequestView vistaUnaPeticion = new RequestView(peticionIndividual);
                 this.getParent().add(vistaUnaPeticion);
-                vistaUnaPeticion.show();
+                vistaUnaPeticion.setVisible(true);
             }
             else
             {
@@ -157,7 +154,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
         DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
-        peticion.setCreatedBy(usuario.getId());
+        peticion.setCreatedBy(LoginBean.getId());
         SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
         if (peticionIndividual.getId() != 0) 
         {
@@ -189,7 +186,6 @@ public class RequestsView extends javax.swing.JInternalFrame{
         } catch (Exception e) {
         }
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemMenuAceptar;
     private javax.swing.JMenuItem itemMenuDeclinar;

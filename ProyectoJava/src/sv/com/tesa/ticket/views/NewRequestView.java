@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
@@ -16,7 +13,7 @@ import sv.com.tesa.ticket.controllers.RequestController;
  *
  * @author Edu
  */
-public class NewRequestView extends javax.swing.JInternalFrame {
+public class NewRequestView extends javax.swing.JDialog {
 
     /**
      * Creates new form NewRequestView
@@ -31,6 +28,7 @@ public class NewRequestView extends javax.swing.JInternalFrame {
         this.usuario = logUser;
         ctrlPeticion = new RequestController();
         mapPeticiones = ctrlPeticion.listarTiposPeticion();
+        setModal(true);
         cargarCbBoxPeticiones();
     }
 

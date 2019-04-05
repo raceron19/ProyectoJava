@@ -33,7 +33,7 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-                final JefesMainView jefesMainView = new JefesMainView();
+                final MainView jefesMainView = new MainView();
                 jefesMainView.setLocationRelativeTo(null);
                 jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jefesMainView.setVisible(true);

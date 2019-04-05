@@ -17,7 +17,7 @@ import sv.com.tesa.ticket.controllers.RecentRequestsController;
  * @author Rahmans
  */
 public class DashBoardJefes extends javax.swing.JInternalFrame {
-
+    public static boolean isOpen = false;
     static boolean maximized = true;
     int xMouse;
     int yMouse;

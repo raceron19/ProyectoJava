@@ -23,14 +23,13 @@ public class RequestView extends javax.swing.JDialog {
     /**
      * Creates new form RequestView
      * @param peticion
-     * @param padre
      */
-    public RequestView(SingleRequestBean peticion, RequestsView padre) {
+    public RequestView(SingleRequestBean peticion) {
         initComponents();
         ctrlPeticion = new RequestController();
-        this.padre = padre;
         this.peticionIndividual = peticion;
         mapTipoPeticion = ctrlPeticion.listarTiposPeticion();
+        setModal(true);
         llenarCampos();
     }
 
@@ -58,9 +57,9 @@ public class RequestView extends javax.swing.JDialog {
     private void carbarCbBoxTipoPeticion()
     {
         cbBoxTipoSolicitud.removeAllItems();
-        for (Integer id : mapTipoPeticion.keySet()) {
+        mapTipoPeticion.keySet().forEach((id) -> {
             cbBoxTipoSolicitud.addItem(mapTipoPeticion.get(id));
-        }
+        });
     }
     
     /**
@@ -283,12 +282,9 @@ public class RequestView extends javax.swing.JDialog {
             RequestBean peticion = new RequestBean();
             peticion.setDescription(txtDescripcion.getText());
             peticion.setId(Integer.parseInt(txtId.getText()));
-            for (Integer id : mapTipoPeticion.keySet()) {
-                if(mapTipoPeticion.get(id).equals(cbBoxTipoSolicitud.getSelectedItem()))
-                {
-                    peticion.setRequestType(id);
-                }
-            }
+            mapTipoPeticion.keySet().stream().filter((id) -> (mapTipoPeticion.get(id).equals(cbBoxTipoSolicitud.getSelectedItem()))).forEachOrdered((id) -> {
+                peticion.setRequestType(id);
+            });
             peticion.setTitle(txtTitulo.getText());
             peticion.setCommentary(null);
             boolean res = ctrlPeticion.modificarPeticion(peticion);

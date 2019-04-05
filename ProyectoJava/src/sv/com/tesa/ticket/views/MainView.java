@@ -7,8 +7,9 @@ package sv.com.tesa.ticket.views;
 
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
 
@@ -16,25 +17,34 @@ import sv.com.tesa.ticket.beans.RecentCasesBean;
  *
  * @author eduar
  */
-public class JefesMainView extends javax.swing.JFrame {
+public class MainView extends javax.swing.JFrame {
+            
+    LoginBean loginBean = new LoginBean();
+    RequestsView requestsView = new RequestsView(loginBean);
+    DashBoardJefes db = new DashBoardJefes(loginBean);
+    BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
 
     /**
      * Creates new form NewMDIApplication
      */
-    public JefesMainView() {
+    public MainView() {
         initComponents();
-        setExtendedState(JefesMainView.MAXIMIZED_BOTH);
+        setExtendedState(MainView.MAXIMIZED_BOTH);
          try {
             // TODO add your handling code here:
-            LoginBean loginBean = new LoginBean();
-            DashBoardJefes db = new DashBoardJefes(loginBean);
-            desktopPane.add(db);
+            if(!DashBoardJefes.isOpen) 
+            {
+                    desktopPane.add(db);
+                    DashBoardJefes.isOpen = true;
+            }
+                requestsView.setVisible(false);
+                view.setVisible(false);
             db.setSelected(true);
             db.setMaximizable(true);
             db.setMaximum(true);
             db.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
     }
 
@@ -50,14 +60,13 @@ public class JefesMainView extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
+        InicioMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
+        verSolicitudesMenuItem = new javax.swing.JMenuItem();
+        nuevaSolicitudMenuItem = new javax.swing.JMenuItem();
         deleteMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -75,9 +84,14 @@ public class JefesMainView extends javax.swing.JFrame {
         fileMenu.setMnemonic('f');
         fileMenu.setText("Profile");
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Open");
-        fileMenu.add(openMenuItem);
+        InicioMenuItem.setMnemonic('o');
+        InicioMenuItem.setText("Inicio");
+        InicioMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InicioMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(InicioMenuItem);
 
         saveMenuItem.setMnemonic('s');
         saveMenuItem.setText("Save");
@@ -100,24 +114,20 @@ public class JefesMainView extends javax.swing.JFrame {
         menuBar.add(fileMenu);
 
         editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
+        editMenu.setText("Solicitudes");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
-        cutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        verSolicitudesMenuItem.setMnemonic('t');
+        verSolicitudesMenuItem.setText("Ver solicitudes");
+        verSolicitudesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutMenuItemActionPerformed(evt);
+                verSolicitudesMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(cutMenuItem);
+        editMenu.add(verSolicitudesMenuItem);
 
-        copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
-
-        pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
-        editMenu.add(pasteMenuItem);
+        nuevaSolicitudMenuItem.setMnemonic('y');
+        nuevaSolicitudMenuItem.setText("Neuva solicitud");
+        editMenu.add(nuevaSolicitudMenuItem);
 
         deleteMenuItem.setMnemonic('d');
         deleteMenuItem.setText("Delete");
@@ -151,23 +161,44 @@ public class JefesMainView extends javax.swing.JFrame {
         formWindowClosing(null);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
-       
-    }//GEN-LAST:event_cutMenuItemActionPerformed
+    private void verSolicitudesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verSolicitudesMenuItemActionPerformed
+        try {
+            
+                db.setVisible(false);
+                view.setVisible(false);
+                if(!RequestsView.isOpen) 
+            {
+                    desktopPane.add(requestsView);
+                    RequestsView.isOpen = true;
+            }
+            requestsView.setSelected(true);
+            requestsView.setMaximizable(true);
+            requestsView.setMaximum(true);
+            requestsView.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(MainView.class.getName()).log(null, ex);
+        }
+    }//GEN-LAST:event_verSolicitudesMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         try {
             // TODO add your handling code here:
             // TODO add your handling code here:
-            BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
-           
-            desktopPane.add(view);
+            
+                requestsView.setVisible(false);
+                db.setVisible(false);
+                if(!BinnaclesView.isOpen) 
+            {
+                    desktopPane.add(view);
+                    BinnaclesView.isOpen = true;
+            }
+            
             view.setSelected(true);
             view.setMaximizable(true);
             view.setMaximum(true);
             view.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(JefesMainView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
@@ -185,19 +216,38 @@ public class JefesMainView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void InicioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioMenuItemActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+                requestsView.setVisible(false);
+                view.setVisible(false);
+                if(!DashBoardJefes.isOpen) 
+            {
+                    desktopPane.add(db);
+                    DashBoardJefes.isOpen = true;
+            }
+            db.setSelected(true);
+            db.setMaximizable(true);
+            db.setMaximum(true);
+            db.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(MainView.class.getName()).log(null, ex);
+        }
+    }//GEN-LAST:event_InicioMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
+    private javax.swing.JMenuItem InicioMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem pasteMenuItem;
+    private javax.swing.JMenuItem nuevaSolicitudMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem verSolicitudesMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
