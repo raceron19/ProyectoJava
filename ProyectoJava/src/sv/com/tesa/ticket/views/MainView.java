@@ -201,7 +201,13 @@ public class MainView extends javax.swing.JFrame {
             Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_deleteMenuItemActionPerformed
-
+    public void disposeOnPasswordChanged()
+    {
+        LoginBean loginBean = new LoginBean(0);
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
+        this.dispose();
+    }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         Integer result = JOptionPane.showConfirmDialog(this, "¿Desea cerrar "

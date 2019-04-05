@@ -166,6 +166,11 @@ public class DashBoardJefes extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(52, 152, 219));
         jLabel5.setText("Ajustes");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
@@ -923,6 +928,12 @@ public class DashBoardJefes extends javax.swing.JInternalFrame {
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        AccountView account = new AccountView();
+        account.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     public void llenarCasesLabels()
     {

@@ -237,13 +237,18 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(52, 152, 219));
         jLabel5.setText("Ajustes");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
         btnOpenCases.setText("CASOS ABIERTOS");
         btnOpenCases.setBorder(null);
         btnOpenCases.setContentAreaFilled(false);
-        btnOpenCases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOpenCases.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnOpenCases.setFocusable(false);
         btnOpenCases.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +257,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         });
 
         lblTimeline.setBackground(new java.awt.Color(0, 204, 106));
-        lblTimeline.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTimeline.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblTimeline.setOpaque(true);
 
         tbnOtherCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
@@ -260,7 +265,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         tbnOtherCases.setText("OTROS CASOS");
         tbnOtherCases.setBorder(null);
         tbnOtherCases.setContentAreaFilled(false);
-        tbnOtherCases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbnOtherCases.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tbnOtherCases.setFocusable(false);
         tbnOtherCases.setPreferredSize(new java.awt.Dimension(100, 27));
         tbnOtherCases.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +275,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         });
 
         lblNews.setBackground(new java.awt.Color(255, 255, 255));
-        lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblNews.setOpaque(true);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -349,7 +354,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOpenCases.setLayout(new java.awt.GridLayout(2, 3, 20, 20));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel6.setBackground(new java.awt.Color(0, 204, 106));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -382,7 +387,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOpenCases.add(jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel7.setBackground(new java.awt.Color(52, 152, 219));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -415,7 +420,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOpenCases.add(jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel8.setBackground(new java.awt.Color(243, 156, 18));
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -448,7 +453,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOpenCases.add(jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel9.setBackground(new java.awt.Color(149, 165, 166));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -481,7 +486,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOpenCases.add(jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel10.setBackground(new java.awt.Color(149, 165, 166));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -524,7 +529,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOtherCases.setLayout(new java.awt.GridLayout(2, 3, 20, 20));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel7MouseClicked(evt);
@@ -562,7 +567,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOtherCases.add(jPanel7);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel21.setBackground(new java.awt.Color(52, 152, 219));
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -595,7 +600,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOtherCases.add(jPanel8);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel23.setBackground(new java.awt.Color(243, 156, 18));
         jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -628,7 +633,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOtherCases.add(jPanel9);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel25.setBackground(new java.awt.Color(149, 165, 166));
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -661,7 +666,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlOtherCases.add(jPanel10);
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel31.setBackground(new java.awt.Color(149, 165, 166));
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -816,6 +821,12 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlBody.repaint();
         pnlBody.revalidate();
     }//GEN-LAST:event_tbnOtherCasesActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        AccountView account = new AccountView();
+        account.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;

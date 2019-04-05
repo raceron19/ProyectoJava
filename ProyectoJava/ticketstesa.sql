@@ -1,4 +1,3 @@
-use sys;
 drop database if exists ticketstesa;
 create database ticketstesa;
 use ticketstesa;
