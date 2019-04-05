@@ -5,16 +5,20 @@
  */
 package sv.com.tesa.ticket.views;
 import sv.com.tesa.ticket.controllers.CasesController;
-import sv.com.tesa.ticket.beans.CasesBean;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
 import javax.swing.table.DefaultTableModel;
+import sv.com.tesa.ticket.beans.LoginBean;
 import javax.swing.JOptionPane;
+import sv.com.tesa.ticket.beans.SingleCaseBean;
+import sv.com.tesa.ticket.beans.SingleRequestBean;
 /**
  *
  * @author Reyes Alexander
  */
 public class CasesView extends javax.swing.JInternalFrame {
-    private CasesController ctrlCase;
-    private CasesBean beanCase;
+   private CasesController ctrlCase;
+    private RecentCasesBean beanCase;
+    private LoginBean usuario;
     public static boolean sera = false;
     /**
      * Creates new form CasesView
@@ -22,7 +26,7 @@ public class CasesView extends javax.swing.JInternalFrame {
     public CasesView() {
         initComponents();
         ctrlCase = new CasesController();
-        beanCase = new CasesBean();
+        beanCase = new RecentCasesBean();
         cargarTabla();
     }
     
@@ -130,26 +134,12 @@ public class CasesView extends javax.swing.JInternalFrame {
     private void TableCasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCasesMouseClicked
         DefaultTableModel dtm = (DefaultTableModel)TableCases.getModel();
         int fila = TableCases.getSelectedRow();
-        if(fila > -1){
-            int indexFila = TableCases.getSelectedRow();     
-            if(sera == false){                
-                CaseView caso = new CaseView();
-                caso.setVisible(true);
-                sera = true;
-                String id = (String)TableCases.getValueAt(fila,0);
-                //beanCase.setId(id);
-                caso.lblid.setText(id);
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"La ventana ya esta abierta");
-            }
-            
-            /*caso.lblcaso.setText(cas);
-            caso.lblestado.setText(estado);
-            caso.lblasignado.setText(asignado);
-            caso.lbltester.setText(tester);
-            caso.txtdescripcion.setText(descripcion);
-            caso.lblporcentaje.setText(porcentaje);*/
+        beanCase.setId(dtm.getValueAt(fila, 0).toString());
+        SingleCaseBean peticionIndividual = ctrlCase.listarCase(beanCase);
+        if(!peticionIndividual.getId().equals("")){
+            JOptionPane.showMessageDialog(null, "entre al if");
+                CaseView vistaUnaPeticion = new CaseView(peticionIndividual);
+                vistaUnaPeticion.setVisible(true);
         }        
     }//GEN-LAST:event_TableCasesMouseClicked
 
