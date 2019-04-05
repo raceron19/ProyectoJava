@@ -1,30 +1,31 @@
 package sv.com.tesa.ticket.controllers;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.models.RecentCasesModel;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import sv.com.tesa.ticket.models.CasesModel;
-import sv.com.tesa.ticket.beans.CasesBean;
 import javax.swing.JTable;
+import sv.com.tesa.ticket.beans.SingleCaseBean;
+import sv.com.tesa.ticket.beans.SingleRequestBean;
 
 public class CasesController {
-    private CasesModel modelcases;
-    
-    public CasesController(){
-        modelcases = new CasesModel();
+    private RecentCasesBean [] recentCases = null;
+    private RecentCasesBean otherCase = null;
+    private RecentCasesModel recentCasesModel = new RecentCasesModel();
+    public CasesController()
+    {
     }
     
     public JTable listarCases(){
         try{
-            return modelcases.listarCasos();
+            return recentCasesModel.listarCasos();
         } catch(Exception ex){
             System.out.println(ex.getMessage());
             return null;
         }
     }
-    
-    public ResultSet listarCase(CasesBean beanCase){
+    public SingleCaseBean listarCase(RecentCasesBean beanCase){
         try{
-            JOptionPane.showMessageDialog(null, "Entre al Controlador");
-            return modelcases.listarCaso(beanCase);
+            return recentCasesModel.listarCaso(beanCase);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             return null;
