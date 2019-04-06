@@ -1,4 +1,3 @@
-use sys;
 drop database if exists ticketstesa;
 create database ticketstesa;
 use ticketstesa;
@@ -99,6 +98,7 @@ insert into request_status values	(null, 'En espera de respuesta'),
 									(null, 'En desarrollo'),
                                     (null, 'Cerrado');
                                     
+                                    
 insert into case_status values	(null, 'En desarrollo'),
                                 (null, 'Esperando aprobación del área solicitante'),
 								(null, 'Vencido'),
@@ -113,9 +113,8 @@ insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', 
 insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 
-update employees set rol = 2 where id = 1;
 
-select * from roles where id = 4;
+
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
     IN email VARCHAR(250),
@@ -224,12 +223,7 @@ update employees set
 END IF;
 END//
 DELIMITER ;
-select * from cases;
-select * from employees;
-insert into ticketstesa.cases values('DST19895', 1, 6, 1, '2019-05-19', 'Prueba', 10.00, 4, now(), null, '2019-05-25');
-insert into ticketstesa.requests values (null, 1, 'DST', 'Prueba', 'Solo por probar', 1, 1, null, now(), null);
-update cases set tester = 3, updated_at = now(); 
-drop procedure sp_select_latest_cases;
+
 DELIMITER //
 create procedure sp_select_latest_cases()
 BEGIN
@@ -306,20 +300,34 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE sp_modify_request(IN request_id bigint, IN request_type int, IN department varchar(3), IN title varchar(255), IN descript text,
+CREATE PROCEDURE sp_modify_request(IN request_id int, IN request_type int, IN title varchar(255), IN descript text,
 								   in commentary text)
 BEGIN
 update requests set 
 requests.request_type = request_type,
-requests.department = department,
 requests.title = title,
 requests.descrip = descript,
 requests.commentary = commentary,
-requests.updated_at = now()
+requests.updated_at = now(),
+requests.request_status = (select request_status.id from request_status where request_status.rs_name = 'En espera de respuesta')
 where requests.id = request_id;
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE sp_deny_request(IN request_id int, in commentary text)
+BEGIN
+update requests set 
+requests.commentary = commentary,
+requests.updated_at = now(),
+requests.request_status = (select request_status.id from request_status where request_status.rs_name = 'Solicitud rechazada') 
+where requests.id = request_id;
+END //
+DELIMITER ;
+
+select * from requests;
+
+call sp_deny_request(25852,'feo');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))
@@ -331,6 +339,7 @@ inner join request_status on requests.request_status = request_status.id
 where requests.created_by = created_by_id or requests.department = (select departments.id from departments where departments.dname = department_in);
 END //
 DELIMITER ;
+
 
 DELIMITER //
 create procedure sp_select_individual_request(in id int, in created_by int)
@@ -346,7 +355,15 @@ where requests.id = id and requests.created_by = created_by;
 END //
 DELIMITER ;
 
-call sp_select_individual_request(25845,2)
+DELIMITER //
+CREATE PROCEDURE sp_delete_request(IN request_id int)
+BEGIN
+if (select count(cases.request) from cases where cases.request = request_id) = 0
+then
+delete from requests where requests.id = request_id;
+END IF;
+END //
+DELIMITER ;
 
 DELIMITER //
 create procedure sp_select_finalized_case()

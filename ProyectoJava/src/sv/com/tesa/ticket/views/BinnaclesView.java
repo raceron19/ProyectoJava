@@ -14,8 +14,9 @@ import sv.com.tesa.ticket.controllers.BinnaclesController;
  * @author Rahmans
  */
 public class BinnaclesView extends javax.swing.JInternalFrame {
+    static boolean isOpen = false;
     private BinnaclesController binnaclesController;
-
+    
     static boolean maximized = true;
     int xMouse;
     int yMouse;
@@ -342,7 +343,6 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
         pnlBody.setLayout(new java.awt.CardLayout());
 
-        jTableBinnacleView.setBorder(null);
         jTableBinnacleView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

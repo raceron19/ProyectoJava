@@ -13,6 +13,7 @@ import sv.com.tesa.ticket.beans.RequestBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 import sv.com.tesa.ticket.utils.Utilidades;
 import sv.com.tesa.ticket.beans.SingleRequestBean;
+import org.apache.log4j.Logger;
 /**
  *
  * @author Edu
@@ -41,7 +42,8 @@ public class RequestModel extends LoginModel{
             
             
         } catch (SQLException e) {
-            System.out.println("Error RequestModel: " + e.getSQLState() + " " + e.getMessage());
+            Logger.getLogger(RequestModel.class).error("Error al ingresar peticion en "
+                    + "funcion ingresarPeticion",e);
             return false;
         }
     }
@@ -62,6 +64,8 @@ public class RequestModel extends LoginModel{
             return map;
         } catch (SQLException e) 
         {
+            Logger.getLogger(RequestModel.class).error("Error al listar peticiones en "
+                    + "funcion ListarTiposPeticion",e);
             return null;
         }
     }
@@ -89,7 +93,8 @@ public class RequestModel extends LoginModel{
             return tabla;
         } catch (SQLException e) 
         {
-            System.out.println("Error en RequestModel: " + e.getSQLState() + " " + e.getMessage());
+            Logger.getLogger(RequestModel.class).error("Error al listar peticiones en "
+                    + "funcion listarPeticiones",e);
             return null;
         }
     }
@@ -122,9 +127,76 @@ public class RequestModel extends LoginModel{
             this.desconectar();
             return peticionIndividual;
         } catch (SQLException e) {
-            System.out.println("Error en RequestModel listarPetcionIndividual " + 
-                    e.getSQLState() + " " + e.getMessage());
+            Logger.getLogger(RequestModel.class).error("Error al listar peticiones individuales en "
+                    + "funcion listarPeticionIndividual",e);
             return null;    
+        }
+    }
+    
+    public boolean modificarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_modify_request (?,?,?,?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            st.setInt(2, peticion.getRequestType());
+            st.setString(3,peticion.getTitle());
+            st.setString(4,peticion.getDescription());
+            if (peticion.getCommentary() != null) {
+                st.setString(5, peticion.getCommentary());
+            }
+            else
+            {
+                st.setNull(5, Types.NULL);
+            }
+            
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            Logger.getLogger(RequestModel.class).error("Error al modificar una peticion en "
+                    + "funcion modificarPeticion",e);
+            return false;
+        }
+    }
+    
+    public boolean eliminarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_delete_request(?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            Logger.getLogger(RequestModel.class).error("Error al eliminar peticion en "
+                    + "funcion eliminarPeticion",e);
+            return false;
+        }
+    }
+    
+    public boolean denegarPeticion(RequestBean peticion)
+    {
+        try {
+            String sql = "call sp_deny_request(?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, peticion.getId());
+            st.setString(2, peticion.getCommentary());
+            
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException e) {
+            Logger.getLogger(RequestModel.class).error("Error al denegar peticion en "
+                    + "funcion denegarPeticion",e);
+            return false;
         }
     }
     
