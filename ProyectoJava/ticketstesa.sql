@@ -227,55 +227,51 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_latest_cases(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%a - %b - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado,  DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
 inner join employees e2 on c.assigned_to = e2.id 
-where c.case_status = 1 and c.department = (select id from departments where dname = departamento)order by c.created_at limit 4; 
+where c.case_status = 1 and r.department = (select id from departments where dname = departamento) order by c.created_at limit 4; 
 END //
 DELIMITER ;
-drop procedure sp_select_back_case;
 DELIMITER //
-create procedure sp_select_back_case()
+create procedure sp_select_back_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%a - %b - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
 inner join employees e2 on c.assigned_to = e2.id 
-where c.case_status = 4 order by c.created_at desc limit 1; 
+where c.case_status = 4 and r.department = (select id from departments where dname = departamento) order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-drop procedure sp_select_to_accept_case;
 DELIMITER //
-create procedure sp_select_to_accept_case()
+create procedure sp_select_to_accept_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%a - %b - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
 inner join employees e2 on c.assigned_to = e2.id 
-where c.case_status = 2 order by c.created_at desc limit 1; 
+where c.case_status = 2 and r.department = (select id from departments where dname = departamento) order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-drop procedure sp_select_death_case;
 DELIMITER //
-create procedure sp_select_death_case()
+create procedure sp_select_death_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%a - %b - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
 inner join employees e2 on c.assigned_to = e2.id 
-where c.case_status = 3 order by c.created_at desc limit 1; 
+where c.case_status = 3 and r.department = (select id from departments where dname = departamento) order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-DELIMITER //
 
 DELIMITER //
 CREATE PROCEDURE sp_view_request_no_description(IN department varchar(3))
@@ -328,10 +324,6 @@ where requests.id = request_id;
 END //
 DELIMITER ;
 
-select * from requests;
-
-call sp_deny_request(25852,'feo');
-
 DELIMITER //
 CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))
 BEGIN
@@ -369,30 +361,26 @@ END //
 DELIMITER ;
 
 DELIMITER //
-create procedure sp_select_finalized_case()
+create procedure sp_select_finalized_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%d - %b - %Y') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%a - %b - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
 inner join employees e2 on c.assigned_to = e2.id 
-where c.case_status = 5 order by c.created_at desc limit 1; 
+where c.case_status = 5 and r.department = (select id from departments where dname = departamento) order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
-select * from cases;
-drop procedure sp_select_binnacle_cases;
 DELIMITER //
 create procedure sp_select_binnacle_cases(IN idCaso varchar(8))
 BEGIN
 select b.id, r.title , b.commentary as comentario, DATE_FORMAT(b.created_at, '%W - %M - %Y - %h:%i:%s') 
 from binnacle b 
 inner join cases c on b.case_id = c.id
-inner join requests r on r.id = c.request
 where c.id = idCaso;
 END //
 DELIMITER ;
-drop procedure sp_insert_binnacle_cases;
 DELIMITER //
 create procedure sp_insert_binnacle_cases(IN idCaso varchar(8), IN porcentaje DECIMAL(5, 2), IN comentario TEXT)
 BEGIN
@@ -414,4 +402,48 @@ CREATE EVENT e_Casos_Vencidos
 ON SCHEDULE EVERY 1 MINUTE STARTS now()
 DO update cases set case_status = 3 where deadline <= now() and case_status = 1;
 
+SHOW events;
+
+update employees set rol = 2 where id = 1;
+
+
+DELIMITER //
+create procedure sp_select_finalized_request(IN departamento varchar(250))
+BEGIN
+SELECT r.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, DATE_FORMAT(r.updated_at, '%W - &M - %Y - %h:%i:%s') as UltimoCambio
+FROM requests r
+INNER JOIN employees e on e.id = r.created_by
+WHERE r.request_status = 4 and r.department = departamento;
+END //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_select_to_accept_request(IN departamento varchar(250))
+BEGIN
+SELECT r.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, DATE_FORMAT(r.updated_at, '%W - &M - %Y - %h:%i:%s') as UltimoCambio
+FROM requests r
+INNER JOIN employees e on e.id = r.created_by
+WHERE r.request_status = 1 and r.department = departamento;
+END //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_select_develop_request(IN departamento varchar(250))
+BEGIN
+SELECT r.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, DATE_FORMAT(r.updated_at, '%W - &M - %Y - %h:%i:%s') as UltimoCambio
+FROM requests r
+INNER JOIN employees e on e.id = r.created_by
+WHERE r.request_status = 3 and r.department = departamento;
+END //
+DELIMITER ;
+
+DELIMITER //
+create procedure sp_select_refuse_request(IN departamento varchar(250))
+BEGIN
+SELECT r.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, DATE_FORMAT(r.updated_at, '%W - &M - %Y - %h:%i:%s') as UltimoCambio
+FROM requests r
+INNER JOIN employees e on e.id = r.created_by
+WHERE r.request_status = 2 and r.department = departamento;
+END //
+DELIMITER ;
 

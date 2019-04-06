@@ -133,7 +133,9 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnReAbrir" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnNuevaBitacora" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -163,7 +165,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="pnlHeader" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtIdCaso" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -208,7 +210,10 @@
                               <Component id="txtSolicitadoPor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnNuevaBitacora" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnReAbrir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -479,13 +484,13 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnNuevaBitacora">
           <Properties>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Agregar Bit&#xe1;cora"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaBitacoraActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -500,6 +505,16 @@
               <Border info="null"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnReAbrir">
+          <Properties>
+            <Property name="mnemonic" type="int" value="97"/>
+            <Property name="text" type="java.lang.String" value="Volver a abrir caso"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReAbrirActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

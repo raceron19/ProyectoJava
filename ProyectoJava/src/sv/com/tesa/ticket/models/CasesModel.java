@@ -6,6 +6,7 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
@@ -28,7 +29,7 @@ public class CasesModel extends ConexionModel{
                          "INNER JOIN employees AS asign ON cases.assigned_to = asign.id " +
                          "INNER JOIN case_status ON cases.case_status = case_status.id";
             this.conectar();
-            st = conexion.prepareCall(sql);
+            st = conexion.prepareStatement(sql);
             boolean resultado = st.execute();
             
             if(resultado){
@@ -84,9 +85,22 @@ public class CasesModel extends ConexionModel{
             this.desconectar();
             return peticionIndividual;
         }catch(SQLException ex){
-            System.out.println("Error en RequestModel CasoIndividual " + 
-                    ex.getSQLState() + " " + ex.getMessage());
+            Logger.getLogger(CasesModel.class.getName()).log( null, ex);
             return null;
         }
-    }   
+    }
+    public boolean reOpenCase(String caseId)
+    {
+     try {
+         String sql = "CALL sp_re_open_case(?)";
+         this.conectar();
+         st = conexion.prepareStatement(sql);
+         st.setString(1, caseId);
+         return st.executeUpdate() > 0;
+     }
+     catch (SQLException ex) {
+         Logger.getLogger(CasesModel.class.getName()).log( null, ex);
+     }
+     return false;
+    }
 }
