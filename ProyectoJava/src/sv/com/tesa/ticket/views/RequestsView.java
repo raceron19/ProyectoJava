@@ -6,8 +6,10 @@
 package sv.com.tesa.ticket.views;
 
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RequestBean;
 import sv.com.tesa.ticket.beans.SingleRequestBean;
@@ -22,6 +24,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private RequestController ctrlPeticiones;
     private LoginBean usuario;
     private RequestBean peticion;
+    private DefaultTableModel dtm;
 
     
     public RequestsView(LoginBean logUser) {
@@ -30,6 +33,15 @@ public class RequestsView extends javax.swing.JInternalFrame{
         usuario = logUser;
         ctrlPeticiones = new RequestController();
         cargarTabla();
+        System.out.println(LoginBean.getRol());
+        if ("Jefe de área funcional".equals(LoginBean.getRol())) {
+            itemMenuAceptar.setEnabled(false);
+            itemMenuDeclinar.setEnabled(false);
+        }
+        else
+        {
+            itemMenuModificar.setEnabled(false);
+        }
     }
     public void setUndecorated(boolean val)
     {
@@ -42,19 +54,29 @@ public class RequestsView extends javax.swing.JInternalFrame{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         popUpMenuAceptarDeclinar = new javax.swing.JPopupMenu();
         itemMenuAceptar = new javax.swing.JMenuItem();
         itemMenuDeclinar = new javax.swing.JMenuItem();
         itemMenuModificar = new javax.swing.JMenuItem();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        rdBtnEsperaRespuesta = new javax.swing.JRadioButton();
+        rdBtnRechazada = new javax.swing.JRadioButton();
+        rdBtnDesarrollo = new javax.swing.JRadioButton();
+        rdBtnCerrado = new javax.swing.JRadioButton();
+        rdBtnTodos = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPeticiones = new javax.swing.JTable();
 
         itemMenuAceptar.setText("Aceptar Solicitud");
+        itemMenuAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuAceptarActionPerformed(evt);
+            }
+        });
         popUpMenuAceptarDeclinar.add(itemMenuAceptar);
 
         itemMenuDeclinar.setText("Declinar Solicitud");
@@ -73,34 +95,108 @@ public class RequestsView extends javax.swing.JInternalFrame{
         });
         popUpMenuAceptarDeclinar.add(itemMenuModificar);
 
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Peticiones");
+
+        buttonGroup1.add(rdBtnEsperaRespuesta);
+        rdBtnEsperaRespuesta.setText("En espera de respuesta");
+        rdBtnEsperaRespuesta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnEsperaRespuestaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdBtnRechazada);
+        rdBtnRechazada.setText("Solicitud rechazada");
+        rdBtnRechazada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnRechazadaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdBtnDesarrollo);
+        rdBtnDesarrollo.setText("En desarrollo");
+        rdBtnDesarrollo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnDesarrolloActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdBtnCerrado);
+        rdBtnCerrado.setText("Cerrado");
+        rdBtnCerrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnCerradoActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rdBtnTodos);
+        rdBtnTodos.setText("Todos");
+        rdBtnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdBtnTodosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(322, 322, 322)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(321, 321, 321)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(rdBtnEsperaRespuesta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdBtnRechazada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdBtnDesarrollo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdBtnCerrado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdBtnTodos)))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(0, 103, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdBtnEsperaRespuesta)
+                    .addComponent(rdBtnRechazada)
+                    .addComponent(rdBtnDesarrollo)
+                    .addComponent(rdBtnCerrado)
+                    .addComponent(rdBtnTodos))
+                .addContainerGap())
         );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 395;
-        gridBagConstraints.ipady = 103;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(jPanel1, gridBagConstraints);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -115,6 +211,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
                 "Id", "Titulo", "Descripcion", "Departamento", "Tipo de peticion", "Estado de la peticion"
             }
         ));
+        tablaPeticiones.setComponentPopupMenu(popUpMenuAceptarDeclinar);
         tablaPeticiones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaPeticionesMouseClicked(evt);
@@ -124,27 +221,33 @@ public class RequestsView extends javax.swing.JInternalFrame{
 
         jPanel2.add(jScrollPane1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 797;
-        gridBagConstraints.ipady = 156;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
-        getContentPane().add(jPanel2, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void tablaPeticionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeticionesMouseClicked
         
-        popUpMenuAceptarDeclinar.show(evt.getComponent(), evt.getX(), evt.getY());
     }//GEN-LAST:event_tablaPeticionesMouseClicked
 
     private void itemMenuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuModificarActionPerformed
 
         peticion = new RequestBean();
-        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setCreatedBy(LoginBean.getId());
@@ -153,8 +256,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
         {
             boolean res = "Solicitud rechazada".equals(peticionIndividual.getEstado());
             if (res) {
-                RequestView vistaUnaPeticion = new RequestView(peticionIndividual);
-                this.getParent().add(vistaUnaPeticion);
+                RequestView vistaUnaPeticion = new RequestView(peticionIndividual,this);
                 vistaUnaPeticion.setVisible(true);
             }
             else
@@ -175,7 +277,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private void itemMenuDeclinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuDeclinarActionPerformed
         
         peticion = new RequestBean();
-        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setCreatedBy(LoginBean.getId());
@@ -189,7 +291,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Solo se pueden aceptar peticiones "
+                JOptionPane.showMessageDialog(this, "Solo se pueden declinar peticiones "
                         + "que en espera de respuesta","Alerta",
                         JOptionPane.WARNING_MESSAGE);
             }
@@ -202,14 +304,87 @@ public class RequestsView extends javax.swing.JInternalFrame{
         }
     }//GEN-LAST:event_itemMenuDeclinarActionPerformed
 
+    private void itemMenuAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAceptarActionPerformed
+        // TODO add your handling code here:
+        peticion = new RequestBean();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        int indexFila = tablaPeticiones.getSelectedRow();
+        peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
+        peticion.setTitle(dtm.getValueAt(indexFila, 1).toString());
+        
+        if (dtm.getValueAt(indexFila, 5).toString().equals("En desarrollo")) 
+        {
+            JOptionPane.showMessageDialog(this, "No se puede aceptar esta solicitud "
+                    + "porque ya esta en desarrollo","Alerta",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            NewCaseView ingresoCaso = new NewCaseView(peticion,this);
+            ingresoCaso.setVisible(true);
+        }
+    }//GEN-LAST:event_itemMenuAceptarActionPerformed
+
+    private void rdBtnEsperaRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnEsperaRespuestaActionPerformed
+
+        filtrarDatos("En espera de respuesta");
+    }//GEN-LAST:event_rdBtnEsperaRespuestaActionPerformed
+
+    private void rdBtnRechazadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnRechazadaActionPerformed
+        
+        filtrarDatos("Solicitud rechazada");
+    }//GEN-LAST:event_rdBtnRechazadaActionPerformed
+
+    private void rdBtnDesarrolloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnDesarrolloActionPerformed
+        
+        filtrarDatos("En desarrollo");
+    }//GEN-LAST:event_rdBtnDesarrolloActionPerformed
+
+    private void rdBtnCerradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnCerradoActionPerformed
+        
+        filtrarDatos("Cerrado");
+    }//GEN-LAST:event_rdBtnCerradoActionPerformed
+
+    private void rdBtnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdBtnTodosActionPerformed
+        // TODO add your handling code here:
+        filtrarDatos(null);
+    }//GEN-LAST:event_rdBtnTodosActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_formFocusGained
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
+
     protected void cargarTabla()
     {
         try {
             tablaPeticiones.setModel(ctrlPeticiones.listarPeticiones(usuario).getModel());
+            dtm = (DefaultTableModel)tablaPeticiones.getModel();
         } catch (Exception e) {
         }
     }
+    
+    private void filtrarDatos(String filtro)
+    {
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtm);
+        tablaPeticiones.setRowSorter(sorter);
+        if (filtro != null) {
+            sorter.setRowFilter(RowFilter.regexFilter(filtro));
+        }
+        else
+        {
+            tablaPeticiones.setRowSorter(sorter);
+        }
+        
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenuItem itemMenuAceptar;
     private javax.swing.JMenuItem itemMenuDeclinar;
     private javax.swing.JMenuItem itemMenuModificar;
@@ -218,6 +393,11 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu popUpMenuAceptarDeclinar;
+    private javax.swing.JRadioButton rdBtnCerrado;
+    private javax.swing.JRadioButton rdBtnDesarrollo;
+    private javax.swing.JRadioButton rdBtnEsperaRespuesta;
+    private javax.swing.JRadioButton rdBtnRechazada;
+    private javax.swing.JRadioButton rdBtnTodos;
     private javax.swing.JTable tablaPeticiones;
     // End of variables declaration//GEN-END:variables
 }

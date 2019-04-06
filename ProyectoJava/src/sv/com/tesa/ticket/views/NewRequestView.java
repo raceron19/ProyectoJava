@@ -6,7 +6,10 @@
 package sv.com.tesa.ticket.views;
 import java.awt.Image;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RequestBean;
@@ -156,25 +159,32 @@ public class NewRequestView extends javax.swing.JDialog {
     private void btnIgresarCasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIgresarCasoActionPerformed
         // TODO add your handling code here:
         
-        peticion = new RequestBean();
-        mapPeticiones.keySet().stream().filter((idMap) -> (mapPeticiones.get(idMap).equals(cbBoxTipoPeticion.getSelectedItem()) )).forEachOrdered((idMap) -> {
-            peticion.setRequestType(idMap);
-        });
-        peticion.setDepartment(LoginBean.getDepartamento());
-        peticion.setTitle(txtTitulo.getText());
-        peticion.setDescription(txtAreaDescripcion.getText());
-        peticion.setCreatedBy(LoginBean.getId());
-        
-        if (ctrlPeticion.ingresarPeticion(peticion)) 
-        {
-            JOptionPane.showMessageDialog(this, "Nueva peticion creada","Exito",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Error al ingresar la peticion","Error",
-                    JOptionPane.ERROR_MESSAGE);
+        if (!txtTitulo.getText().equals("") || !txtAreaDescripcion.getText().equals("")) {
+            peticion = new RequestBean();
+            mapPeticiones.keySet().stream().filter((idMap) -> (mapPeticiones.get(idMap).equals(cbBoxTipoPeticion.getSelectedItem()) )).forEachOrdered((idMap) -> {
+                peticion.setRequestType(idMap);
+            });
+            peticion.setDepartment(LoginBean.getDepartamento());
+            peticion.setTitle(txtTitulo.getText());
+            peticion.setDescription(txtAreaDescripcion.getText());
+            peticion.setCreatedBy(LoginBean.getId());
+            
+            if (ctrlPeticion.ingresarPeticion(peticion)) 
+            {
+                JOptionPane.showMessageDialog(this, "Nueva peticion creada","Exito",
+                        JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(NewRequestView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "El titulo y la descripcion estan vacios","Error",
+                            JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnIgresarCasoActionPerformed
 

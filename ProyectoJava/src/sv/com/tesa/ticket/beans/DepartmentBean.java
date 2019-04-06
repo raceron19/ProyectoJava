@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.beans;
-import java.sql.ResultSet;
 /**
  *
  * @author Edu

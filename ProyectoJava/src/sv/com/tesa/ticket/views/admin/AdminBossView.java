@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views.admin;
+import java.awt.HeadlessException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.controllers.AdminBossController;
 import sv.com.tesa.ticket.beans.EmployeeBean;
 import sv.com.tesa.ticket.utils.Utilidades;
+import sv.com.tesa.ticket.utils.Validaciones;
 /**
  *
  * @author Edu
@@ -20,6 +22,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     private AdminBossController ctrlAdminJefe;
     private HashMap<Integer,String> mapRoles;
     private HashMap<String,String> mapDept;
+    private HashMap<Integer,String> mapJefes;
     /**
      * Creates new form AdminBossViewInterno
      */
@@ -28,9 +31,11 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         ctrlAdminJefe = new AdminBossController();
         mapRoles = ctrlAdminJefe.listarRoles();
         mapDept = ctrlAdminJefe.listarDepartamentos();
+        mapJefes = ctrlAdminJefe.listarJefes();
         cargarTabla();
         cargarCbBoxRol();
         cargarCbBoxDepartamentos();
+        cargarCbBoxJefes();
         txtContraseña.setEnabled(false);
     }
 
@@ -41,6 +46,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jCheckBox3 = new javax.swing.JCheckBox();
         txtApellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -66,6 +72,9 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         txtCorreo = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         cbBoxDept = new javax.swing.JComboBox<>();
+        cbBoxNuevoEmpleado = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        cbBoxJefes = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Menu Administacion");
@@ -76,6 +85,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         jLabel3.setText("Correo:");
 
         btnModificar.setText("Modificar Empleado");
+        btnModificar.setEnabled(false);
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -83,6 +93,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         });
 
         btnIngresar.setText("Ingresar Empleado");
+        btnIngresar.setEnabled(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -128,12 +139,13 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         jLabel6.setText("Apellido Empleado:");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setText("* Este campo no es necesario cuando ingresa un nuevo jefe");
+        jLabel11.setText("* Este campo no es necesario cuando ingresa un nuevo Empleado");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Rol:");
 
-        chbModPass.setText("Modificar Contraseña");
+        buttonGroup1.add(chbModPass);
+        chbModPass.setText("Modificar Empleado");
         chbModPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chbModPassActionPerformed(evt);
@@ -152,6 +164,19 @@ public class AdminBossView extends javax.swing.JInternalFrame {
 
         cbBoxDept.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        buttonGroup1.add(cbBoxNuevoEmpleado);
+        cbBoxNuevoEmpleado.setText("Ingresar nuevo empleado");
+        cbBoxNuevoEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBoxNuevoEmpleadoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Jefe del empleado:");
+
+        cbBoxJefes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,10 +187,20 @@ public class AdminBossView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnIngresar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnModificar))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel11))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbBoxJefes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,34 +213,32 @@ public class AdminBossView extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel9))
                                     .addGap(30, 30, 30)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbBoxDept, 0, 210, Short.MAX_VALUE)
+                                        .addComponent(cbBoxDept, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cbBoxRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtContraseña)
-                                        .addComponent(txtCorreo)))))
-                        .addContainerGap(351, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))
+                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chbModPass)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbBoxNuevoEmpleado))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnIngresar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModificar)))
+                        .addGap(0, 19, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jCheckBox3))
+                            .addComponent(jSeparator1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel10))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                    .addComponent(txtIdEmpleado))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11))
-                            .addComponent(chbModPass)
-                            .addComponent(jSeparator1))
+                                    .addComponent(jLabel8)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBox1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCheckBox3)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -213,7 +246,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
@@ -242,23 +275,29 @@ public class AdminBossView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addComponent(chbModPass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbBoxJefes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificar)
-                    .addComponent(btnIngresar))
+                    .addComponent(chbModPass)
+                    .addComponent(cbBoxNuevoEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIngresar)
+                    .addComponent(btnModificar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jCheckBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,27 +312,33 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             beanEmp.setNombre(txtNombre.getText());
             beanEmp.setApellido(txtApellido.getText());
             beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
-                {
-                    beanEmp.setRol(id);
-                }
-            }
+            mapRoles.keySet().stream().filter((id) -> (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))).forEachOrdered((id) -> {
+                beanEmp.setRol(id);
+            });
             beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
             beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
             beanEmp.setPassword(new String(txtContraseña.getPassword()));
-
-            if (ctrlAdminJefe.modificarJefe(beanEmp, op))
-            {
-                cargarTabla();
-                limpiarTexto();
+            for (Integer id : mapJefes.keySet()) {
+                if (mapJefes.get(id).equals(cbBoxJefes.getSelectedItem())) {
+                    beanEmp.setJefe(id);
+                    System.out.println(id);
+                }
+            }
+            if (Validaciones.esCorreoElectronico(beanEmp.getEmail())) {
+                if (ctrlAdminJefe.modificarJefe(beanEmp, op))
+                {
+                    cargarTabla();
+                    limpiarTexto();
+                    JOptionPane.showMessageDialog(this, "Los datos del empleado han sido modificados exitosamente","Exito",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             else
             {
                 JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
                     JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
             System.out.println("");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -302,31 +347,32 @@ public class AdminBossView extends javax.swing.JInternalFrame {
 
         try {
             beanEmp = new EmployeeBean();
-            beanEmp.setId(Integer.parseInt(txtIdEmpleado.getText()));
             beanEmp.setNombre(txtNombre.getText());
             beanEmp.setApellido(txtApellido.getText());
             beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
-                {
-                    beanEmp.setRol(id);
+            mapRoles.keySet().stream().filter((id) -> (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))).forEachOrdered((id) -> {
+                beanEmp.setRol(id);
+            });
+            beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
+            for (Integer id : mapJefes.keySet()) {
+                if (mapJefes.get(id).equals(cbBoxJefes.getSelectedItem())) {
+                    beanEmp.setJefe(id);
                 }
             }
-            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
-            beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
-            beanEmp.setPassword(new String(txtContraseña.getPassword()));
 
-            if(ctrlAdminJefe.ingresarJefe(beanEmp))
-            {
-                cargarTabla();
-                limpiarTexto();
+            if (Validaciones.esCorreoElectronico(beanEmp.getEmail())) {
+                if(ctrlAdminJefe.ingresarEmpleado(beanEmp))
+                {
+                    cargarTabla();
+                    limpiarTexto();
+                }
             }
             else
             {
                 JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
                     JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -346,6 +392,12 @@ public class AdminBossView extends javax.swing.JInternalFrame {
         if (chbModPass.isSelected())
         {
             txtContraseña.setEnabled(true);
+            cbBoxDept.setEnabled(true);
+            cbBoxJefes.setEditable(true);
+            cbBoxRol.setEditable(true);
+            txtIdEmpleado.setEnabled(true);
+            btnIngresar.setEnabled(false);
+            btnModificar.setEnabled(true);
         }
         else
         {
@@ -356,6 +408,20 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void cbBoxNuevoEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBoxNuevoEmpleadoActionPerformed
+        // TODO add your handling code here:
+        if (cbBoxNuevoEmpleado.isSelected()) {
+            txtIdEmpleado.setEnabled(false);
+            txtContraseña.setEnabled(false);
+            btnIngresar.setEnabled(true);
+            btnModificar.setEnabled(false);
+        }
+        else
+        {
+            txtIdEmpleado.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbBoxNuevoEmpleadoActionPerformed
 
 
     private void limpiarTexto()
@@ -382,23 +448,35 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     private void cargarCbBoxRol()
     {
         cbBoxRol.removeAllItems();
-        for (Integer id : mapRoles.keySet()) {
+        mapRoles.keySet().forEach((id) -> {
             cbBoxRol.addItem(mapRoles.get(id));
-        }
+        });
     }
  
     private void cargarCbBoxDepartamentos()
     {
         cbBoxDept.removeAllItems();
-        for (String id : mapDept.keySet()) {
+        mapDept.keySet().forEach((id) -> {
             cbBoxDept.addItem(mapDept.get(id));
+        });
+    }
+    
+    private void cargarCbBoxJefes()
+    {
+        cbBoxJefes.removeAllItems();
+        for (Integer id : mapJefes.keySet()) 
+        {
+            cbBoxJefes.addItem(mapJefes.get(id));
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbBoxDept;
+    private javax.swing.JComboBox<String> cbBoxJefes;
+    private javax.swing.JCheckBox cbBoxNuevoEmpleado;
     private javax.swing.JComboBox<String> cbBoxRol;
     private javax.swing.JCheckBox chbModPass;
     private javax.swing.JCheckBox jCheckBox1;
@@ -411,6 +489,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;

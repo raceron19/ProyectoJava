@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.controllers.CasesController;
 import javax.swing.table.DefaultTableModel;
-import sv.com.tesa.ticket.beans.LoginBean;
-import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 /**
  *
@@ -23,13 +22,14 @@ public class CasesView extends javax.swing.JInternalFrame {
      */
     public CasesView() {
         initComponents();
-        ctrlCase = new CasesController();
+        
         beanCase = new SingleCaseBean();
         cargarTabla();
     }
     
     private void cargarTabla(){        
         try{
+            ctrlCase = new CasesController();
             TableCases.setModel(ctrlCase.listarCases().getModel());
             TableCases.getColumnModel().getColumn(0).setMinWidth(5);
             TableCases.getColumnModel().getColumn(0).setPreferredWidth(6);
@@ -50,6 +50,29 @@ public class CasesView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TableCases = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         TableCases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,17 +124,30 @@ public class CasesView extends javax.swing.JInternalFrame {
     private void TableCasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCasesMouseClicked
         DefaultTableModel dtm = (DefaultTableModel)TableCases.getModel();
         int fila = TableCases.getSelectedRow();
+        beanCase = new SingleCaseBean();
         beanCase.setId(dtm.getValueAt(fila, 0).toString());
         SingleCaseBean peticionIndividual = ctrlCase.listarCase(beanCase);
         if(!peticionIndividual.getId().equals("")){
-                CaseView vistaUnaPeticion = new CaseView(peticionIndividual);
+                BinnaclesView vistaUnaPeticion = new BinnaclesView(peticionIndividual);
                 vistaUnaPeticion.setVisible(true);
-        }        
+        }     
+        cargarTabla();
     }//GEN-LAST:event_TableCasesMouseClicked
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
        this.hide();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+                cargarTabla();
+
+    }//GEN-LAST:event_formFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.controllers.MainViewController;
 import sv.com.tesa.ticket.controllers.LoginController;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.utils.Utilidades;
 
 /**
  *
@@ -291,8 +292,8 @@ public class LoginView extends javax.swing.JFrame {
         if(LoginController.esLoginExitoso(loginBean))
         {
             //Si el usuario existe carga la vista correspondiente
+            this.setVisible(false);
             controladorVistaPrin.cargarVista(loginBean);
-            this.dispose();
         }
         else
         {

@@ -18,6 +18,8 @@ public class ModificarCase extends javax.swing.JDialog {
     private CasesController caso;
     private HashMap<Integer,String> mapAsignado;
 
+    private HashMap<Integer,String> mapEmpleados;
+    private CasesController ctrlCasos;
     /**
      * Creates new form ModificarCase
      */
@@ -25,11 +27,10 @@ public class ModificarCase extends javax.swing.JDialog {
         initComponents();        
         caso = new CasesController();
         beanCases = beancito;
-        mapAsignado = caso.listarAsignado();
-        setModal(true);
-        setLocationRelativeTo(null);
+        ctrlCasos = new CasesController();
+        mapEmpleados = ctrlCasos.listarEmpleadosACargo();
         llenarCampos();
-        cargarCbBoxAsignado();        
+        llenarCbmAsignado();
     }
     
     private void llenarCampos(){

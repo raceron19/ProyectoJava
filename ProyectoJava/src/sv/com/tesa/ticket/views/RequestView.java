@@ -24,14 +24,15 @@ public class RequestView extends javax.swing.JDialog {
      * Creates new form RequestView
      * @param peticion
      */
-    public RequestView(SingleRequestBean peticion) {
+    public RequestView(SingleRequestBean peticion, RequestsView padre) {
         initComponents();
         ctrlPeticion = new RequestController();
         this.peticionIndividual = peticion;
         mapTipoPeticion = ctrlPeticion.listarTiposPeticion();
-        setModal(true);
-        setLocationRelativeTo(null);
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
         llenarCampos();
+        this.padre = padre;
     }
 
     

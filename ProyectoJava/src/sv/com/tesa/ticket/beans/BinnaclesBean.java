@@ -5,8 +5,6 @@
  */
 package sv.com.tesa.ticket.beans;
 
-import java.time.LocalDateTime;
-
 /**
  *
  * @author vaselinux

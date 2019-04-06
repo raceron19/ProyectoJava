@@ -6,44 +6,42 @@
 package sv.com.tesa.ticket.views;
 
 import java.beans.PropertyVetoException;
+
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
+
 /**
  *
  * @author eduar
  */
-public class MainView extends javax.swing.JFrame {
+public class EmployeesMainView extends javax.swing.JFrame {
             
     LoginBean loginBean = new LoginBean();
     RequestsView requestsView = new RequestsView(loginBean);
-    DashBoardJefes dashBoardJefes = new DashBoardJefes(loginBean);
+    DashBoardEmpleados db = new DashBoardEmpleados(loginBean);
     CasesView casesView = new CasesView();
 
     /**
      * Creates new form NewMDIApplication
      */
-    public MainView() {
+    public EmployeesMainView() {
         initComponents();
-        loginBean = new LoginBean();
-        requestsView = new RequestsView(loginBean);
-        dashBoardJefes = new DashBoardJefes(loginBean);
-        casesView = new CasesView();
-        setExtendedState(MainView.MAXIMIZED_BOTH);
+        setExtendedState(EmployeesMainView.MAXIMIZED_BOTH);
          try {
             // TODO add your handling code here:
             if(!DashBoardJefes.isOpen) 
             {
-                    desktopPane.add(dashBoardJefes);
+                    desktopPane.add(db);
                     DashBoardJefes.isOpen = true;
             }
                 requestsView.setVisible(false);
-            dashBoardJefes.setSelected(true);
-            dashBoardJefes.setMaximizable(true);
-            dashBoardJefes.setMaximum(true);
-            dashBoardJefes.show();
+            db.setSelected(true);
+            db.setMaximizable(true);
+            db.setMaximum(true);
+            db.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainView.class.getName()).log(null, ex);
+            Logger.getLogger(EmployeesMainView.class.getName()).log(null, ex);
         }
     }
 
@@ -182,7 +180,7 @@ public class MainView extends javax.swing.JFrame {
     private void verSolicitudesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verSolicitudesMenuItemActionPerformed
         try {
             
-                dashBoardJefes.setVisible(false);
+                db.setVisible(false);
                 if(!RequestsView.isOpen) 
             {
                     desktopPane.add(requestsView);
@@ -193,7 +191,7 @@ public class MainView extends javax.swing.JFrame {
             requestsView.setMaximum(true);
             requestsView.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainView.class.getName()).log(null, ex);
+            Logger.getLogger(EmployeesMainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_verSolicitudesMenuItemActionPerformed
 
@@ -214,14 +212,10 @@ public class MainView extends javax.swing.JFrame {
         JOptionPane.INFORMATION_MESSAGE, null);
         if(result == JOptionPane.YES_OPTION)
         {
-            RequestsView.isOpen = false;
-            DashBoardJefes.isOpen = false;
-            CasesView.isOpen = false;
-            DashBoardEmpleados.isOpen = false;
-            LoginBean.LoginBeanToNull();
-            LoginView loginView = new LoginView();
-            loginView.setVisible(true);
-            this.dispose();
+        LoginBean.LoginBeanToNull();
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
+        this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -232,15 +226,15 @@ public class MainView extends javax.swing.JFrame {
                 requestsView.setVisible(false);
                 if(!DashBoardJefes.isOpen) 
             {
-                    desktopPane.add(dashBoardJefes);
+                    desktopPane.add(db);
                     DashBoardJefes.isOpen = true;
             }
-            dashBoardJefes.setSelected(true);
-            dashBoardJefes.setMaximizable(true);
-            dashBoardJefes.setMaximum(true);
-            dashBoardJefes.show();
+            db.setSelected(true);
+            db.setMaximizable(true);
+            db.setMaximum(true);
+            db.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainView.class.getName()).log(null, ex);
+            Logger.getLogger(EmployeesMainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_InicioMenuItemActionPerformed
 
@@ -255,7 +249,7 @@ public class MainView extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
                 requestsView.setVisible(false);
-                dashBoardJefes.setVisible(false);
+                db.setVisible(false);
                 if(!CasesView.isOpen) 
             {
                     desktopPane.add(casesView);
@@ -266,7 +260,7 @@ public class MainView extends javax.swing.JFrame {
             casesView.setMaximum(true);
             casesView.show();
         } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainView.class.getName()).log(null, ex);
+            Logger.getLogger(EmployeesMainView.class.getName()).log(null, ex);
         }
     }//GEN-LAST:event_CasesMenuItemActionPerformed
 
