@@ -62,7 +62,6 @@ public class AdminBossModel extends LoginModel{
             
             int resultado = st.executeUpdate();
             this.desconectar();
-            
             return resultado > 0;
         } catch (SQLException e) {
             Logger.getLogger(AdminBossModel.class).error("Error al listar jefes "
@@ -88,7 +87,6 @@ public class AdminBossModel extends LoginModel{
             
             int resultado = st.executeUpdate();
             this.desconectar();
-            
             return resultado > 0;
         } catch (SQLException e) {
             Logger.getLogger(AdminBossModel.class).error("Error al modificar "
@@ -109,6 +107,7 @@ public class AdminBossModel extends LoginModel{
             {
                 map.put(rs.getInt("id"), rs.getString("rol"));
             }
+            this.desconectar();
             return map;
         } catch (SQLException e) 
         {
@@ -130,6 +129,7 @@ public class AdminBossModel extends LoginModel{
             {
                 map.put(rs.getString("id"), rs.getString("departamento"));
             }
+            this.desconectar();
             return map;
         } catch (SQLException e) 
         {

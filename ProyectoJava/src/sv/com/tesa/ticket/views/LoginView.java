@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.controllers.MainViewController;
 import sv.com.tesa.ticket.controllers.LoginController;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.utils.Utilidades;
 
 /**
  *
@@ -23,9 +24,7 @@ public class LoginView extends javax.swing.JFrame {
     static boolean maximized = true;
     int xMouse;
     int yMouse;
-    /**
-     * Creates new form Logueo
-     */
+
     public LoginView() {
         initComponents();
         setLocationRelativeTo(null);
