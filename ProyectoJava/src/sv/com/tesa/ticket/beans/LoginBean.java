@@ -20,7 +20,7 @@ public class LoginBean {
     public LoginBean()
     {
     }
-    public LoginBean(Integer op)
+    public static void LoginBeanToNull()
     {
         id = 0;
         rol = null;
@@ -28,7 +28,6 @@ public class LoginBean {
         correo = null;
         jefe = null;
         departamento = null;
-        error = null;
     }
     public static int getId() {
         return id;

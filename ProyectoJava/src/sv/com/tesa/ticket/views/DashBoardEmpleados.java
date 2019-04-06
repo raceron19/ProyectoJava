@@ -2,27 +2,35 @@ package sv.com.tesa.ticket.views;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.beans.RecentRequestsBean;
+import sv.com.tesa.ticket.controllers.RecentCasesController;
+import sv.com.tesa.ticket.controllers.RecentRequestsController;
 
 /**
  *
  * @author Rahmans
  */
-public class Dashboard extends javax.swing.JInternalFrame {
-
+public class DashBoardEmpleados extends javax.swing.JInternalFrame {
+    public static boolean isOpen = false;
     static boolean maximized = true;
     int xMouse;
     int yMouse;
+    String tab = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nb"
+            + "sp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs"
+            + "p&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
+    ArrayList<RecentCasesBean> recentCasesBean;
+    ArrayList<RecentCasesBean> otherCases;
     
-    public Dashboard(LoginBean user) {
+    public DashBoardEmpleados(LoginBean user) {
         initComponents();
         setUndecorated(true);
-        switch (user.getRol()) {
+        switch (LoginBean.getRol()) {
             case "Jefe de área funcional" :
                 lblUser.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/JefeFuncional.png").getImage().
@@ -46,11 +54,13 @@ public class Dashboard extends javax.swing.JInternalFrame {
             default:
                 throw new AssertionError();
         }
-                lblRol.setText(user.getRol());
-                lblUsuario.setText(user.getNombre());
+                lblRol.setText(LoginBean.getRol());
+                lblUsuario.setText(LoginBean.getNombre());
+                rellenarNoData();
+                llenarCasesLabels();
     }
 
-    Dashboard() {
+    DashBoardEmpleados() {
         initComponents();
         setUndecorated(true);
     }
@@ -72,156 +82,56 @@ public class Dashboard extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlHeader = new javax.swing.JPanel();
-        btnMinimize = new javax.swing.JButton();
-        btnMaximize = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
         pnlMenu = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnOpenCases = new javax.swing.JButton();
         lblTimeline = new javax.swing.JLabel();
-        tbnOtherCases = new javax.swing.JButton();
+        btnOtherCases = new javax.swing.JButton();
         lblNews = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         jpOpenCases = new javax.swing.JScrollPane();
         pnlOpenCases = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblReciente1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblReciente2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblReciente3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        lblReciente4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblReciente5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        lblTodos = new javax.swing.JLabel();
         jpOtherCases = new javax.swing.JScrollPane();
         pnlOtherCases = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lblCasoFinalizado = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblCasoDevuelto = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        lblCasoPorAprobar = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        lblCasoVencido = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        lblTodosCasos = new javax.swing.JLabel();
 
         setBorder(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-
-        pnlHeader.setBackground(new java.awt.Color(255, 255, 255));
-        pnlHeader.setForeground(new java.awt.Color(255, 255, 255));
-        pnlHeader.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                pnlHeaderMouseDragged(evt);
-            }
-        });
-        pnlHeader.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlHeaderMousePressed(evt);
-            }
-        });
-
-        btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize.png"))); // NOI18N
-        btnMinimize.setContentAreaFilled(false);
-        btnMinimize.setFocusable(false);
-        btnMinimize.setOpaque(true);
-        btnMinimize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize (2).png"))); // NOI18N
-        btnMinimize.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Minimize (2).png"))); // NOI18N
-        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMinimizeMouseExited(evt);
-            }
-        });
-        btnMinimize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinimizeActionPerformed(evt);
-            }
-        });
-
-        btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
-        btnMaximize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize.png"))); // NOI18N
-        btnMaximize.setContentAreaFilled(false);
-        btnMaximize.setFocusable(false);
-        btnMaximize.setOpaque(true);
-        btnMaximize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize (2).png"))); // NOI18N
-        btnMaximize.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Maximize (2).png"))); // NOI18N
-        btnMaximize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMaximizeMouseExited(evt);
-            }
-        });
-        btnMaximize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMaximizeActionPerformed(evt);
-            }
-        });
-
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit.png"))); // NOI18N
-        btnExit.setContentAreaFilled(false);
-        btnExit.setFocusable(false);
-        btnExit.setOpaque(true);
-        btnExit.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
-        btnExit.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
-        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnExitMouseExited(evt);
-            }
-        });
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
-        pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnExit))
-        );
-        pnlHeaderLayout.setVerticalGroup(
-            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnMaximize, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
 
         pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -236,11 +146,16 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(52, 152, 219));
         jLabel5.setText("Ajustes");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
-        btnOpenCases.setText("CASOS ABIERTOS");
+        btnOpenCases.setText("Casos Abiertos");
         btnOpenCases.setBorder(null);
         btnOpenCases.setContentAreaFilled(false);
         btnOpenCases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -255,17 +170,17 @@ public class Dashboard extends javax.swing.JInternalFrame {
         lblTimeline.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblTimeline.setOpaque(true);
 
-        tbnOtherCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
-        tbnOtherCases.setForeground(new java.awt.Color(44, 62, 80));
-        tbnOtherCases.setText("OTROS CASOS");
-        tbnOtherCases.setBorder(null);
-        tbnOtherCases.setContentAreaFilled(false);
-        tbnOtherCases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tbnOtherCases.setFocusable(false);
-        tbnOtherCases.setPreferredSize(new java.awt.Dimension(100, 27));
-        tbnOtherCases.addActionListener(new java.awt.event.ActionListener() {
+        btnOtherCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
+        btnOtherCases.setForeground(new java.awt.Color(44, 62, 80));
+        btnOtherCases.setText("Otros Casos");
+        btnOtherCases.setBorder(null);
+        btnOtherCases.setContentAreaFilled(false);
+        btnOtherCases.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOtherCases.setFocusable(false);
+        btnOtherCases.setPreferredSize(new java.awt.Dimension(100, 27));
+        btnOtherCases.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbnOtherCasesActionPerformed(evt);
+                btnOtherCasesActionPerformed(evt);
             }
         });
 
@@ -273,83 +188,62 @@ public class Dashboard extends javax.swing.JInternalFrame {
         lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNews.setOpaque(true);
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(52, 152, 219));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Logout");
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
         pnlMenuLayout.setHorizontalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel17)
-                        .addGap(18, 18, 18))
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(btnOpenCases))
+                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(tbnOtherCases, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOpenCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOtherCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                .addContainerGap(472, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(24, 24, 24)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
+                    .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addComponent(lblUsuario)
-                                .addGap(5, 5, 5)
-                                .addComponent(lblRol)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addComponent(lblUsuario)
+                        .addGap(5, 5, 5)
+                        .addComponent(lblRol)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOpenCases)
-                    .addComponent(tbnOtherCases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOtherCases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        pnlBody.setLayout(new java.awt.CardLayout());
+        pnlBody.setLayout(new java.awt.CardLayout(10, 10));
 
         jpOpenCases.setBorder(null);
-        jpOpenCases.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlOpenCases.setBackground(new java.awt.Color(245, 245, 245));
-        pnlOpenCases.setLayout(new java.awt.GridLayout(2, 3, 20, 20));
+        pnlOpenCases.setLayout(new java.awt.GridLayout(2, 3, 30, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.setMaximumSize(new java.awt.Dimension(400, 350));
 
         jLabel6.setBackground(new java.awt.Color(0, 204, 106));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -358,7 +252,8 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel6.setText("Reciente");
         jLabel6.setOpaque(true);
 
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReciente1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReciente1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -367,7 +262,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblReciente1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -375,7 +270,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblReciente1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -383,6 +278,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.setMaximumSize(new java.awt.Dimension(400, 350));
 
         jLabel7.setBackground(new java.awt.Color(52, 152, 219));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -391,7 +287,8 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel7.setText("Reciente");
         jLabel7.setOpaque(true);
 
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReciente2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReciente2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -400,7 +297,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblReciente2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -408,7 +305,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblReciente2, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -416,6 +313,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.setMaximumSize(new java.awt.Dimension(400, 350));
 
         jLabel8.setBackground(new java.awt.Color(243, 156, 18));
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -424,7 +322,8 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel8.setText("Reciente");
         jLabel8.setOpaque(true);
 
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReciente3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReciente3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -433,7 +332,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblReciente3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -441,7 +340,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblReciente3, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -449,15 +348,17 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.setMaximumSize(new java.awt.Dimension(400, 350));
 
-        jLabel9.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel9.setBackground(new java.awt.Color(100, 149, 237));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Reciente");
         jLabel9.setOpaque(true);
 
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReciente4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReciente4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -466,7 +367,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblReciente4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -474,7 +375,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblReciente4, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -482,15 +383,17 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel5.setMaximumSize(new java.awt.Dimension(400, 350));
 
         jLabel10.setBackground(new java.awt.Color(149, 165, 166));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Todos");
+        jLabel10.setText("Reciente");
         jLabel10.setOpaque(true);
 
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblReciente5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReciente5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -499,7 +402,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblReciente5, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -507,21 +410,55 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblReciente5, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pnlOpenCases.add(jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.setMaximumSize(new java.awt.Dimension(400, 350));
+
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Todos");
+        jLabel11.setOpaque(true);
+
+        lblTodos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTodos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTodos, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTodos, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pnlOpenCases.add(jPanel6);
 
         jpOpenCases.setViewportView(pnlOpenCases);
 
         pnlBody.add(jpOpenCases, "card2");
 
         jpOtherCases.setBorder(null);
-        jpOtherCases.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlOtherCases.setBackground(new java.awt.Color(245, 245, 245));
-        pnlOtherCases.setLayout(new java.awt.GridLayout(2, 3, 20, 20));
+        pnlOtherCases.setLayout(new java.awt.GridLayout(2, 3, 30, 30));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -538,16 +475,16 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel19.setText("Último Finalizado");
         jLabel19.setOpaque(true);
 
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCasoFinalizado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCasoFinalizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -555,7 +492,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblCasoFinalizado, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -571,7 +508,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel21.setText("Devuelto con Observaciones");
         jLabel21.setOpaque(true);
 
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCasoDevuelto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -580,7 +517,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblCasoDevuelto, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -588,7 +525,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblCasoDevuelto, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -604,7 +541,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel23.setText("Esperando Aprobación");
         jLabel23.setOpaque(true);
 
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCasoPorAprobar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -613,7 +550,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblCasoPorAprobar, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -621,7 +558,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblCasoPorAprobar, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -630,14 +567,14 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel25.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel25.setBackground(new java.awt.Color(100, 149, 237));
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("Vencido");
         jLabel25.setOpaque(true);
 
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCasoVencido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -646,7 +583,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(lblCasoVencido, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -654,7 +591,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(lblCasoVencido, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -670,7 +607,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         jLabel31.setText("Todos");
         jLabel31.setOpaque(true);
 
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTodosCasos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -679,7 +616,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTodosCasos, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -687,7 +624,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTodosCasos, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -701,15 +638,12 @@ public class Dashboard extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
@@ -718,22 +652,21 @@ public class Dashboard extends javax.swing.JInternalFrame {
         setBounds(0, 0, 1018, 600);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnlHeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHeaderMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_pnlHeaderMousePressed
-
-    private void pnlHeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHeaderMouseDragged
-        if(maximized){
-            int x = evt.getXOnScreen();
-            int y = evt.getYOnScreen();
-            this.setLocation(x - xMouse, y - yMouse);
-        }
-    }//GEN-LAST:event_pnlHeaderMouseDragged
+    private void btnOtherCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOtherCasesActionPerformed
+        lblNews.setBackground(new Color(0,204,106));
+        lblTimeline.setBackground(new Color(255,255,255));
+        pnlBody.removeAll();
+        pnlBody.repaint();
+        pnlBody.revalidate();
+        pnlBody.add(jpOtherCases);
+        pnlBody.repaint();
+        pnlBody.revalidate();                
+        rellenarNoData();
+        llenarOtherCasesLabels();
+    }//GEN-LAST:event_btnOtherCasesActionPerformed
 
     private void btnOpenCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCasesActionPerformed
         lblTimeline.setBackground(new Color(0,204,106));
-        
         lblNews.setBackground(new Color(255,255,255));
         
         pnlBody.removeAll();
@@ -741,104 +674,222 @@ public class Dashboard extends javax.swing.JInternalFrame {
         pnlBody.revalidate();
         pnlBody.add(jpOpenCases);
         pnlBody.repaint();
-        pnlBody.revalidate();
+        pnlBody.revalidate();        
+        rellenarNoData();
+        llenarCasesLabels();
     }//GEN-LAST:event_btnOpenCasesActionPerformed
-
-    private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
-        btnMinimize.setBackground(new Color(229,229,229));
-    }//GEN-LAST:event_btnMinimizeMouseEntered
-
-    private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
-        btnMinimize.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnMinimizeMouseExited
-
-    private void btnMinimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizeActionPerformed
-        try {
-            this.setIconifiable(true);
-            this.setIcon(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMinimizeActionPerformed
-
-    private void btnMaximizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseEntered
-        btnMaximize.setBackground(new Color(229,229,229));
-    }//GEN-LAST:event_btnMaximizeMouseEntered
-
-    private void btnMaximizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMaximizeMouseExited
-        btnMaximize.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnMaximizeMouseExited
-
-    private void btnMaximizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximizeActionPerformed
-        if(maximized){
-            try {
-                //handle fullscreen - taskbar
-                this.setMaximum(false);
-                maximized = false;
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            try {
-                this.setMaximum(true);
-                maximized = true;
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_btnMaximizeActionPerformed
-
-    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        btnExit.setBackground(new Color(232,17,35));
-    }//GEN-LAST:event_btnExitMouseEntered
-
-    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        btnExit.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_btnExitMouseExited
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel7MouseClicked
 
-    private void tbnOtherCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnOtherCasesActionPerformed
-        lblNews.setBackground(new Color(0,204,106));
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        AccountView account = new AccountView();
+        account.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
-        lblTimeline.setBackground(new Color(255,255,255));
-
-        pnlBody.removeAll();
-        pnlBody.repaint();
-        pnlBody.revalidate();
-        pnlBody.add(jpOtherCases);
-        pnlBody.repaint();
-        pnlBody.revalidate();
-    }//GEN-LAST:event_tbnOtherCasesActionPerformed
-
+    public void llenarCasesLabels()
+    {
+        RecentCasesController recentCasesController = new RecentCasesController();
+        recentCasesBean = recentCasesController.listarUltimos();
+        String [] labels = new String [5];
+        labels[0]="";        
+        labels[1]="";
+        labels[2]="";
+        labels[3]="";
+        labels[4]="";
+        for (int i = 0; i < recentCasesBean.size(); i++) 
+        {
+            if(recentCasesBean.get(i) != null)
+            {
+                if(i == 0)
+                {
+                lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                    + "ticket/images/GreenFolder.png").getImage().
+                    getScaledInstance(128, 128, 50)));
+                }
+                if(i == 1)
+                {
+                lblReciente2.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                    + "ticket/images/BlueFolder.png").getImage().
+                    getScaledInstance(128, 128, 50)));
+                }
+                if(i == 2)
+                {
+                lblReciente3.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                    + "ticket/images/OrangeFolder.png").getImage().
+                    getScaledInstance(128, 128, 50)));
+                }
+                if(i == 3)
+                {
+                lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                    + "ticket/images/CornFlowerBlueFolder.png").getImage().
+                    getScaledInstance(128, 128, 50)));
+                }
+                if(i == 4)
+                {
+                lblReciente5.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                    + "ticket/images/GrayFolder.png").getImage().
+                    getScaledInstance(128, 128, 50)));
+                }
+                labels[i] = "<html><p>" + tab + "<b>ID:</b><br>" + tab +
+                    recentCasesBean.get(i).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                    recentCasesBean.get(i).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                    recentCasesBean.get(i).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                    recentCasesBean.get(i).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                    recentCasesBean.get(i).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                    recentCasesBean.get(i).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                    recentCasesBean.get(i).getUltimoCambio() + "</p></html>";
+            }
+            else
+            {
+                labels[i] = "";
+                break;
+            }
+        }
+        lblReciente1.setText(labels[0]);        
+        lblReciente2.setText(labels[1]);
+        lblReciente3.setText(labels[2]);
+        lblReciente4.setText(labels[3]);
+        lblReciente5.setText(labels[4]);
+    }
+    public void llenarOtherCasesLabels()
+    {
+        otherCases = new ArrayList<>();
+        RecentCasesController recentCasesController = new RecentCasesController();
+        otherCases.add(recentCasesController.getLastFinalized());
+        if(otherCases.get(0).getId() != null)
+        {
+            lblCasoFinalizado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/GreenFolder.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+            lblCasoFinalizado.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
+                otherCases.get(0).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(0).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(0).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(0).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(0).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(0).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(0).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoFinalizado.setText("");
+        }
+        
+        otherCases.add(recentCasesController.getLastBack());
+        if(otherCases.get(1).getId() != null)
+        {
+            lblCasoDevuelto.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/BlueFolder.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+            lblCasoDevuelto.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
+                otherCases.get(1).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(1).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(1).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(1).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(1).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(1).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(1).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoDevuelto.setText("");
+        }
+        
+        otherCases.add(recentCasesController.getLastToAccept());
+        
+        if(otherCases.get(2).getId() != null)
+        {
+            lblCasoPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/OrangeFolder.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+            lblCasoPorAprobar.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
+                otherCases.get(2).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(2).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(2).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(2).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(2).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(2).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(2).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoPorAprobar.setText("");
+        }
+            
+        otherCases.add(recentCasesController.getLastVencido());
+        
+        if(otherCases.get(3).getId() != null)
+        {
+            lblCasoVencido.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/CornFlowerBlueFolder.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+            lblCasoVencido.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
+                otherCases.get(3).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(3).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(3).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(3).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(3).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(3).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(3).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoVencido.setText("");
+        }
+    }
+    private void rellenarNoData()
+    {
+        lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente2.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente3.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente5.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                
+                
+                lblCasoFinalizado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoFinalizado.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoFinalizado.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoDevuelto.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoDevuelto.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoDevuelto.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoVencido.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoVencido.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoVencido.setVerticalAlignment(SwingConstants.CENTER);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnMaximize;
-    private javax.swing.JButton btnMinimize;
     private javax.swing.JButton btnOpenCases;
+    private javax.swing.JButton btnOtherCases;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -851,22 +902,32 @@ public class Dashboard extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jpOpenCases;
     private javax.swing.JScrollPane jpOtherCases;
+    private javax.swing.JLabel lblCasoDevuelto;
+    private javax.swing.JLabel lblCasoFinalizado;
+    private javax.swing.JLabel lblCasoPorAprobar;
+    private javax.swing.JLabel lblCasoVencido;
     private javax.swing.JLabel lblNews;
+    private javax.swing.JLabel lblReciente1;
+    private javax.swing.JLabel lblReciente2;
+    private javax.swing.JLabel lblReciente3;
+    private javax.swing.JLabel lblReciente4;
+    private javax.swing.JLabel lblReciente5;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblTimeline;
+    private javax.swing.JLabel lblTodos;
+    private javax.swing.JLabel lblTodosCasos;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlBody;
-    private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlMenu;
     protected javax.swing.JPanel pnlOpenCases;
     private javax.swing.JPanel pnlOtherCases;
-    private javax.swing.JButton tbnOtherCases;
     // End of variables declaration//GEN-END:variables
 
 }

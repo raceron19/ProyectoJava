@@ -16,16 +16,18 @@ import sv.com.tesa.ticket.controllers.RecentRequestsController;
  *
  * @author Rahmans
  */
-public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
-
+public class DashBoardJefes extends javax.swing.JInternalFrame {
+    public static boolean isOpen = false;
     static boolean maximized = true;
     int xMouse;
     int yMouse;
     String tab = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nb"
             + "sp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs"
             + "p&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ";
+    ArrayList<RecentCasesBean> recentCasesBean;
+    ArrayList<RecentCasesBean> otherCases;
     
-    public DashBoardJefeDesarrollo(LoginBean user) {
+    public DashBoardJefes(LoginBean user) {
         initComponents();
         setUndecorated(true);
         switch (LoginBean.getRol()) {
@@ -54,73 +56,11 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         }
                 lblRol.setText(LoginBean.getRol());
                 lblUsuario.setText(LoginBean.getNombre());
-                lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente2.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente3.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente4.setHorizontalAlignment(SwingConstants.LEFT);
-                lblReciente4.setVerticalAlignment(SwingConstants.CENTER);
-                lblReciente5.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblReciente5.setHorizontalAlignment(SwingConstants.LEFT);
-                lblReciente5.setVerticalAlignment(SwingConstants.CENTER);
-                
-                
-                lblCasoFinalizado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblCasoFinalizado.setHorizontalAlignment(SwingConstants.LEFT);
-                lblCasoFinalizado.setVerticalAlignment(SwingConstants.CENTER);
-                lblCasoDevuelto.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblCasoDevuelto.setHorizontalAlignment(SwingConstants.LEFT);
-                lblCasoDevuelto.setVerticalAlignment(SwingConstants.CENTER);
-                lblCasoPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblCasoPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
-                lblCasoPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
-                lblCasoVencido.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblCasoVencido.setHorizontalAlignment(SwingConstants.LEFT);
-                lblCasoVencido.setVerticalAlignment(SwingConstants.CENTER);
-                
-                
-                lblRequestCerrado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestCerrado.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestCerrado.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestDesarrollo.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestDesarrollo.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestDesarrollo.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
-                lblRequestRechazado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
-                        + "ticket/images/nodata.png").getImage().
-                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
-                lblRequestRechazado.setHorizontalAlignment(SwingConstants.LEFT);
-                lblRequestRechazado.setVerticalAlignment(SwingConstants.CENTER);
+                rellenarNoData();
                 llenarCasesLabels();
     }
 
-    DashBoardJefeDesarrollo() {
+    DashBoardJefes() {
         initComponents();
         setUndecorated(true);
     }
@@ -226,6 +166,11 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(52, 152, 219));
         jLabel5.setText("Ajustes");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
@@ -285,31 +230,28 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         pnlMenuLayout.setHorizontalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 472, Short.MAX_VALUE))
+                            .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOpenCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOtherCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRequests, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTimeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOpenCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNews, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOtherCases, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRequests, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
@@ -453,7 +395,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel4.setMaximumSize(new java.awt.Dimension(400, 350));
 
-        jLabel9.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel9.setBackground(new java.awt.Color(100, 149, 237));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -523,7 +465,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel6.setMaximumSize(new java.awt.Dimension(400, 350));
 
-        jLabel11.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -670,7 +612,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel25.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel25.setBackground(new java.awt.Color(100, 149, 237));
         jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -849,7 +791,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel35.setBackground(new java.awt.Color(149, 165, 166));
+        jLabel35.setBackground(new java.awt.Color(100, 149, 237));
         jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -943,7 +885,8 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         pnlBody.revalidate();
         pnlBody.add(jpOtherCases);
         pnlBody.repaint();
-        pnlBody.revalidate();
+        pnlBody.revalidate();                
+        rellenarNoData();
         llenarOtherCasesLabels();
     }//GEN-LAST:event_btnOtherCasesActionPerformed
 
@@ -957,7 +900,9 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         pnlBody.revalidate();
         pnlBody.add(jpOpenCases);
         pnlBody.repaint();
-        pnlBody.revalidate();
+        pnlBody.revalidate();        
+        rellenarNoData();
+        llenarCasesLabels();
     }//GEN-LAST:event_btnOpenCasesActionPerformed
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
@@ -975,6 +920,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         pnlBody.add(pnlRequest);
         pnlBody.repaint();
         pnlBody.revalidate();
+        rellenarNoData();
         llenarRequestsLabels();
         
     }//GEN-LAST:event_btnRequestsActionPerformed
@@ -983,10 +929,16 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel11MouseClicked
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        AccountView account = new AccountView();
+        account.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     public void llenarCasesLabels()
     {
         RecentCasesController recentCasesController = new RecentCasesController();
-        ArrayList<RecentCasesBean> recentCasesBean = recentCasesController.listarUltimos();
+        recentCasesBean = recentCasesController.listarUltimos();
         String [] labels = new String [5];
         labels[0]="";        
         labels[1]="";
@@ -1021,9 +973,9 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                     + "ticket/images/CornFlowerBlueFolder.png").getImage().
                     getScaledInstance(128, 128, 50)));
                 }
-                if(i == 3)
+                if(i == 4)
                 {
-                lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                lblReciente5.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                     + "ticket/images/GrayFolder.png").getImage().
                     getScaledInstance(128, 128, 50)));
                 }
@@ -1038,6 +990,7 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
             }
             else
             {
+                labels[i] = "";
                 break;
             }
         }
@@ -1049,71 +1002,88 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
     }
     public void llenarOtherCasesLabels()
     {
+        otherCases = new ArrayList<>();
         RecentCasesController recentCasesController = new RecentCasesController();
-        RecentCasesBean recentCasesBean = recentCasesController.getLastFinalized();
-        if(recentCasesBean.getId() != null)
+        otherCases.add(recentCasesController.getLastFinalized());
+        if(otherCases.get(0).getId() != null)
         {
             lblCasoFinalizado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/GreenFolder.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
             lblCasoFinalizado.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentCasesBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentCasesBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentCasesBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentCasesBean.getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
-                recentCasesBean.getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
-                recentCasesBean.getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
-                recentCasesBean.getUltimoCambio() + "</p></html>");
+                otherCases.get(0).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(0).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(0).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(0).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(0).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(0).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(0).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoFinalizado.setText("");
         }
         
-        recentCasesBean = recentCasesController.getLastBack();
-        if(recentCasesBean.getId() != null)
+        otherCases.add(recentCasesController.getLastBack());
+        if(otherCases.get(1).getId() != null)
         {
             lblCasoDevuelto.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/BlueFolder.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
             lblCasoDevuelto.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentCasesBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentCasesBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentCasesBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentCasesBean.getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
-                recentCasesBean.getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
-                recentCasesBean.getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
-                recentCasesBean.getUltimoCambio() + "</p></html>");
+                otherCases.get(1).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(1).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(1).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(1).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(1).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(1).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(1).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoDevuelto.setText("");
         }
         
-        recentCasesBean = recentCasesController.getLastToAccept();
+        otherCases.add(recentCasesController.getLastToAccept());
         
-        if(recentCasesBean.getId() != null)
+        if(otherCases.get(2).getId() != null)
         {
             lblCasoPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/OrangeFolder.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
             lblCasoPorAprobar.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentCasesBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentCasesBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentCasesBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentCasesBean.getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
-                recentCasesBean.getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
-                recentCasesBean.getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
-                recentCasesBean.getUltimoCambio() + "</p></html>");
+                otherCases.get(2).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(2).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(2).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(2).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(2).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(2).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(2).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoPorAprobar.setText("");
         }
             
-        recentCasesBean = recentCasesController.getLastVencido();
+        otherCases.add(recentCasesController.getLastVencido());
         
-        if(recentCasesBean.getId() != null)
+        if(otherCases.get(3).getId() != null)
         {
             lblCasoVencido.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
                         + "ticket/images/CornFlowerBlueFolder.png").getImage().
                         getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
             lblCasoVencido.setText("<html><p>" + tab + "<b>ID:</b><br>" + tab +
-                recentCasesBean.getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
-                recentCasesBean.getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
-                recentCasesBean.getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
-                recentCasesBean.getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
-                recentCasesBean.getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
-                recentCasesBean.getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
-                recentCasesBean.getUltimoCambio() + "</p></html>");
+                otherCases.get(3).getId() + "</p><p>" + tab + "<b>Título:</b><br>" + tab +
+                otherCases.get(3).getTitulo() + "</p><p>" + tab + "<b>Creado por:</b><br>" + tab +
+                otherCases.get(3).getCreadoPor() + "</p><p>" + tab + "<b>Asignado a:</b><br>" + tab +
+                otherCases.get(3).getAsignadoA() + "</p><p>" + tab + "<b>Deadline:</b><br>" + tab +
+                otherCases.get(3).getLimite() + "</p><p>" + tab + "<b>Procentaje de avance:</b><br>" + tab +
+                otherCases.get(3).getAvance() + "%</p><p>" + tab + "<b>Última modificación:</b><br>" + tab +
+                otherCases.get(3).getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblCasoVencido.setText("");
         }
     }
     public void llenarRequestsLabels()
@@ -1133,6 +1103,10 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
                 recentRequestsBean.getUltimoCambio() + "</p></html>");
         }
+        else
+        {
+            lblRequestCerrado.setText("");
+        }
         
         recentRequestsBean = recentRequestsController.getLastDevelop();
         if(recentRequestsBean.getId() != null)
@@ -1147,6 +1121,10 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 recentRequestsBean.getCreadoPor() + "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
                 recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Último cambio:</b><br>" + tab +
                 recentRequestsBean.getUltimoCambio() + "</p></html>");
+        }
+        else
+        {
+            lblRequestDesarrollo.setText("");
         }
         
         recentRequestsBean = recentRequestsController.getLastToAccep();
@@ -1164,6 +1142,10 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
                 recentRequestsBean.getUltimoCambio() + "</p></html>");
         }
+        else
+        {
+            lblRequestPorAprobar.setText("");
+        }
             
         recentRequestsBean = recentRequestsController.getLastRefused();
         
@@ -1180,6 +1162,72 @@ public class DashBoardJefeDesarrollo extends javax.swing.JInternalFrame {
                 recentRequestsBean.getCreado()+ "</p><p>" + tab + "<b>Fecha de creación:</b><br>" + tab +
                 recentRequestsBean.getUltimoCambio() + "</p></html>");
         }
+        else
+        {
+            lblRequestRechazado.setText("");
+        }
+    }
+    private void rellenarNoData()
+    {
+        lblReciente1.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente2.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente3.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente4.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblReciente5.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                
+                
+                lblCasoFinalizado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoFinalizado.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoFinalizado.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoDevuelto.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoDevuelto.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoDevuelto.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
+                lblCasoVencido.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblCasoVencido.setHorizontalAlignment(SwingConstants.LEFT);
+                lblCasoVencido.setVerticalAlignment(SwingConstants.CENTER);
+                
+                
+                lblRequestCerrado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblRequestCerrado.setHorizontalAlignment(SwingConstants.LEFT);
+                lblRequestCerrado.setVerticalAlignment(SwingConstants.CENTER);
+                lblRequestDesarrollo.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblRequestDesarrollo.setHorizontalAlignment(SwingConstants.LEFT);
+                lblRequestDesarrollo.setVerticalAlignment(SwingConstants.CENTER);
+                lblRequestPorAprobar.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblRequestPorAprobar.setHorizontalAlignment(SwingConstants.LEFT);
+                lblRequestPorAprobar.setVerticalAlignment(SwingConstants.CENTER);
+                lblRequestRechazado.setIcon(new ImageIcon(new ImageIcon("./src/sv/com/tesa/"
+                        + "ticket/images/nodata.png").getImage().
+                        getScaledInstance(128, 128, Image.SCALE_SMOOTH)));
+                lblRequestRechazado.setHorizontalAlignment(SwingConstants.LEFT);
+                lblRequestRechazado.setVerticalAlignment(SwingConstants.CENTER);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenCases;
