@@ -59,7 +59,7 @@ public class CasesModel extends ConexionModel{
                          "INNER JOIN case_status ON cases.case_status = case_status.id"
                          + " WHERE cases.id = ?";
             this.conectar();
-            st = conexion.prepareCall(sql);
+            st = conexion.prepareStatement(sql);
             st.setString(1, String.valueOf(beanCase.getId()));
             rs = st.executeQuery();
             SingleCaseBean peticionIndividual = new SingleCaseBean();
