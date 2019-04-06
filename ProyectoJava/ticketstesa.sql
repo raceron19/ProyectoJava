@@ -109,13 +109,9 @@ insert into case_status values	(null, 'En desarrollo'),
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
 insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
 insert into employees values(null, 2, 'José', 'Arévalo', 'e@gmail.com', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 2, 'José', 'Arévalo', 'Jefe1', sha2('123456', 256), null, 'DST', now(), null);
-insert into employees values(null, 3, 'José', 'Arévalo', 'EmpleadoFuncional', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
-insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
+insert into employees values(null, 4,'Emp1', 'emp','f@gmail.com',sha2('123456',256),null,'DST',now(),null);
 
-
-
+select * from employees;
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
     IN email VARCHAR(250),
@@ -240,6 +236,7 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 1 and r.department = (select id from departments where dname = departamento) order by c.created_at limit 4; 
 END //
 DELIMITER ;
+
 DELIMITER //
 create procedure sp_select_back_case(IN departamento varchar(250))
 BEGIN
@@ -400,12 +397,7 @@ DELIMITER ;
 
 CREATE EVENT e_Casos_Vencidos
 ON SCHEDULE EVERY 1 MINUTE STARTS now()
-DO update cases set case_status = 3 where deadline <= now() and case_status = 1;
-
-SHOW events;
-
-update employees set rol = 2 where id = 1;
-
+DO update cases set case_status = 3 where deadline <= now() and case_status = 1; 
 
 DELIMITER //
 create procedure sp_select_finalized_request(IN departamento varchar(250))
@@ -480,8 +472,6 @@ values (rol_in,fname_in,lname_in,email_in, sha2('123456',256),in_chief,departmen
 END //
 DELIMITER ;
 
-update employees set employees.rol = 1 where employees.email = 'e@gmail.com';
-
 DELIMITER //
 CREATE PROCEDURE sp_select_boss_employees()
 BEGIN
@@ -492,3 +482,5 @@ select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Em
 END//
 DELIMITER ;
 
+select * from employees;
+update employees set chief = 4 where email = 'e@gmail.com';

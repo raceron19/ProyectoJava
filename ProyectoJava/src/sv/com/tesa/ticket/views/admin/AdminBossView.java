@@ -321,6 +321,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             for (Integer id : mapJefes.keySet()) {
                 if (mapJefes.get(id).equals(cbBoxJefes.getSelectedItem())) {
                     beanEmp.setJefe(id);
+                    System.out.println(id);
                 }
             }
             if (Validaciones.esCorreoElectronico(beanEmp.getEmail())) {
@@ -352,9 +353,12 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             mapRoles.keySet().stream().filter((id) -> (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))).forEachOrdered((id) -> {
                 beanEmp.setRol(id);
             });
-            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
             beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
-            
+            for (Integer id : mapJefes.keySet()) {
+                if (mapJefes.get(id).equals(cbBoxJefes.getSelectedItem())) {
+                    beanEmp.setJefe(id);
+                }
+            }
 
             if (Validaciones.esCorreoElectronico(beanEmp.getEmail())) {
                 if(ctrlAdminJefe.ingresarEmpleado(beanEmp))

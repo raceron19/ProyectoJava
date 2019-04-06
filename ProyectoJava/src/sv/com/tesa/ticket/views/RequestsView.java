@@ -6,7 +6,6 @@
 package sv.com.tesa.ticket.views;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +33,15 @@ public class RequestsView extends javax.swing.JInternalFrame{
         usuario = logUser;
         ctrlPeticiones = new RequestController();
         cargarTabla();
+        System.out.println(LoginBean.getRol());
+        if ("Jefe de área funcional".equals(LoginBean.getRol())) {
+            itemMenuAceptar.setEnabled(false);
+            itemMenuDeclinar.setEnabled(false);
+        }
+        else
+        {
+            itemMenuModificar.setEnabled(false);
+        }
     }
     public void setUndecorated(boolean val)
     {

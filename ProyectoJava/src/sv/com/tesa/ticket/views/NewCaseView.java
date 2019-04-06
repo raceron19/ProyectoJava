@@ -11,6 +11,7 @@ import sv.com.tesa.ticket.controllers.CasesController;
 import sv.com.tesa.ticket.beans.CaseBean;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RequestBean;
+import sv.com.tesa.ticket.utils.Validaciones;
 /**
  *
  * @author Edu
@@ -152,32 +153,51 @@ public class NewCaseView extends javax.swing.JDialog {
 
     private void btnCrearCasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCasoActionPerformed
         // TODO add your handling code here:
-        caso = new CaseBean();
-        caso.setId(Utilidades.generarNumAleatorio());
-        caso.setDepartamento(LoginBean.getDepartamento());
-        caso.setIdSolicitud(peticion.getId());
-        for (Integer id : mapEmpleados.keySet()) 
-        {
-            if (mapEmpleados.get(id).equals(cbBoxEmpleados.getSelectedItem())) {
-                caso.setEmpleadoAsignado(id);
+        if (!txtDescripcion.getText().equals("")) {
+            caso = new CaseBean();
+            caso.setId(Utilidades.generarNumAleatorio());
+            caso.setDepartamento(LoginBean.getDepartamento());
+            caso.setIdSolicitud(peticion.getId());
+            for (Integer id : mapEmpleados.keySet()) 
+            {
+                if (mapEmpleados.get(id).equals(cbBoxEmpleados.getSelectedItem())) {
+                    caso.setEmpleadoAsignado(id);
+                }
             }
-        }
-        caso.setFechaLimite(Utilidades.regresarFecha());
-        caso.setDescripcion(txtDescripcion.getText());
-        boolean res = ctrlCasos.ingresarEmpledado(caso);
-        
-        if (res) 
-        {
-            JOptionPane.showMessageDialog(this, "Nuevo caso creado","Exito",
-                    JOptionPane.INFORMATION_MESSAGE);
-            padre.cargarTabla();
-            this.dispose();
+            caso.setFechaLimite(Utilidades.regresarFecha());
+            caso.setDescripcion(txtDescripcion.getText());
+            System.out.println("Es fecha futura: " + Validaciones.esfechaFutura(caso.getFechaLimite()));
+
+            if (Validaciones.esfechaFutura(caso.getFechaLimite())) {
+
+                 boolean res = ctrlCasos.ingresarEmpledado(caso);
+                 if (res) 
+                {
+                    JOptionPane.showMessageDialog(this, "Nuevo caso creado","Exito",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    padre.cargarTabla();
+                    this.dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Hubo un error creando la peticion","Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "La fecha es limite se encuentra en el pasado o no "
+                        + "ha selecionado una fecha","Error",
+                            JOptionPane.ERROR_MESSAGE);
+            }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Hubo un error creando la peticion","Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La descripcion no puede ser vacia","Error",
+                            JOptionPane.ERROR_MESSAGE);
         }
+        
+        
+
     }//GEN-LAST:event_btnCrearCasoActionPerformed
 
     /**
