@@ -54,7 +54,11 @@ public class CasesController {
     {
         try {
             return casesModel.ingresarCaso(caso);
-        } catch (Exception e) 
+        } catch (Exception ex)
+        {
+            Logger.getLogger(CasesController.class).error(ex);
+            return false;
+        }
     }
     public boolean reOpenCase(String caseId){
         try{
