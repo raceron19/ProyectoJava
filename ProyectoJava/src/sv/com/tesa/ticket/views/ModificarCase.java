@@ -30,7 +30,7 @@ public class ModificarCase extends javax.swing.JDialog {
         ctrlCasos = new CasesController();
         mapEmpleados = ctrlCasos.listarEmpleadosACargo();
         llenarCampos();
-        llenarCbmAsignado();
+        cargarCbBoxAsignado();
     }
     
     private void llenarCampos(){

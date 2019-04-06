@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views.admin;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
+import sv.com.tesa.ticket.views.CasesView;
+import sv.com.tesa.ticket.views.DashBoardEmpleados;
+import sv.com.tesa.ticket.views.DashBoardJefes;
+import sv.com.tesa.ticket.views.LoginView;
+import sv.com.tesa.ticket.views.RequestsView;
 /**
  *
  * @author Edu
@@ -34,7 +40,12 @@ public class AdminView extends javax.swing.JFrame {
         adminDeptMenuItem = new javax.swing.JMenuItem();
         adminBossMenuItem = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         AdminMenu.setMnemonic('h');
         AdminMenu.setText("Administrar");
@@ -89,6 +100,20 @@ public class AdminView extends javax.swing.JFrame {
         desktopPane.add(vistaAdminJefes);
         vistaAdminJefes.show();
     }//GEN-LAST:event_adminBossMenuItemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        Integer result = JOptionPane.showConfirmDialog(this, "¿Desea cerrar "
+        + "sesión?", "Saliendo", JOptionPane.YES_NO_OPTION, 
+        JOptionPane.INFORMATION_MESSAGE, null);
+        if(result == JOptionPane.YES_OPTION)
+        {
+            LoginBean.LoginBeanToNull();
+            LoginView loginView = new LoginView();
+            loginView.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
