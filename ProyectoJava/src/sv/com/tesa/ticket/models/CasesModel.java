@@ -8,6 +8,7 @@ package sv.com.tesa.ticket.models;
 import java.sql.SQLException;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 import sv.com.tesa.ticket.utils.Utilidades;
@@ -21,19 +22,20 @@ public class CasesModel extends ConexionModel{
     public JTable listarCasos(){
         try{
             String sql = "SELECT cases.id AS IdCaso, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje, " +
-                         "concat(tester.fname,' ',tester.lname) AS Tester, asign.fname AS Asignado, case_status.cs_name AS Estado " +
+                         "concat(tester.fname,' ',tester.lname) AS Tester, asign.fname AS Asignado, case_status.cs_name AS Estado, cases.deadline AS Finalizacion " +
                          "from cases\n" +
                          "INNER JOIN requests ON cases.request = requests.id " +
                          "INNER JOIN employees AS tester ON cases.tester = tester.id " +
                          "INNER JOIN employees AS asign ON cases.assigned_to = asign.id " +
-                         "INNER JOIN case_status ON cases.case_status = case_status.id";
+                         "INNER JOIN case_status ON cases.case_status = case_status.id "
+                         + "where tester.department = (select id from departments where dname = '" + LoginBean.getDepartamento() + "')";
             this.conectar();
             st = conexion.prepareCall(sql);
             boolean resultado = st.execute();
             
             if(resultado){
                 rs = st.getResultSet();
-                String[] col = {"IdCaso", "Caso", "Descripcion", "Porcentaje", "Tester", "Asignado", "Estado"};
+                String[] col = {"IdCaso", "Caso", "Descripcion", "Porcentaje", "Tester", "Asignado", "Estado", "Fecha_Finalizacion"};
                 tabla = Utilidades.cargarTabla(col, rs);
             }
             else{
@@ -51,7 +53,7 @@ public class CasesModel extends ConexionModel{
         try{
             String sql = "SELECT cases.id AS IdCaso, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje, " +
                          "concat(tester.fname,' ',tester.lname) AS Tester, concat(asign.fname,' ',tester.lname) AS Asignado, case_status.cs_name AS Estado,"
-                         + " cases.created_at AS Creado, cases.updated_at AS Modificacion " +
+                         + " cases.created_at AS Creado, cases.updated_at AS Modificacion, cases.deadline AS Finalizacion " +
                          "from cases " +
                          "INNER JOIN requests ON cases.request = requests.id " +
                          "INNER JOIN employees AS tester ON cases.tester = tester.id " +
@@ -73,6 +75,7 @@ public class CasesModel extends ConexionModel{
                 peticionIndividual.setTester(rs.getString("Tester"));
                 peticionIndividual.setFechaCreacion(rs.getString("Creado"));
                 peticionIndividual.setUltimoCambio(rs.getString("Modificacion"));
+                peticionIndividual.setLimite(rs.getString("Finalizacion"));
             }
             this.desconectar();
             return peticionIndividual;
@@ -81,5 +84,7 @@ public class CasesModel extends ConexionModel{
                     ex.getSQLState() + " " + ex.getMessage());
             return null;
         }
-    }   
+    }
+
+    public 
 }
