@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.controllers.CasesController;
@@ -18,8 +19,12 @@ public class CaseView extends javax.swing.JDialog {
      */
     public CaseView(SingleCaseBean peticion){
         initComponents();
-        if(LoginBean.getRol() == "2" || LoginBean.getRol() == "4"){
-            btnmodificar.setVisible(false);
+        JOptionPane.showMessageDialog(null, LoginBean.getRol());
+        if(LoginBean.getRol().equals("Jefe de área funcional") || LoginBean.getRol().equals("Jefe de desarrollo")){
+            btnmodificar.setVisible(true);
+        }
+        else{
+            btnmodificar.setVisible(true);
         }
         setModal(true);
         setLocationRelativeTo(null);
@@ -40,11 +45,9 @@ public class CaseView extends javax.swing.JDialog {
             lblfechaF.setText(beanCases.getUltimoCambio());
             lblfechaFin.setText(beanCases.getLimite());
         }
-    }   
+    }  
     
-    private void llenarAsignado(){
-        
-    }
+    
     
     
     /**
@@ -283,8 +286,14 @@ public class CaseView extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        ModificarCase modificar = new ModificarCase(beanCases);
-        modificar.setVisible(true);
+       if(LoginBean.getRol().equals("Jefe de área funcional")){
+            ModCasoJAF modificar = new ModCasoJAF(beanCases);
+            modificar.setVisible(true);
+        }
+       else if(LoginBean.getRol().equals("Jefe de desarrollo")){
+           ModCaso modificar = new ModCaso(beanCases);
+           modificar.setVisible(true);
+       }        
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     /**

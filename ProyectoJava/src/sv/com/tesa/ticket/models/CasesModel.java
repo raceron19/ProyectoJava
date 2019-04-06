@@ -6,6 +6,8 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
@@ -85,6 +87,72 @@ public class CasesModel extends ConexionModel{
             return null;
         }
     }
-
-    public 
+   
+   public boolean modificarCasoJefeDesarrollo(SingleCaseBean beanCase){
+       try{
+           JOptionPane.showMessageDialog(null,"Entre al modelo");
+           String sql = "call sp_update_cases(?,?,?)";
+           this.conectar();
+           st = conexion.prepareCall(sql);
+           st.setInt(1, Integer.parseInt(beanCase.getAsignadoA()));
+           st.setString(2, beanCase.getDescripcion());
+           st.setString(3, beanCase.getId());
+           int resultado = st.executeUpdate();            
+            if (resultado > 0) {
+                this.desconectar();
+                return true;
+            }
+            this.desconectar();
+            return false;
+       }catch(Exception ex){
+           Logger.getLogger(AdminDeptModel.class).error("Error al actualizar "
+                    + "casos en función modificarCasoJefeDesarrollo",ex);
+            return false;
+       }
+   }
+   
+   public boolean modificarCasoJefeAreaFuncional(SingleCaseBean beanCase){
+       try{
+           JOptionPane.showMessageDialog(null, "entre al model");
+           String sql = "call sp_update_cases_JAF(?,?)";
+           this.conectar();
+           st = conexion.prepareCall(sql);
+           st.setInt(1, Integer.parseInt(beanCase.getTester()));
+           st.setString(2, beanCase.getId());
+           int resultado = st.executeUpdate();            
+            if (resultado > 0) {
+                this.desconectar();
+                return true;
+            }
+            this.desconectar();
+            return false;
+       }catch(Exception ex){
+           Logger.getLogger(AdminDeptModel.class).error("Error al actualizar "
+                    + "casos en función modificarCasoJefeAreaFuncional",ex);
+            return false;
+       }
+   }
+   
+   public HashMap<Integer,String> listarEmpleadosACargo()
+    {
+        HashMap<Integer, String> map = new HashMap<>();
+        try {
+            String sql = "call sp_select_employees_chief(?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, LoginBean.getId());
+            rs = st.executeQuery();
+            
+            while(rs.next())
+            {
+                map.put(rs.getInt(1), rs.getString(2));
+            }
+            this.desconectar();
+            return map;
+        } catch (SQLException e) {
+            Logger.getLogger(CasesModel.class).error("Error al listar "
+                    + "empleados a cargo en CasesModel función listarEmpleadosACargo",e);
+             return null;
+        }
+    }
 }

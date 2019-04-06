@@ -5,6 +5,8 @@
  */
 package sv.com.tesa.ticket.controllers;
 
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.models.CasesModel;
@@ -29,6 +31,33 @@ public class CasesController {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             return null;
+        }
+    }
+    
+     public HashMap<Integer, String> listarAsignado()
+    {
+        try {
+            return casesModel.listarEmpleadosACargo();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public boolean modificarCasoJefeDesarrollo(SingleCaseBean beanCase){
+        try{            
+            return casesModel.modificarCasoJefeDesarrollo(beanCase);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean modificarCasoJefeAreaFuncional(SingleCaseBean beanCase){
+        try{            
+            return casesModel.modificarCasoJefeAreaFuncional(beanCase);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
         }
     }
     

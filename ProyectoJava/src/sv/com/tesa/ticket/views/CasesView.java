@@ -25,7 +25,6 @@ public class CasesView extends javax.swing.JInternalFrame {
         initComponents();
         ctrlCase = new CasesController();
         beanCase = new SingleCaseBean();
-        JOptionPane.showMessageDialog(null,"Usuario: "+ LoginBean.getId());
         cargarTabla();
     }
     

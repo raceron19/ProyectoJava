@@ -42,6 +42,10 @@ public class MainViewController {
                 break;
                 
             case "Jefe de desarrollo":
+                mainView = new MainView();
+                mainView.setLocationRelativeTo(null);
+                mainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                mainView.setVisible(true);
                 break;
                 
             case "Programador":
