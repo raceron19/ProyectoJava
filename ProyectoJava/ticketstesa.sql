@@ -227,8 +227,8 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_latest_cases(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado,  DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado,  DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %d - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
@@ -240,8 +240,8 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_back_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
@@ -252,8 +252,8 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_to_accept_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
@@ -264,8 +264,8 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_death_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
@@ -364,8 +364,8 @@ DELIMITER ;
 DELIMITER //
 create procedure sp_select_finalized_case(IN departamento varchar(250))
 BEGIN
-select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,'%W - %M - %Y - %h:%i:%s') as Limite, 
-c.percent as Avance, DATE_FORMAT(c.updated_at,'%W - %M - %Y - %h:%i:%s') as UltimoCambio
+select c.id as Id, r.title as Titulo, concat(e.fname, ' ', e.lname) as CreadoPor, concat(e2.fname, ' ', e2.lname) as Asignado, DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as Limite, 
+c.percent as Avance, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s') as UltimoCambio
 from cases c 
 inner join requests r on r.id = c.request
 inner join employees e on r.created_by = e.id
@@ -373,12 +373,14 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 5 and r.department = (select id from departments where dname = departamento) order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
+
 DELIMITER //
 create procedure sp_select_binnacle_cases(IN idCaso varchar(8))
 BEGIN
-select b.id, r.title , b.commentary as comentario, DATE_FORMAT(b.created_at, '%W - %M - %Y - %h:%i:%s') 
+select b.id, r.title , b.commentary as comentario, DATE_FORMAT(b.created_at,   '%W - %d - %M - %Y - %h:%i:%s') 
 from binnacle b 
 inner join cases c on b.case_id = c.id
+inner join requests r on c.request = r.id
 where c.id = idCaso;
 END //
 DELIMITER ;
@@ -481,6 +483,40 @@ select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Em
     where employees.rol in (select id from roles where rname like 'Jefe%');
 END//
 DELIMITER ;
+DELIMITER //
+create procedure sp_select_single_case(IN caseId varchar(8))
+BEGIN
+SELECT c.id AS IdCaso, r.title AS Caso, c.descrip AS Descripcion, c.percent AS porcentaje,
+concat(t.fname, ' ', t.lname) AS Tester, concat(a.fname, ' ', a.lname) AS Asignado, cs.cs_name AS Estado,
+DATE_FORMAT(c.created_at,  '%W - %d - %M - %Y - %h:%i:%s') AS Creado, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s')  
+AS Modificacion, concat(cp.fname, ' ', cp.lname) as CreadoPor,
+DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as FechaLimite,
+DATE_FORMAT(c.to_production,  '%W - %d - %M - %Y - %h:%i:%s') as Aproduccion from cases c
+INNER JOIN requests r ON c.request = r.id 
+INNER JOIN employees t ON c.tester = t.id  
+INNER JOIN employees a ON c.assigned_to = a.id 
+INNER JOIN case_status cs ON c.case_status = cs.id  
+INNER JOIN employees cp ON r.created_by = cp.id 
+WHERE c.id = caseId
+UNION ALL 
+SELECT c.id AS IdCaso, r.title AS Caso, c.descrip AS Descripcion, c.percent AS porcentaje, 
+null as Tester, concat(a.fname, ' ', a.lname) AS Asignado, cs.cs_name AS Estado,   +
+DATE_FORMAT(c.created_at,  '%W - %d - %M - %Y - %h:%i:%s') AS Creado, DATE_FORMAT(c.updated_at,  '%W - %d - %M - %Y - %h:%i:%s')  
+AS Modificacion, concat(cp.fname, ' ', cp.lname) as CreadoPor,    +
+DATE_FORMAT(c.deadline,  '%W - %d - %M - %Y - %h:%i:%s') as FechaLimite,    +
+DATE_FORMAT(c.to_production,  '%W - %d - %M - %Y - %h:%i:%s') as Aproduccion from cases c                   
+INNER JOIN requests r ON c.request = r.id  
+INNER JOIN employees a ON c.assigned_to = a.id  
+INNER JOIN case_status cs ON c.case_status = cs.id  
+INNER JOIN employees cp ON r.created_by = cp.id 
+WHERE c.id = caseId and c.tester is null ;
+END //
+DELIMITER ;
 
-select * from employees;
-update employees set chief = 4 where email = 'e@gmail.com';
+
+DELIMITER // 
+create procedure sp_re_open_case(IN caseId varchar(8))
+BEGIN 
+update cases set deadline = ADDDATE(now(), INTERVAL 7 DAY), case_status = 1, updated_at = now() where id = caseId;
+END //
+DELIMITER ;

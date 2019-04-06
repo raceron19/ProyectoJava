@@ -7,7 +7,6 @@ package sv.com.tesa.ticket.views;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.controllers.CasesController;
 import javax.swing.table.DefaultTableModel;
-import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 /**
  *
@@ -25,7 +24,6 @@ public class CasesView extends javax.swing.JInternalFrame {
         initComponents();
         
         beanCase = new SingleCaseBean();
-        JOptionPane.showMessageDialog(null,"Usuario: "+ LoginBean.getId());
         cargarTabla();
     }
     
@@ -126,6 +124,7 @@ public class CasesView extends javax.swing.JInternalFrame {
     private void TableCasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCasesMouseClicked
         DefaultTableModel dtm = (DefaultTableModel)TableCases.getModel();
         int fila = TableCases.getSelectedRow();
+        beanCase = new SingleCaseBean();
         beanCase.setId(dtm.getValueAt(fila, 0).toString());
         SingleCaseBean peticionIndividual = ctrlCase.listarCase(beanCase);
         if(!peticionIndividual.getId().equals("")){

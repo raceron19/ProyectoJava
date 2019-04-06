@@ -95,6 +95,29 @@ public class RequestsView extends javax.swing.JInternalFrame{
         });
         popUpMenuAceptarDeclinar.add(itemMenuModificar);
 
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Peticiones");
 
@@ -224,7 +247,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private void itemMenuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuModificarActionPerformed
 
         peticion = new RequestBean();
-        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setCreatedBy(LoginBean.getId());
@@ -254,7 +277,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private void itemMenuDeclinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuDeclinarActionPerformed
         
         peticion = new RequestBean();
-        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setCreatedBy(LoginBean.getId());
@@ -284,7 +307,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     private void itemMenuAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAceptarActionPerformed
         // TODO add your handling code here:
         peticion = new RequestBean();
-        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
         peticion.setTitle(dtm.getValueAt(indexFila, 1).toString());
@@ -326,6 +349,16 @@ public class RequestsView extends javax.swing.JInternalFrame{
         filtrarDatos(null);
     }//GEN-LAST:event_rdBtnTodosActionPerformed
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_formFocusGained
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
+
     protected void cargarTabla()
     {
         try {
@@ -337,7 +370,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
     
     private void filtrarDatos(String filtro)
     {
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(dtm);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtm);
         tablaPeticiones.setRowSorter(sorter);
         if (filtro != null) {
             sorter.setRowFilter(RowFilter.regexFilter(filtro));
