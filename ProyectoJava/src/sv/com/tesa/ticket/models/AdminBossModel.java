@@ -49,7 +49,7 @@ public class AdminBossModel extends LoginModel{
     public boolean modificarJefe(EmployeeBean beanEmpleado, boolean op)
     {
          try {
-            String sql = "CALL sp_update_boss_employees(?,?,?,?,?,?,?,?)";
+            String sql = "CALL sp_update_boss_employees(?,?,?,?,?,?,?,?,?)";
             this.conectar();
             st = conexion.prepareCall(sql);
             st.setInt(1, beanEmpleado.getId());
@@ -60,6 +60,7 @@ public class AdminBossModel extends LoginModel{
             st.setString(6, beanEmpleado.getPassword());
             st.setString(7, beanEmpleado.getDepartamento());
             st.setBoolean(8, op);
+            st.setInt(9, beanEmpleado.getJefe());
             
             int resultado = st.executeUpdate();
             this.desconectar();

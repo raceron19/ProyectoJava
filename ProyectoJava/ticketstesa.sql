@@ -139,7 +139,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_select_roles ()
 BEGIN
-SELECT id, rname as rol from roles;
+SELECT id, rname as rol from roles where roles.id <> (select roles.id from roles where roles.rname like 'Administrador');
 END//
 DELIMITER ;
 
@@ -197,10 +197,11 @@ insert into employees values(null, rol, fname, lname, email, sha2(pass, 256), ch
 END//
 DELIMITER ;
 
+
 DELIMITER //
 CREATE PROCEDURE sp_update_boss_employees(in id int, IN rol int, IN fname varchar(250), IN lname varchar(250),
 										IN email varchar(250), IN pass varchar(64), 
-                                        in department varchar(3), IN mod_pass boolean) 
+                                        in department varchar(3),IN mod_pass boolean,in chief_in int) 
 BEGIN
 IF mod_pass = TRUE
 then
@@ -212,7 +213,8 @@ update employees set
     employees.passwd = pass,
     employees.department = department,
     employees.passwd = sha2(pass,256),
-    employees.updated_at = now()
+    employees.updated_at = now(),
+    employees.chief = chief_in
     where employees.id = id;
 else
 update employees set
@@ -221,7 +223,8 @@ update employees set
     employees.lname = lname,
     employees.email = email,
     employees.department = department,
-    employees.updated_at = now()
+    employees.updated_at = now(),
+    employees.chief = chief_in
     where employees.id = id;
 END IF;
 END//
@@ -409,10 +412,12 @@ DELIMITER //
 CREATE PROCEDURE sp_insert_new_employee(in rol_in int, in fname_in varchar(250),in lname_in varchar(250),
  in email_in varchar(250), in in_chief int, in department_in varchar(3))
 BEGIN
-insert into employees(rol,fname,lname,email,passwd,chief,department,created_a)
+insert into employees(rol,fname,lname,email,passwd,chief,department,created_at)
 values (rol_in,fname_in,lname_in,email_in, sha2('123456',256),in_chief,department_in,now());
 END //
 DELIMITER ;
+
+update employees set employees.rol = 1 where employees.email = 'e@gmail.com';
 
 DELIMITER //
 CREATE PROCEDURE sp_select_boss_employees()
