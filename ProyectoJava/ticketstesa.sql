@@ -177,13 +177,13 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE sp_select_boss_employees()
+CREATE PROCEDURE sp_select_employees()
 BEGIN
 select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Empleado', 
 	employees.email, roles.rname, departments.dname from employees
     inner join roles on employees.rol = roles.id
     inner join departments on employees.department = departments.id
-    where employees.rol in (select id from roles where rname like 'Jefe%');
+    where employees.rol <> (select roles.id from roles where roles.rname like ('Administrador'));
 END//
 DELIMITER ;
 
@@ -403,5 +403,24 @@ BEGIN
 select employees.id, concat(employees.fname, ' ', employees.lname) as 'Nombre Empleado' 
 from employees where employees.chief = id_boss;
 END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_new_employee(in rol_in int, in fname_in varchar(250),in lname_in varchar(250),
+ in email_in varchar(250), in in_chief int, in department_in varchar(3))
+BEGIN
+insert into employees(rol,fname,lname,email,passwd,chief,department,created_a)
+values (rol_in,fname_in,lname_in,email_in, sha2('123456',256),in_chief,department_in,now());
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_select_boss_employees()
+BEGIN
+select employees.id ,concat(employees.fname ,' ' ,employees.lname) as 'Nombre Empleado' from employees
+    inner join roles on employees.rol = roles.id
+    inner join departments on employees.department = departments.id
+    where employees.rol in (select id from roles where rname like 'Jefe%');
+END//
 DELIMITER ;
 

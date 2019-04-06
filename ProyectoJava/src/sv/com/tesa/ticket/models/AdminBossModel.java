@@ -21,10 +21,10 @@ public class AdminBossModel extends LoginModel{
     private JTable tabla;
     
     
-    public JTable listarJefes()
+    public JTable listarEmpleados()
     {
         try {
-            String sql = "call sp_select_boss_employees()";
+            String sql = "call sp_select_employees()";
             this.conectar();
             st = conexion.prepareCall(sql);
             boolean resultado = st.execute();
@@ -43,30 +43,6 @@ public class AdminBossModel extends LoginModel{
         } catch (SQLException e) {
             Logger.getLogger(AdminBossModel.class).error("Error al listar jefes en JTable listarJefes",e);
             return null;
-        }
-    }
-    
-    public boolean ingresarJefe(EmployeeBean beanEmpleado)
-    {
-        try {
-            String sql = "CALL sp_insert_employees(?,?,?,?,?,?,?)";
-            this.conectar();
-            st = conexion.prepareCall(sql);
-            st.setInt(1, beanEmpleado.getRol());
-            st.setString(2, beanEmpleado.getNombre());
-            st.setString(3, beanEmpleado.getApellido());
-            st.setString(4, beanEmpleado.getEmail());
-            st.setString(5, beanEmpleado.getPassword());
-            st.setNull(6, Types.NULL);
-            st.setString(7,beanEmpleado.getDepartamento());
-            
-            int resultado = st.executeUpdate();
-            this.desconectar();
-            return resultado > 0;
-        } catch (SQLException e) {
-            Logger.getLogger(AdminBossModel.class).error("Error al listar jefes "
-                    + "en funciòningresarJefe",e);
-            return false;
         }
     }
     
@@ -139,5 +115,49 @@ public class AdminBossModel extends LoginModel{
         }
     }
     
+    public boolean ingresarEmpleado (EmployeeBean empleado)
+    {
+        try {
+            String sql = "CALL sp_insert_new_employee(?,?,?,?,?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, empleado.getRol());
+            st.setString(2, empleado.getNombre());
+            st.setString(3, empleado.getApellido());
+            st.setString(4, empleado.getEmail());
+            st.setInt(5, empleado.getJefe());
+            st.setString(6, empleado.getDepartamento());
+            
+            int res = st.executeUpdate();
+            this.desconectar();
+            return res > 0;
+        } catch (SQLException e) {
+            Logger.getLogger(AdminBossModel.class).error("Error en AdminBossModel al ingresar "
+                    + "empleado en función ingresarEmpleado",e);
+            return false;
+        }
+    }
+    
+    public HashMap<Integer,String> listarJefes()
+    {
+        HashMap<Integer, String> map = new HashMap<>();
+        try {
+            String sql = "CALL sp_select_boss_employees()";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            rs  = st.executeQuery();    
+            while(rs.next())
+            {
+                map.put(rs.getInt(1), rs.getString(2));
+            }
+            this.desconectar();
+            return map;
+        } catch (SQLException e) 
+        {
+            Logger.getLogger(AdminBossModel.class).error("Error al listar "
+                    + "jefes en función listarDepartamentos",e);
+            return null;
+        }
+    }
     
 }

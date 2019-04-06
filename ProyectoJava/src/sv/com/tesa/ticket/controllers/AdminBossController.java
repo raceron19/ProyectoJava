@@ -25,17 +25,17 @@ public class AdminBossController
     public JTable listarUsuarios()
     {
         try {
-            return adminBossModelo.listarJefes();
+            return adminBossModelo.listarEmpleados();
         } catch (Exception e) {
             System.out.println("Error controlador Jefe: " + e.getMessage());
             return null;
         }
     }
     
-    public boolean ingresarJefe(EmployeeBean beanEmpleado)
+    public boolean ingresarEmpleado(EmployeeBean beanEmpleado)
     {
         try {
-            return adminBossModelo.ingresarJefe(beanEmpleado);
+            return adminBossModelo.ingresarEmpleado(beanEmpleado);
         } catch (Exception e) {
             return false;
         }
@@ -67,5 +67,13 @@ public class AdminBossController
         }
     }
     
+    public HashMap<Integer,String> listarJefes()
+    {
+        try {
+            return adminBossModelo.listarJefes();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     
 }
