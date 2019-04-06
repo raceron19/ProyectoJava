@@ -71,11 +71,11 @@ public class Utilidades {
         return null;
     }
     
-    public static int generarNumAleatorio()
+    public static String generarNumAleatorio()
     {
         Random ale = new Random();
         int numero = ale.nextInt(1000);
-        return numero;
+        return String.format("%03d", numero);
     }
     
     public static JPanel opcionFecha()
@@ -93,7 +93,7 @@ public class Utilidades {
     
     public static String regresarFecha()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
         Calendar cal = (Calendar) picker.getModel().getValue();
         
         return (cal != null ? sdf.format(cal.getTime()) : null);

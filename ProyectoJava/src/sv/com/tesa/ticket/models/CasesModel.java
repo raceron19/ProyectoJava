@@ -6,8 +6,16 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
+import sv.com.tesa.ticket.beans.CaseBean;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 import sv.com.tesa.ticket.utils.Utilidades;
@@ -17,7 +25,9 @@ import sv.com.tesa.ticket.utils.Utilidades;
  * @author eduar
  */
 public class CasesModel extends ConexionModel{
- private JTable tabla;
+
+    private JTable tabla;
+ 
     public JTable listarCasos(){
         try{
             String sql = "SELECT cases.id AS IdCaso, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje, " +
@@ -42,12 +52,13 @@ public class CasesModel extends ConexionModel{
             this.desconectar();
             return tabla;
         }catch(Exception ex){
-            Logger.getLogger(RecentCasesModel.class).error("Error al listar " + "casos en funcion listarCasos", ex);
+            Logger.getLogger(CasesModel.class).error("Error al listar "
+                    + "casos en CasesModel función listarCasos",ex);
             return null;
         }
     }
     
-   public SingleCaseBean listarCaso(SingleCaseBean beanCase){
+    public SingleCaseBean listarCaso(SingleCaseBean beanCase){
         try{
             String sql = "SELECT cases.id AS IdCaso, requests.title AS Caso, cases.descrip AS Descripcion, cases.percent AS porcentaje, " +
                          "concat(tester.fname,' ',tester.lname) AS Tester, concat(asign.fname,' ',tester.lname) AS Asignado, case_status.cs_name AS Estado,"
@@ -77,9 +88,60 @@ public class CasesModel extends ConexionModel{
             this.desconectar();
             return peticionIndividual;
         }catch(SQLException ex){
-            System.out.println("Error en RequestModel CasoIndividual " + 
-                    ex.getSQLState() + " " + ex.getMessage());
+            Logger.getLogger(CasesModel.class).error("Error al listar "
+                    + "caso individual en CasesModel función listarCaso",ex);
             return null;
         }
-    }   
+    }
+    
+    public HashMap<Integer,String> listarEmpleadosACargo()
+    {
+        HashMap<Integer, String> map = new HashMap<>();
+        try {
+            String sql = "call sp_select_employees_chief(?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setInt(1, LoginBean.getId());
+            rs = st.executeQuery();
+            
+            while(rs.next())
+            {
+                map.put(rs.getInt(1), rs.getString(2));
+            }
+            this.desconectar();
+            return map;
+        } catch (SQLException e) {
+            Logger.getLogger(CasesModel.class).error("Error al listar "
+                    + "empleados a cargo en CasesModel función listarEmpleadosACargo",e);
+             return null;
+        }
+    }
+    
+    public boolean ingresarCaso(CaseBean caso)
+    {
+        try {
+            String sql = "call sp_insert_new_case(?,?,?,?,?,?)";
+            this.conectar();
+            st = conexion.prepareCall(sql);
+            st.setString(1, caso.getDepartamento());
+            st.setString(2, caso.getId());
+            st.setInt(3, caso.getIdSolicitud());
+            st.setInt(4, caso.getEmpleadoAsignado());
+            DateFormat formato = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = formato.parse(caso.getFechaLimite());
+            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+            st.setTimestamp(5, timestamp);
+            st.setString(6, caso.getDescripcion());
+            
+            int resultado = st.executeUpdate();
+            this.desconectar();
+            return resultado > 0;
+            
+        } catch (SQLException | ParseException e) {
+            Logger.getLogger(CasesModel.class).error("Error al ingresar "
+                    + "un caso en CasesModel función IngresarCaso",e);
+            return false;
+        }
+    }
+    
 }

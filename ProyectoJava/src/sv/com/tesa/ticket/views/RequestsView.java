@@ -54,6 +54,11 @@ public class RequestsView extends javax.swing.JInternalFrame{
         tablaPeticiones = new javax.swing.JTable();
 
         itemMenuAceptar.setText("Aceptar Solicitud");
+        itemMenuAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuAceptarActionPerformed(evt);
+            }
+        });
         popUpMenuAceptarDeclinar.add(itemMenuAceptar);
 
         itemMenuDeclinar.setText("Declinar Solicitud");
@@ -149,8 +154,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
         {
             boolean res = "Solicitud rechazada".equals(peticionIndividual.getEstado());
             if (res) {
-                RequestView vistaUnaPeticion = new RequestView(peticionIndividual);
-                this.getParent().add(vistaUnaPeticion);
+                RequestView vistaUnaPeticion = new RequestView(peticionIndividual,this);
                 vistaUnaPeticion.setVisible(true);
             }
             else
@@ -185,7 +189,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Solo se pueden aceptar peticiones "
+                JOptionPane.showMessageDialog(this, "Solo se pueden declinar peticiones "
                         + "que en espera de respuesta","Alerta",
                         JOptionPane.WARNING_MESSAGE);
             }
@@ -197,6 +201,26 @@ public class RequestsView extends javax.swing.JInternalFrame{
                     JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_itemMenuDeclinarActionPerformed
+
+    private void itemMenuAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAceptarActionPerformed
+        // TODO add your handling code here:
+        peticion = new RequestBean();
+        DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
+        int indexFila = tablaPeticiones.getSelectedRow();
+        peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
+        peticion.setTitle(dtm.getValueAt(indexFila, 1).toString());
+        
+        if (dtm.getValueAt(indexFila, 5).toString().equals("En desarrollo")) 
+        {
+            JOptionPane.showMessageDialog(this, "No se puede aceptar esta solicitud "
+                    + "porque ya esta en desarrollo","Alerta",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            NewCaseView ingresoCaso = new NewCaseView(peticion,this);
+            ingresoCaso.setVisible(true);
+        }
+    }//GEN-LAST:event_itemMenuAceptarActionPerformed
 
     protected void cargarTabla()
     {
