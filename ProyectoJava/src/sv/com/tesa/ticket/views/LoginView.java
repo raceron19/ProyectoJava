@@ -24,9 +24,7 @@ public class LoginView extends javax.swing.JFrame {
     static boolean maximized = true;
     int xMouse;
     int yMouse;
-    /**
-     * Creates new form Logueo
-     */
+
     public LoginView() {
         initComponents();
         setLocationRelativeTo(null);

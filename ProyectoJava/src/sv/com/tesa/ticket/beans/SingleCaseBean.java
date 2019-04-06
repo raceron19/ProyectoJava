@@ -23,6 +23,7 @@ public class SingleCaseBean {
     private String descripcion;
     private String FechaCreacion;
     private String produccion;
+
     
     /**
      * @return the estado
