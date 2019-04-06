@@ -8,6 +8,7 @@ package sv.com.tesa.ticket.models;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 
@@ -21,9 +22,10 @@ public class RecentCasesModel extends ConexionModel
     {
         ArrayList<RecentCasesBean> latestCases = new ArrayList<>();
         try {
-            String sql = "CALL sp_select_latest_cases()";
+            String sql = "CALL sp_select_latest_cases(?)";
             this.conectar();
             st = conexion.prepareStatement(sql);
+            st.setString(1, LoginBean.getDepartamento());
             rs = st.executeQuery();
             while(rs.next())
             {
@@ -66,22 +68,23 @@ public class RecentCasesModel extends ConexionModel
         try {
             switch (tipo) {
                 case "Finalizado":
-                    sql = "CALL sp_select_finalized_case()";
+                    sql = "CALL sp_select_finalized_case(?)";
                     break;
                 case "Aprobar":
-                    sql = "CALL sp_select_to_accept_case()";
+                    sql = "CALL sp_select_to_accept_case(?)";
                     break;
                 case "Vencido":
-                    sql = "CALL sp_select_death_case()";
+                    sql = "CALL sp_select_death_case(?)";
                     break;
                 case "Devuelto":
-                    sql = "CALL sp_select_back_case()";
+                    sql = "CALL sp_select_back_case(?)";
                     break;
                 default:
                     throw new AssertionError();
             }
             this.conectar();
             st = conexion.prepareStatement(sql);
+            st.setString(1, LoginBean.getDepartamento());
             rs = st.executeQuery();
             while(rs.next())
             {

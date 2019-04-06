@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views.admin;
+import java.awt.HeadlessException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -311,12 +312,9 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             beanEmp.setNombre(txtNombre.getText());
             beanEmp.setApellido(txtApellido.getText());
             beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
-                {
-                    beanEmp.setRol(id);
-                }
-            }
+            mapRoles.keySet().stream().filter((id) -> (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))).forEachOrdered((id) -> {
+                beanEmp.setRol(id);
+            });
             beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
             beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
             beanEmp.setPassword(new String(txtContraseña.getPassword()));
@@ -339,7 +337,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
                     JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
             System.out.println("");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -351,12 +349,10 @@ public class AdminBossView extends javax.swing.JInternalFrame {
             beanEmp.setNombre(txtNombre.getText());
             beanEmp.setApellido(txtApellido.getText());
             beanEmp.setEmail(txtCorreo.getText());
-            for (Integer id : mapRoles.keySet()) {
-                if (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))
-                {
-                    beanEmp.setRol(id);
-                }
-            }
+            mapRoles.keySet().stream().filter((id) -> (mapRoles.get(id).equals(cbBoxRol.getSelectedItem()))).forEachOrdered((id) -> {
+                beanEmp.setRol(id);
+            });
+            beanEmp.setDepartamento(cbBoxDept.getSelectedItem().toString());
             beanEmp.setDepartamento((String) Utilidades.regresarValorHashMap(mapDept, cbBoxDept.getSelectedItem().toString()));
             
 
@@ -372,7 +368,7 @@ public class AdminBossView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Error al modificar los datos","Error",
                     JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -448,17 +444,17 @@ public class AdminBossView extends javax.swing.JInternalFrame {
     private void cargarCbBoxRol()
     {
         cbBoxRol.removeAllItems();
-        for (Integer id : mapRoles.keySet()) {
+        mapRoles.keySet().forEach((id) -> {
             cbBoxRol.addItem(mapRoles.get(id));
-        }
+        });
     }
  
     private void cargarCbBoxDepartamentos()
     {
         cbBoxDept.removeAllItems();
-        for (String id : mapDept.keySet()) {
+        mapDept.keySet().forEach((id) -> {
             cbBoxDept.addItem(mapDept.get(id));
-        }
+        });
     }
     
     private void cargarCbBoxJefes()

@@ -8,6 +8,7 @@ package sv.com.tesa.ticket.controllers;
 import java.util.HashMap;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.CaseBean;
+import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.models.CasesModel;
 
@@ -27,7 +28,7 @@ public class CasesController {
         try{
             return casesModel.listarCasos();
         } catch(Exception ex){
-            System.out.println(ex.getMessage());
+            Logger.getLogger(CasesController.class).error(ex);
             return null;
         }
     }
@@ -35,7 +36,7 @@ public class CasesController {
         try{
             return casesModel.listarCaso(beanCase);
         }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            Logger.getLogger(CasesController.class).error(ex);
             return null;
         }
     }
@@ -53,7 +54,17 @@ public class CasesController {
     {
         try {
             return casesModel.ingresarCaso(caso);
-        } catch (Exception e) {
+        } catch (Exception ex)
+        {
+            Logger.getLogger(CasesController.class).error(ex);
+            return false;
+        }
+    }
+    public boolean reOpenCase(String caseId){
+        try{
+            return casesModel.reOpenCase(caseId);
+        }catch(Exception ex){
+            Logger.getLogger(CasesController.class).error(ex);
             return false;
         }
     }

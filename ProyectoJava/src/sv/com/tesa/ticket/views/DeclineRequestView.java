@@ -242,12 +242,9 @@ public class DeclineRequestView extends javax.swing.JDialog {
         RequestBean peticion = new RequestBean();
         peticion.setDescription(txtDescripcion.getText());
         peticion.setId(Integer.parseInt(txtId.getText()));
-        for (Integer id : mapTipoPeticion.keySet()) {
-            if(mapTipoPeticion.get(id).equals(txtTipoSolicitud.getText()))
-            {
-                peticion.setRequestType(id);
-            }
-        }
+        mapTipoPeticion.keySet().stream().filter((id) -> (mapTipoPeticion.get(id).equals(txtTipoSolicitud.getText()))).forEachOrdered((id) -> {
+            peticion.setRequestType(id);
+        });
         peticion.setCommentary(txtComentario.getText());
         boolean res = ctrlPeticion.denegarPeticion(peticion);
         

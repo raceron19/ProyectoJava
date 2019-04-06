@@ -50,7 +50,7 @@ public class RequestModel extends LoginModel{
     
     public HashMap<Integer, String> listarTiposPeticion()
     {
-        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        HashMap<Integer, String> map = new HashMap<>();
         try {
             String sql = "select * from request_types";
             this.conectar();
@@ -76,8 +76,8 @@ public class RequestModel extends LoginModel{
             String sql = "call sp_select_request(?,?)";
             this.conectar();
             st = conexion.prepareCall(sql);
-            st.setLong(1, usuario.getId());
-            st.setString(2, usuario.getDepartamento());
+            st.setLong(1, LoginBean.getId());
+            st.setString(2, LoginBean.getDepartamento());
             
             if (st.execute()) 
             {
@@ -99,6 +99,7 @@ public class RequestModel extends LoginModel{
         }
     }
     
+    @SuppressWarnings("empty-statement")
     public SingleRequestBean listarPeticionIndividual(RequestBean peticion)
     {
         try {

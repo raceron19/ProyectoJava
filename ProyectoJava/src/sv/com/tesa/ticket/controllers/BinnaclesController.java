@@ -5,7 +5,6 @@
  */
 package sv.com.tesa.ticket.controllers;
 
-import java.util.List;
 import javax.swing.JTable;
 import sv.com.tesa.ticket.beans.BinnaclesBean;
 import sv.com.tesa.ticket.models.BinnaclesModel;
@@ -22,9 +21,8 @@ public class BinnaclesController {
         return model.getBinnacles(idCase);
     }
     
-    public void newBinnacle(String idCase, String percent){
-        
-    
+    public boolean newBinnacle(BinnaclesBean binnaclesBean, Double percent){
+        return model.insertBinnacle(binnaclesBean, percent);
     }
     
 }
