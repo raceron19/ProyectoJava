@@ -105,6 +105,7 @@ insert into case_status values	(null, 'En desarrollo'),
 								(null, 'Vencido'),
                                 (null, 'Devuelto con observaciones'),
                                 (null, 'Finalizado');
+			
                                                                 
 insert into employees values(null, 1, 'Eduardo', 'Henríquez', 'eduard_alfons@hotmail.com', sha2('password', 256), null, 'DST', now(), null);
 insert into employees values (null, 1, 'Eduardo', 'Arevalo', 'jefe', sha2('123456',256), null, 'DST', now(),null);
@@ -115,6 +116,7 @@ insert into employees values(null, 4, 'José', 'Arévalo', 'JefeDesarrollo', sha
 insert into employees values(null, 5, 'José', 'Arévalo', 'EmpleadoDesarrollo', sha2('pasword2', 256), null, 'DST', now(), null);
 
 
+select * from requests;
 
 DELIMITER //
 CREATE PROCEDURE sp_select_user (
@@ -237,6 +239,7 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 1 order by c.created_at limit 4; 
 END //
 DELIMITER ;
+
 DELIMITER //
 create procedure sp_select_back_case()
 BEGIN
@@ -249,6 +252,7 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 4 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
+
 DELIMITER //
 create procedure sp_select_to_accept_case()
 BEGIN
@@ -261,6 +265,7 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 2 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
+
 DELIMITER //
 create procedure sp_select_death_case()
 BEGIN
@@ -326,9 +331,6 @@ where requests.id = request_id;
 END //
 DELIMITER ;
 
-select * from requests;
-
-call sp_deny_request(25852,'feo');
 
 DELIMITER //
 CREATE PROCEDURE sp_select_request(IN created_by_id int, IN department_in varchar(250))

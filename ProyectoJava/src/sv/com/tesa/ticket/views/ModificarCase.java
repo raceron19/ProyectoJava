@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
+import java.util.HashMap;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
+import sv.com.tesa.ticket.controllers.CasesController;
 /**
  *
  * @author Rodrigo
  */
 public class ModificarCase extends javax.swing.JFrame {
     private SingleCaseBean beanCases;
-
+    private HashMap<Integer,String> mapEmpleados;
+    private CasesController ctrlCasos;
     /**
      * Creates new form ModificarCase
      */
@@ -20,7 +23,10 @@ public class ModificarCase extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         beanCases = beancito;
-        llenarCampos();        
+        ctrlCasos = new CasesController();
+        mapEmpleados = ctrlCasos.listarEmpleadosACargo();
+        llenarCampos();
+        llenarCbmAsignado();
     }
     
     private void llenarCampos(){
@@ -31,6 +37,10 @@ public class ModificarCase extends javax.swing.JFrame {
     
     private void llenarCbmAsignado(){
         cbmAsignado.removeAllItems();
+        for (Integer id : mapEmpleados.keySet()) 
+        {
+            cbmAsignado.addItem(mapEmpleados.get(id));
+        }
         
     }
     
