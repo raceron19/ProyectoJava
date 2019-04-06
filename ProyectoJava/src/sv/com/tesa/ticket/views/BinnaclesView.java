@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.controllers.BinnaclesController;
 
 /**
@@ -16,16 +17,18 @@ import sv.com.tesa.ticket.controllers.BinnaclesController;
 public class BinnaclesView extends javax.swing.JInternalFrame {
     static boolean isOpen = false;
     private BinnaclesController binnaclesController;
-    
+    private SingleCaseBean singleCaseBean = new SingleCaseBean();
     static boolean maximized = true;
     int xMouse;
     int yMouse;
     
-    public BinnaclesView(RecentCasesBean case1) {
+    public BinnaclesView(SingleCaseBean case1) {
         
         initComponents();
        // setExtendedState(BinnaclesView.MAXIMIZED_BOTH);
         setUndecorated(true);
+        singleCaseBean=case1;
+        llenarTexbox();
         binnaclesController=new BinnaclesController();
         
         
@@ -76,24 +79,26 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtIdCaso = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
+        txtAsignado = new javax.swing.JTextField();
+        txtEstadoCaso = new javax.swing.JTextField();
+        txtFechaEntrega = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaDescripcion = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        txtPorcentaje = new javax.swing.JTextField();
+        txtProbador = new javax.swing.JTextField();
+        txtFechaCreacion = new javax.swing.JTextField();
+        txtFechaUpdate = new javax.swing.JTextField();
+        txtFechaProduccion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtSolicitadoPor = new javax.swing.JTextField();
         pnlBody = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBinnacleView = new javax.swing.JTable();
@@ -143,35 +148,35 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Descripción");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtIdCaso.setEditable(false);
+        txtIdCaso.setBorder(null);
+        txtIdCaso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtIdCasoActionPerformed(evt);
             }
         });
 
-        jTextField2.setEditable(false);
-        jTextField2.setBorder(null);
+        txtTitulo.setEditable(false);
+        txtTitulo.setBorder(null);
 
-        jTextField3.setEditable(false);
-        jTextField3.setBorder(null);
+        txtAsignado.setEditable(false);
+        txtAsignado.setBorder(null);
 
-        jTextField4.setEditable(false);
-        jTextField4.setBorder(null);
+        txtEstadoCaso.setEditable(false);
+        txtEstadoCaso.setBorder(null);
 
-        jTextField5.setEditable(false);
-        jTextField5.setBorder(null);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaEntrega.setEditable(false);
+        txtFechaEntrega.setBorder(null);
+        txtFechaEntrega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtFechaEntregaActionPerformed(evt);
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtAreaDescripcion.setEditable(false);
+        txtAreaDescripcion.setColumns(20);
+        txtAreaDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtAreaDescripcion);
 
         jLabel5.setText("Porcentaje de avance");
 
@@ -183,25 +188,25 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Fecha estimada para producción");
 
-        jTextField6.setEditable(false);
-        jTextField6.setBorder(null);
+        txtPorcentaje.setEditable(false);
+        txtPorcentaje.setBorder(null);
 
-        jTextField7.setEditable(false);
-        jTextField7.setBorder(null);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtProbador.setEditable(false);
+        txtProbador.setBorder(null);
+        txtProbador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtProbadorActionPerformed(evt);
             }
         });
 
-        jTextField8.setEditable(false);
-        jTextField8.setBorder(null);
+        txtFechaCreacion.setEditable(false);
+        txtFechaCreacion.setBorder(null);
 
-        jTextField9.setEditable(false);
-        jTextField9.setBorder(null);
+        txtFechaUpdate.setEditable(false);
+        txtFechaUpdate.setBorder(null);
 
-        jTextField10.setEditable(false);
-        jTextField10.setBorder(null);
+        txtFechaProduccion.setEditable(false);
+        txtFechaProduccion.setBorder(null);
 
         jButton1.setMnemonic('a');
         jButton1.setText("Agregar Comentario");
@@ -210,6 +215,11 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel12.setText("Solicitado por");
+
+        txtSolicitadoPor.setEditable(false);
+        txtSolicitadoPor.setBorder(null);
 
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
@@ -247,21 +257,19 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtIdCaso)
+                                    .addComponent(txtTitulo)
+                                    .addComponent(txtAsignado)
+                                    .addComponent(txtEstadoCaso)
+                                    .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlMenuLayout.createSequentialGroup()
                                         .addGap(172, 172, 172)
                                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel10)
-                                            .addComponent(jLabel11))
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel12))
                                         .addGap(16, 16, 16))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,19 +277,25 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel8)
                                             .addComponent(jLabel9)
                                             .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                            .addGroup(pnlMenuLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(227, 227, 227)))
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlMenuLayout.createSequentialGroup()
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField7)
-                                    .addComponent(jTextField8)
-                                    .addComponent(jTextField9)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                    .addComponent(txtPorcentaje)
+                                    .addComponent(txtProbador)
+                                    .addComponent(txtFechaCreacion)
+                                    .addComponent(txtFechaUpdate)
+                                    .addComponent(txtFechaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
                                         .addComponent(jButton1)
-                                        .addGap(13, 13, 13)))))))
+                                        .addGap(13, 13, 13))))
+                            .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlMenuLayout.setVerticalGroup(
@@ -298,41 +312,44 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtIdCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtProbador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEstadoCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btnOpenCases)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -377,17 +394,17 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         pnlBody.revalidate();
     }//GEN-LAST:event_btnOpenCasesActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtIdCasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCasoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtIdCasoActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtFechaEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaEntregaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtFechaEntregaActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtProbadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProbadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtProbadorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -397,12 +414,33 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         this.disable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void llenarTexbox(){
+        txtAreaDescripcion.setText(singleCaseBean.getDescripcion());
+        txtAsignado.setText(singleCaseBean.getAsignadoA());
+        txtEstadoCaso.setText(singleCaseBean.getEstado());
+        txtFechaCreacion.setText(singleCaseBean.getFechaCreacion());
+        txtFechaEntrega.setText(singleCaseBean.getLimite());
+        txtFechaProduccion.setText(singleCaseBean.getProduccion());
+        txtFechaUpdate.setText(singleCaseBean.getUltimoCambio());
+        txtIdCaso.setText(singleCaseBean.getId());
+       // txtPorcentaje.setText(singleCaseBean.getAvance().toString() + "%");
+        txtPorcentaje.setText(null);
+        txtProbador.setText(singleCaseBean.getTester());
+        txtSolicitadoPor.setText(null);
+        txtTitulo.setText(singleCaseBean.getTitulo());
+                
+    
+    
+    
+    } 
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOpenCases;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -415,21 +453,22 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBinnacleView;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lblNews;
     private javax.swing.JLabel lblTimeline;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlMenu;
+    private javax.swing.JTextArea txtAreaDescripcion;
+    private javax.swing.JTextField txtAsignado;
+    private javax.swing.JTextField txtEstadoCaso;
+    private javax.swing.JTextField txtFechaCreacion;
+    private javax.swing.JTextField txtFechaEntrega;
+    private javax.swing.JTextField txtFechaProduccion;
+    private javax.swing.JTextField txtFechaUpdate;
+    private javax.swing.JTextField txtIdCaso;
+    private javax.swing.JTextField txtPorcentaje;
+    private javax.swing.JTextField txtProbador;
+    private javax.swing.JTextField txtSolicitadoPor;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 
 }

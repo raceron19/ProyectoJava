@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RecentCasesBean;
+import sv.com.tesa.ticket.beans.SingleCaseBean;
 
 /**
  *
@@ -21,7 +22,7 @@ public class MainView extends javax.swing.JFrame {
     LoginBean loginBean = new LoginBean();
     RequestsView requestsView = new RequestsView(loginBean);
     DashBoardJefes db = new DashBoardJefes(loginBean);
-    BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
+    BinnaclesView view = new BinnaclesView(new SingleCaseBean());
     CasesView casesView = new CasesView();
 
     /**
