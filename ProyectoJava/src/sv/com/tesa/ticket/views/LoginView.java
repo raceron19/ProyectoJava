@@ -292,8 +292,8 @@ public class LoginView extends javax.swing.JFrame {
         if(LoginController.esLoginExitoso(loginBean))
         {
             //Si el usuario existe carga la vista correspondiente
+            this.setVisible(false);
             controladorVistaPrin.cargarVista(loginBean);
-            this.dispose();
         }
         else
         {

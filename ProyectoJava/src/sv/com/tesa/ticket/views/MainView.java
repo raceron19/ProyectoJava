@@ -6,7 +6,6 @@
 package sv.com.tesa.ticket.views;
 
 import java.beans.PropertyVetoException;
-
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
@@ -16,10 +15,10 @@ import sv.com.tesa.ticket.beans.LoginBean;
  */
 public class MainView extends javax.swing.JFrame {
             
-    LoginBean loginBean;
-    RequestsView requestsView;
-    DashBoardJefes dashBoardJefes;
-    CasesView casesView;
+    LoginBean loginBean = new LoginBean();
+    RequestsView requestsView = new RequestsView(loginBean);
+    DashBoardJefes dashBoardJefes = new DashBoardJefes(loginBean);
+    CasesView casesView = new CasesView();
 
     /**
      * Creates new form NewMDIApplication

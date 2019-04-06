@@ -64,7 +64,7 @@ public class CasesController {
         try{
             return casesModel.reOpenCase(caseId);
         }catch(Exception ex){
-            Logger.getLogger(CasesController.class).error(ex);
+            Logger.getLogger(CasesController.class).error(null, ex);
             return false;
         }
     }

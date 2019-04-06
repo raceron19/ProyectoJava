@@ -6,7 +6,10 @@
 package sv.com.tesa.ticket.views;
 import java.awt.Image;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.RequestBean;
@@ -169,6 +172,11 @@ public class NewRequestView extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(this, "Nueva peticion creada","Exito",
                     JOptionPane.INFORMATION_MESSAGE);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewRequestView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
         }
         else
