@@ -10,40 +10,39 @@ import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
-import sv.com.tesa.ticket.beans.SingleCaseBean;
-
 /**
  *
  * @author eduar
  */
 public class MainView extends javax.swing.JFrame {
             
-    LoginBean loginBean = new LoginBean();
-    RequestsView requestsView = new RequestsView(loginBean);
-    DashBoardJefes db = new DashBoardJefes(loginBean);
-    BinnaclesView view = new BinnaclesView(new SingleCaseBean());
-    CasesView casesView = new CasesView();
+    LoginBean loginBean;
+    RequestsView requestsView;
+    DashBoardJefes dashBoardJefes;
+    CasesView casesView;
 
     /**
      * Creates new form NewMDIApplication
      */
     public MainView() {
         initComponents();
+        loginBean = new LoginBean();
+        requestsView = new RequestsView(loginBean);
+        dashBoardJefes = new DashBoardJefes(loginBean);
+        casesView = new CasesView();
         setExtendedState(MainView.MAXIMIZED_BOTH);
          try {
             // TODO add your handling code here:
             if(!DashBoardJefes.isOpen) 
             {
-                    desktopPane.add(db);
+                    desktopPane.add(dashBoardJefes);
                     DashBoardJefes.isOpen = true;
             }
                 requestsView.setVisible(false);
-                view.setVisible(false);
-            db.setSelected(true);
-            db.setMaximizable(true);
-            db.setMaximum(true);
-            db.show();
+            dashBoardJefes.setSelected(true);
+            dashBoardJefes.setMaximizable(true);
+            dashBoardJefes.setMaximum(true);
+            dashBoardJefes.show();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
@@ -184,8 +183,7 @@ public class MainView extends javax.swing.JFrame {
     private void verSolicitudesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verSolicitudesMenuItemActionPerformed
         try {
             
-                db.setVisible(false);
-                view.setVisible(false);
+                dashBoardJefes.setVisible(false);
                 if(!RequestsView.isOpen) 
             {
                     desktopPane.add(requestsView);
@@ -201,25 +199,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_verSolicitudesMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
-        try {
-            // TODO add your handling code here:
-            // TODO add your handling code here:
-            
-                requestsView.setVisible(false);
-                db.setVisible(false);
-                if(!BinnaclesView.isOpen) 
-            {
-                    desktopPane.add(view);
-                    BinnaclesView.isOpen = true;
-            }
-            
-            view.setSelected(true);
-            view.setMaximizable(true);
-            view.setMaximum(true);
-            view.show();
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(MainView.class.getName()).log(null, ex);
-        }
+        
     }//GEN-LAST:event_deleteMenuItemActionPerformed
     public void disposeOnPasswordChanged()
     {
@@ -235,10 +215,14 @@ public class MainView extends javax.swing.JFrame {
         JOptionPane.INFORMATION_MESSAGE, null);
         if(result == JOptionPane.YES_OPTION)
         {
-        LoginBean.LoginBeanToNull();
-        LoginView loginView = new LoginView();
-        loginView.setVisible(true);
-        this.dispose();
+            RequestsView.isOpen = false;
+            DashBoardJefes.isOpen = false;
+            CasesView.isOpen = false;
+            DashBoardEmpleados.isOpen = false;
+            LoginBean.LoginBeanToNull();
+            LoginView loginView = new LoginView();
+            loginView.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -247,16 +231,15 @@ public class MainView extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
                 requestsView.setVisible(false);
-                view.setVisible(false);
                 if(!DashBoardJefes.isOpen) 
             {
-                    desktopPane.add(db);
+                    desktopPane.add(dashBoardJefes);
                     DashBoardJefes.isOpen = true;
             }
-            db.setSelected(true);
-            db.setMaximizable(true);
-            db.setMaximum(true);
-            db.show();
+            dashBoardJefes.setSelected(true);
+            dashBoardJefes.setMaximizable(true);
+            dashBoardJefes.setMaximum(true);
+            dashBoardJefes.show();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(MainView.class.getName()).log(null, ex);
         }
@@ -273,8 +256,7 @@ public class MainView extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
                 requestsView.setVisible(false);
-                view.setVisible(false);
-                db.setVisible(false);
+                dashBoardJefes.setVisible(false);
                 if(!CasesView.isOpen) 
             {
                     desktopPane.add(casesView);

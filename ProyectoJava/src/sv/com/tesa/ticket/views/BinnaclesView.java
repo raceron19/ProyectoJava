@@ -1,20 +1,13 @@
 package sv.com.tesa.ticket.views;
 
 import java.awt.Color;
-import java.awt.Frame;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
+import javax.swing.table.DefaultTableModel;
+import sv.com.tesa.ticket.beans.BinnaclesBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.controllers.BinnaclesController;
+import sv.com.tesa.ticket.controllers.CasesController;
 
-/**
- *
- * @author Rahmans
- */
-public class BinnaclesView extends javax.swing.JInternalFrame {
+public class BinnaclesView extends javax.swing.JDialog {
     static boolean isOpen = false;
     private BinnaclesController binnaclesController;
     private SingleCaseBean singleCaseBean = new SingleCaseBean();
@@ -22,21 +15,17 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     int xMouse;
     int yMouse;
     
-    public BinnaclesView(SingleCaseBean case1) {
+    public BinnaclesView(SingleCaseBean caseBean) {
         
         initComponents();
-       // setExtendedState(BinnaclesView.MAXIMIZED_BOTH);
         setUndecorated(true);
-        singleCaseBean=case1;
-        llenarTexbox();
+        setModal(true);
+        setLocationRelativeTo(null);
+        singleCaseBean=caseBean;
+        llenarTexbox(singleCaseBean);
         binnaclesController=new BinnaclesController();
-        
-        
-              //  lblRol.setText(case1.getTitulo());
-                //lblUsuario.setText(case1.getAsignadoA());
                 try {
-                       //jTableBinnacleView.setModel(BinnaclesController.mostrarTabla(title));
-                       jTableBinnacleView.setModel(binnaclesController.mostrarTabla(case1.getId()).getModel());
+                       jTableBinnacleView.setModel(binnaclesController.mostrarTabla(caseBean.getId()).getModel());
                        jTableBinnacleView.getColumnModel().getColumn(0).setMinWidth(5);
                        jTableBinnacleView.getColumnModel().getColumn(0).setPreferredWidth(6);
                        
@@ -49,11 +38,6 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     BinnaclesView() {
         initComponents();
         setUndecorated(true);
-    }
-    public void setUndecorated(boolean val)
-    {
-        setBorder(null);
-        ((BasicInternalFrameUI) getUI()).setNorthPane(null);
     }
     public void iniciarComponentes()
     {
@@ -69,10 +53,10 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnlMenu = new javax.swing.JPanel();
+        pnlHeader = new javax.swing.JPanel();
+        btnExit = new javax.swing.JButton();
         btnOpenCases = new javax.swing.JButton();
         lblTimeline = new javax.swing.JLabel();
-        lblNews = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -103,11 +87,90 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBinnacleView = new javax.swing.JTable();
 
-        setBorder(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(2, 1));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1400, 1000));
+        setMinimumSize(new java.awt.Dimension(1400, 1000));
+        setPreferredSize(new java.awt.Dimension(1400, 1000));
+        setSize(new java.awt.Dimension(1400, 1000));
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
-        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        pnlHeader.setBackground(new java.awt.Color(222, 226, 226));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlHeader.setForeground(new java.awt.Color(255, 255, 255));
+        pnlHeader.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlHeaderMouseDragged(evt);
+            }
+        });
+        pnlHeader.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pnlHeaderFocusLost(evt);
+            }
+        });
+        pnlHeader.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlHeaderMousePressed(evt);
+            }
+        });
+
+        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit.png"))); // NOI18N
+        btnExit.setContentAreaFilled(false);
+        btnExit.setFocusable(false);
+        btnExit.setOpaque(true);
+        btnExit.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
+        btnExit.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/sv/com/tesa/ticket/images/Exit (2).png"))); // NOI18N
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExitMouseExited(evt);
+            }
+        });
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
+        pnlHeader.setLayout(pnlHeaderLayout);
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnExit))
+        );
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnExit)
+        );
 
         btnOpenCases.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 16)); // NOI18N
         btnOpenCases.setForeground(new java.awt.Color(44, 62, 80));
@@ -125,16 +188,6 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         lblTimeline.setBackground(new java.awt.Color(0, 204, 106));
         lblTimeline.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblTimeline.setOpaque(true);
-
-        lblNews.setBackground(new java.awt.Color(255, 255, 255));
-        lblNews.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblNews.setOpaque(true);
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(52, 152, 219));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Logout");
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setText("Id del Caso");
 
@@ -174,6 +227,7 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         });
 
         txtAreaDescripcion.setEditable(false);
+        txtAreaDescripcion.setBackground(new java.awt.Color(240, 240, 240));
         txtAreaDescripcion.setColumns(20);
         txtAreaDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtAreaDescripcion);
@@ -209,7 +263,7 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         txtFechaProduccion.setBorder(null);
 
         jButton1.setMnemonic('a');
-        jButton1.setText("Agregar Comentario");
+        jButton1.setText("Agregar Bitácora");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -226,6 +280,65 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         pnlMenuLayout.setHorizontalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlMenuLayout.createSequentialGroup()
+                            .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel4))
+                            .addGap(1, 1, 1))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdCaso)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtAsignado)
+                            .addComponent(txtEstadoCaso)
+                            .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlMenuLayout.createSequentialGroup()
+                                .addGap(172, 172, 172)
+                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
+                                .addGap(16, 16, 16))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel5)))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                            .addComponent(txtFechaUpdate, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFechaProduccion, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlMenuLayout.createSequentialGroup()
+                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtProbador, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtFechaCreacion))
+                        .addGap(129, 129, 129))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(44, 44, 44))))
+            .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlMenuLayout.createSequentialGroup()
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,102 +348,33 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                             .addGroup(pnlMenuLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(364, 364, 364)
-                        .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel4))
-                                        .addGap(1, 1, 1))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtIdCaso)
-                                    .addComponent(txtTitulo)
-                                    .addComponent(txtAsignado)
-                                    .addComponent(txtEstadoCaso)
-                                    .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                                        .addGap(172, 172, 172)
-                                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12))
-                                        .addGap(16, 16, 16))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(227, 227, 227)))
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPorcentaje)
-                                    .addComponent(txtProbador)
-                                    .addComponent(txtFechaCreacion)
-                                    .addComponent(txtFechaUpdate)
-                                    .addComponent(txtFechaProduccion, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(13, 13, 13))))
-                            .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlMenuLayout.setVerticalGroup(
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlMenuLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtIdCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtProbador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlMenuLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIdCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtProbador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAsignado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtEstadoCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,17 +387,19 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtFechaProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addGroup(pnlMenuLayout.createSequentialGroup()
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addGap(37, 37, 37)
                 .addComponent(btnOpenCases)
-                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNews, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0)
+                .addComponent(lblTimeline, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(pnlMenu);
@@ -373,19 +419,23 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
         ));
         jTableBinnacleView.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTableBinnacleView.setDoubleBuffered(true);
+        jTableBinnacleView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBinnacleViewMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableBinnacleView);
 
         pnlBody.add(jScrollPane1, "card4");
 
         getContentPane().add(pnlBody);
 
-        setBounds(0, 0, 1016, 600);
+        setBounds(0, 0, 1016, 765);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOpenCasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCasesActionPerformed
         lblTimeline.setBackground(new Color(0,204,106));
         
-        lblNews.setBackground(new Color(255,255,255));
         pnlBody.removeAll();
         pnlBody.repaint();
         pnlBody.revalidate();
@@ -408,26 +458,103 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        BinnacleCaseView f = new BinnacleCaseView();
-        f.setAlwaysOnTop(true);
-        f.setVisible(true);
-        this.disable();
+        NewBinnacleView newBinnacleView = new NewBinnacleView(singleCaseBean.getId());
+        newBinnacleView.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void llenarTexbox(){
-        txtAreaDescripcion.setText(singleCaseBean.getDescripcion());
-        txtAsignado.setText(singleCaseBean.getAsignadoA());
-        txtEstadoCaso.setText(singleCaseBean.getEstado());
-        txtFechaCreacion.setText(singleCaseBean.getFechaCreacion());
-        txtFechaEntrega.setText(singleCaseBean.getLimite());
-        txtFechaProduccion.setText(singleCaseBean.getProduccion());
-        txtFechaUpdate.setText(singleCaseBean.getUltimoCambio());
-        txtIdCaso.setText(singleCaseBean.getId());
-       // txtPorcentaje.setText(singleCaseBean.getAvance().toString() + "%");
-        txtPorcentaje.setText(null);
-        txtProbador.setText(singleCaseBean.getTester());
-        txtSolicitadoPor.setText(null);
-        txtTitulo.setText(singleCaseBean.getTitulo());
+    private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnExitMouseClicked
+
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        btnExit.setBackground(new Color(232,17,35));
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        btnExit.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_btnExitMouseExited
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void pnlHeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHeaderMouseDragged
+        if(maximized){
+            int x = evt.getXOnScreen();
+            int y = evt.getYOnScreen();
+            this.setLocation(x - xMouse, y - yMouse);
+        }
+    }//GEN-LAST:event_pnlHeaderMouseDragged
+
+    private void pnlHeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHeaderMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_pnlHeaderMousePressed
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_formFocusLost
+
+    private void pnlHeaderFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlHeaderFocusLost
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_pnlHeaderFocusLost
+
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowLostFocus
+
+    private void jTableBinnacleViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBinnacleViewMouseClicked
+        // TODO add your handling code here:
+        int fila = jTableBinnacleView.getSelectedRow();
+        BinnaclesBean binnaclesBean = new BinnaclesBean();
+        DefaultTableModel dtm = (DefaultTableModel)jTableBinnacleView.getModel();
+        binnaclesBean.setId(Integer.parseInt(dtm.getValueAt(fila, 0).toString()));
+        binnaclesBean.setCaseId(dtm.getValueAt(fila, 1).toString());
+        binnaclesBean.setCommentary(dtm.getValueAt(fila, 2).toString());
+        binnaclesBean.setCreatedAt(dtm.getValueAt(fila, 3).toString());
+        SingleBinnacleView singleBinnacle = new SingleBinnacleView(binnaclesBean);
+        singleBinnacle.setVisible(true);
+        
+    }//GEN-LAST:event_jTableBinnacleViewMouseClicked
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowDeactivated
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        CasesController casesController = new CasesController();
+        SingleCaseBean caseBean = casesController.listarCase(this.singleCaseBean);
+        llenarTexbox(caseBean);
+        binnaclesController=new BinnaclesController();
+                try {
+                       jTableBinnacleView.setModel(binnaclesController.mostrarTabla(singleCaseBean.getId()).getModel());
+                       jTableBinnacleView.getColumnModel().getColumn(0).setMinWidth(5);
+                       jTableBinnacleView.getColumnModel().getColumn(0).setPreferredWidth(6);
+                       
+                
+                } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void llenarTexbox(SingleCaseBean bean){
+        txtAreaDescripcion.setText(bean.getDescripcion());
+        txtAsignado.setText(bean.getAsignadoA());
+        txtEstadoCaso.setText(bean.getEstado());
+        txtFechaCreacion.setText(bean.getFechaCreacion());
+        txtFechaEntrega.setText(bean.getLimite());
+        txtFechaProduccion.setText(bean.getProduccion());
+        txtFechaUpdate.setText(bean.getUltimoCambio());
+        txtIdCaso.setText(bean.getId());
+        txtPorcentaje.setText(bean.getAvance().toString() + "%");
+        txtProbador.setText(bean.getTester());
+        txtSolicitadoPor.setText(bean.getCreadoPor());
+        txtTitulo.setText(bean.getTitulo());
                 
     
     
@@ -435,13 +562,13 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     } 
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnOpenCases;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -453,9 +580,9 @@ public class BinnaclesView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableBinnacleView;
-    private javax.swing.JLabel lblNews;
     private javax.swing.JLabel lblTimeline;
     private javax.swing.JPanel pnlBody;
+    private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JTextArea txtAreaDescripcion;
     private javax.swing.JTextField txtAsignado;

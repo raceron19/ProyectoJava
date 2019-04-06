@@ -6,12 +6,9 @@
 package sv.com.tesa.ticket.models;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.BinnaclesBean;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
 import static sv.com.tesa.ticket.models.ConexionModel.conexion;
 import sv.com.tesa.ticket.utils.Utilidades;
 
@@ -48,22 +45,19 @@ public class BinnaclesModel extends ConexionModel{
         }
     }
     
-    public void insertBinnacle(){
-        
+    public boolean insertBinnacle(BinnaclesBean binnaclesBean, Double percent){
+        Integer rows = 0;
         try {
-            String sql = "CALL  sp_insert_binnacle_cases(?)";
+            String sql = "CALL  sp_insert_binnacle_cases(?, ?, ?)";
             this.conectar();
-            
             st = conexion.prepareStatement(sql);
-            //st.setString(1, idCase);
-            rs = st.executeQuery();
-            rs = st.getResultSet();
-            String[] col={"Id","Caso Numero","Comentario","Fecha"};
-            JTable tabla = Utilidades.cargarTabla(col, rs);
-            //return tabla;
+            st.setString(1, binnaclesBean.getCaseId());
+            st.setDouble(2, percent);
+            st.setString(3, binnaclesBean.getCommentary());
+
+            rows= st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(RecentCasesModel.class).error("Error al obtener los datos",ex);
-            //return null;
         }
         finally
         {
@@ -73,7 +67,7 @@ public class BinnaclesModel extends ConexionModel{
                 Logger.getLogger(RecentCasesModel.class).error("Error al cerrar la conexiòn.",ex);
             }
         }
-    
+        return rows > 0;
     
     }
     

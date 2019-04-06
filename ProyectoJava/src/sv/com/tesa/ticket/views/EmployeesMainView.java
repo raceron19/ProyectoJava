@@ -10,7 +10,6 @@ import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.LoginBean;
-import sv.com.tesa.ticket.beans.RecentCasesBean;
 
 /**
  *
@@ -21,7 +20,6 @@ public class EmployeesMainView extends javax.swing.JFrame {
     LoginBean loginBean = new LoginBean();
     RequestsView requestsView = new RequestsView(loginBean);
     DashBoardEmpleados db = new DashBoardEmpleados(loginBean);
-    BinnaclesView view = new BinnaclesView(new RecentCasesBean("DST19895"));
     CasesView casesView = new CasesView();
 
     /**
@@ -38,7 +36,6 @@ public class EmployeesMainView extends javax.swing.JFrame {
                     DashBoardJefes.isOpen = true;
             }
                 requestsView.setVisible(false);
-                view.setVisible(false);
             db.setSelected(true);
             db.setMaximizable(true);
             db.setMaximum(true);
@@ -184,7 +181,6 @@ public class EmployeesMainView extends javax.swing.JFrame {
         try {
             
                 db.setVisible(false);
-                view.setVisible(false);
                 if(!RequestsView.isOpen) 
             {
                     desktopPane.add(requestsView);
@@ -200,25 +196,7 @@ public class EmployeesMainView extends javax.swing.JFrame {
     }//GEN-LAST:event_verSolicitudesMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
-        try {
-            // TODO add your handling code here:
-            // TODO add your handling code here:
-            
-                requestsView.setVisible(false);
-                db.setVisible(false);
-                if(!BinnaclesView.isOpen) 
-            {
-                    desktopPane.add(view);
-                    BinnaclesView.isOpen = true;
-            }
-            
-            view.setSelected(true);
-            view.setMaximizable(true);
-            view.setMaximum(true);
-            view.show();
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(EmployeesMainView.class.getName()).log(null, ex);
-        }
+        
     }//GEN-LAST:event_deleteMenuItemActionPerformed
     public void disposeOnPasswordChanged()
     {
@@ -246,7 +224,6 @@ public class EmployeesMainView extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
                 requestsView.setVisible(false);
-                view.setVisible(false);
                 if(!DashBoardJefes.isOpen) 
             {
                     desktopPane.add(db);
@@ -272,7 +249,6 @@ public class EmployeesMainView extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
                 requestsView.setVisible(false);
-                view.setVisible(false);
                 db.setVisible(false);
                 if(!CasesView.isOpen) 
             {

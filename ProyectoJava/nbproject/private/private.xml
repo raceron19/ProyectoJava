@@ -3,19 +3,58 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/CasesModel.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/EmployeeBean.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/LoginModel.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/MainViewController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/utils/Validaciones.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/CaseView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/RecentRequestsController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/RecentCasesBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/utils/Utilidades.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/AccountView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/RolesBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/SingleRequestBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/AccountController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/BinnaclesBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/NewRequestView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/BinnaclesController.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/admin/AdminDeptView.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/LoginView.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/LoginBean.java</file>
-            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/AdminBossModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/DepartmentBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/AdminDeptModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/SingleBinnacleView.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/AdminBossController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/RequestModel.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/admin/AdminView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/SingleCaseBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/CasesController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/DashBoardJefes.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/RecentCasesModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/RequestsView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/EmployeesMainView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/CasesView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/CasesModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/EmployeeBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/RecentRequestsModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/RequestBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/NewBinnacleView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/DashBoardEmpleados.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/MainView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/BinnaclesView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/RecentCasesController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/beans/RecentRequestsBean.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/developboss/Solicitudes.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/RequestController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/developboss/MainView.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/LoginController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/AdminDeptController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/LoginModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/controllers/MainViewController.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/DeclineRequestView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/AccountModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/AdminBossModel.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/BinnaclesModel.java</file>
             <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/admin/AdminBossView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/views/RequestView.java</file>
+            <file>file:/C:/Users/eduar/Documents/NetBeansProjects/ProyectoJava/ProyectoJava/src/sv/com/tesa/ticket/models/ConexionModel.java</file>
         </group>
     </open-files>
 </project-private>
