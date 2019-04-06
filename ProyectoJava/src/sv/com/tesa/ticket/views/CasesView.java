@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package sv.com.tesa.ticket.views;
+import javax.swing.JOptionPane;
 import sv.com.tesa.ticket.controllers.CasesController;
 import javax.swing.table.DefaultTableModel;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 /**
  *

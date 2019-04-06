@@ -6,14 +6,11 @@
 package sv.com.tesa.ticket.utils;
 
 import java.awt.BorderLayout;
-import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 import javax.swing.JComponent;
