@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
 import javax.swing.JTable;
 import org.apache.log4j.Logger;
 import sv.com.tesa.ticket.beans.CaseBean;
@@ -39,7 +40,7 @@ public class CasesModel extends ConexionModel{
                          "INNER JOIN case_status ON cases.case_status = case_status.id "
                          + "where tester.department = (select id from departments where dname = '" + LoginBean.getDepartamento() + "')";
             this.conectar();
-            st = conexion.prepareCall(sql);
+            st = conexion.prepareStatement(sql);
             boolean resultado = st.execute();
             
             if(resultado){
@@ -151,5 +152,18 @@ public class CasesModel extends ConexionModel{
             return false;
         }
     }
-    
+    public boolean reOpenCase(String caseId)
+    {
+     try {
+         String sql = "CALL sp_re_open_case(?)";
+         this.conectar();
+         st = conexion.prepareStatement(sql);
+         st.setString(1, caseId);
+         return st.executeUpdate() > 0;
+     }
+     catch (SQLException ex) {
+         Logger.getLogger(CasesModel.class.getName()).log( null, ex);
+     }
+     return false;
+    }
 }

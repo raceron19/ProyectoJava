@@ -1,8 +1,10 @@
 package sv.com.tesa.ticket.views;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sv.com.tesa.ticket.beans.BinnaclesBean;
+import sv.com.tesa.ticket.beans.LoginBean;
 import sv.com.tesa.ticket.beans.SingleCaseBean;
 import sv.com.tesa.ticket.controllers.BinnaclesController;
 import sv.com.tesa.ticket.controllers.CasesController;
@@ -80,9 +82,10 @@ public class BinnaclesView extends javax.swing.JDialog {
         txtFechaCreacion = new javax.swing.JTextField();
         txtFechaUpdate = new javax.swing.JTextField();
         txtFechaProduccion = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnNuevaBitacora = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtSolicitadoPor = new javax.swing.JTextField();
+        btnReAbrir = new javax.swing.JButton();
         pnlBody = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableBinnacleView = new javax.swing.JTable();
@@ -262,11 +265,11 @@ public class BinnaclesView extends javax.swing.JDialog {
         txtFechaProduccion.setEditable(false);
         txtFechaProduccion.setBorder(null);
 
-        jButton1.setMnemonic('a');
-        jButton1.setText("Agregar Bitácora");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaBitacora.setMnemonic('a');
+        btnNuevaBitacora.setText("Agregar Bitácora");
+        btnNuevaBitacora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnNuevaBitacoraActionPerformed(evt);
             }
         });
 
@@ -274,6 +277,15 @@ public class BinnaclesView extends javax.swing.JDialog {
 
         txtSolicitadoPor.setEditable(false);
         txtSolicitadoPor.setBorder(null);
+
+        btnReAbrir.setMnemonic('a');
+        btnReAbrir.setText("Volver a abrir caso");
+        btnReAbrir.setEnabled(false);
+        btnReAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReAbrirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
         pnlMenu.setLayout(pnlMenuLayout);
@@ -336,7 +348,9 @@ public class BinnaclesView extends javax.swing.JDialog {
                         .addGap(129, 129, 129))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMenuLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnReAbrir)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevaBitacora)
                         .addGap(44, 44, 44))))
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +370,7 @@ public class BinnaclesView extends javax.swing.JDialog {
             pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMenuLayout.createSequentialGroup()
                 .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtIdCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,7 +409,9 @@ public class BinnaclesView extends javax.swing.JDialog {
                             .addComponent(jLabel12)
                             .addComponent(txtSolicitadoPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNuevaBitacora)
+                            .addComponent(btnReAbrir))))
                 .addGap(37, 37, 37)
                 .addComponent(btnOpenCases)
                 .addGap(0, 0, 0)
@@ -456,12 +472,12 @@ public class BinnaclesView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProbadorActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnNuevaBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaBitacoraActionPerformed
         // TODO add your handling code here:
         NewBinnacleView newBinnacleView = new NewBinnacleView(singleCaseBean.getId());
         newBinnacleView.setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnNuevaBitacoraActionPerformed
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         // TODO add your handling code here:
@@ -542,6 +558,19 @@ public class BinnaclesView extends javax.swing.JDialog {
         
     }//GEN-LAST:event_formWindowActivated
 
+    private void btnReAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReAbrirActionPerformed
+        // TODO add your handling code here:
+        CasesController casesController = new CasesController();
+        if(casesController.reOpenCase(singleCaseBean.getId()))
+        {
+            JOptionPane.showMessageDialog(this, "Fecha de entrega extendida");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Fecha de entrega no extendida");
+        }
+    }//GEN-LAST:event_btnReAbrirActionPerformed
+
     private void llenarTexbox(SingleCaseBean bean){
         txtAreaDescripcion.setText(bean.getDescripcion());
         txtAsignado.setText(bean.getAsignadoA());
@@ -555,16 +584,31 @@ public class BinnaclesView extends javax.swing.JDialog {
         txtProbador.setText(bean.getTester());
         txtSolicitadoPor.setText(bean.getCreadoPor());
         txtTitulo.setText(bean.getTitulo());
-                
-    
-    
-    
+        if(bean.getAvance() == 100)
+        {
+            btnNuevaBitacora.setEnabled(false);
+        }
+        else
+        {
+            btnNuevaBitacora.setEnabled(true);
+        }
+        if(bean.getEstado().equals("Vencido") && LoginBean.getRol().equals("Jefe de desarrollo"))
+        {
+            btnReAbrir.setEnabled(true);
+            btnReAbrir.setVisible(true);
+        }
+        else
+        {
+            btnReAbrir.setEnabled(false);
+            btnReAbrir.setVisible(false);
+        }
     } 
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnNuevaBitacora;
     private javax.swing.JButton btnOpenCases;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReAbrir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
