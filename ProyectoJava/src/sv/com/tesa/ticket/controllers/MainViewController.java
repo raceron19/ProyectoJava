@@ -32,10 +32,14 @@ public class MainViewController {
                 break;
                 
             case "Jefe de área funcional":
-                JefesMainView jefesMainView = new JefesMainView();
-                jefesMainView.setLocationRelativeTo(null);
-                jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                jefesMainView.setVisible(true);
+//                JefesMainView jefesMainView = new JefesMainView();
+//                jefesMainView.setLocationRelativeTo(null);
+//                jefesMainView.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//                jefesMainView.setVisible(true);
+                JefeFuncionalView a = new JefeFuncionalView(logUser);
+                a.setLocationRelativeTo(null);
+                a.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                a.setVisible(true);
                 break;
                
             case "Empleado de área funcional":

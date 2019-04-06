@@ -32,6 +32,7 @@ public class JefeFuncionalView extends javax.swing.JFrame {
         fileMenu = new javax.swing.JMenu();
         verCasosMenuItem = new javax.swing.JMenuItem();
         nuevaPeticionMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,14 @@ public class JefeFuncionalView extends javax.swing.JFrame {
             }
         });
         fileMenu.add(nuevaPeticionMenuItem);
+
+        jMenuItem1.setText("Cosa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem1);
 
         menuBar.add(fileMenu);
 
@@ -88,10 +97,17 @@ public class JefeFuncionalView extends javax.swing.JFrame {
         verPeticiones.show();
     }//GEN-LAST:event_verCasosMenuItemActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        NewCaseView a = new NewCaseView(this,true);
+        a.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nuevaPeticionMenuItem;
     private javax.swing.JMenuItem verCasosMenuItem;

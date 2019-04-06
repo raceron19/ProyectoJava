@@ -126,7 +126,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
         DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
-        peticion.setCreatedBy(usuario.getId());
+        peticion.setCreatedBy(LoginBean.getId());
         SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
         if (peticionIndividual.getId() != 0) 
         {
@@ -157,7 +157,7 @@ public class RequestsView extends javax.swing.JInternalFrame{
         DefaultTableModel dtm = (DefaultTableModel)tablaPeticiones.getModel();
         int indexFila = tablaPeticiones.getSelectedRow();
         peticion.setId(Integer.parseInt(dtm.getValueAt(indexFila, 0).toString()));
-        peticion.setCreatedBy(usuario.getId());
+        peticion.setCreatedBy(LoginBean.getId());
         SingleRequestBean peticionIndividual = ctrlPeticiones.listarPeticionIndividual(peticion);
         if (peticionIndividual.getId() != 0) 
         {

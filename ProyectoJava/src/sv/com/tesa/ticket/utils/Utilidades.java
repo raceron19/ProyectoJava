@@ -5,14 +5,24 @@
  */
 package sv.com.tesa.ticket.utils;
 
+import java.awt.BorderLayout;
+import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import org.jdatepicker.*;
 
 /**
  *
@@ -21,6 +31,8 @@ import org.apache.log4j.Logger;
 public class Utilidades {
     
     private static DefaultTableModel modeloTabla;
+    private static DatePicker picker;
+    private static JDatePanel auxPanel;
     
     public static JTable cargarTabla(String[] columnas,ResultSet rs) throws SQLException{
         try {
@@ -58,5 +70,34 @@ public class Utilidades {
         }
         return null;
     }
+    
+    public static int generarNumAleatorio()
+    {
+        Random ale = new Random();
+        int numero = ale.nextInt(1000);
+        return numero;
+    }
+    
+    public static JPanel opcionFecha()
+    {
+        picker = new JDatePicker();
+        picker.setTextEditable(true);
+        picker.setShowYearButtons(true);
+        JPanel jPanel = new JPanel();
+        jPanel.add((JComponent) picker);
+        JPanel datePanel = new JPanel();
+        datePanel.setLayout(new BorderLayout());
+        datePanel.add(jPanel, BorderLayout.WEST);
+        return datePanel;
+    }
+    
+    public static String regresarFecha()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = (Calendar) picker.getModel().getValue();
+        
+        return (cal != null ? sdf.format(cal.getTime()) : null);
+    }
+    
     
 }

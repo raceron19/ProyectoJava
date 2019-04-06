@@ -378,3 +378,9 @@ inner join employees e2 on c.assigned_to = e2.id
 where c.case_status = 5 order by c.created_at desc limit 1; 
 END //
 DELIMITER ;
+
+DELIMITER //
+create procedure sp_insert_new_case()
+BEGIN
+END //
+DELIMITER ;
